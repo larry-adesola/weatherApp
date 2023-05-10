@@ -12,6 +12,20 @@ class Welcome extends StatefulWidget {
 class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    final size = MediaQuery.of(context).size;
+    return Scaffold(
+        resizeToAvoidBottomInset: true,
+        backgroundColor: Colors.grey[900],
+        body: const SingleChildScrollView(
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('The Start')
+              ],
+            ),
+          ),
+        )
+    );
   }
 }

@@ -14,13 +14,15 @@ class _WelcomeState extends State<Welcome> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-        resizeToAvoidBottomInset: true,
-        backgroundColor: Colors.grey[900],
-        body: const SingleChildScrollView(
+        backgroundColor: Colors.grey[100],
+        body: SingleChildScrollView(
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                SizedBox(
+                  height: size.height*0.1,
+                ),
                 Text('The Start')
               ],
             ),

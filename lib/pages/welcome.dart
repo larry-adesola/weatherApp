@@ -14,7 +14,7 @@ class _WelcomeState extends State<Welcome> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Colors.grey[100],
+        backgroundColor: Colors.blue[100],
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.only(left: size.width*0.05),
@@ -104,38 +104,58 @@ class _WelcomeState extends State<Welcome> {
                     children: [
                       Column(
                         children: [
-                          const Text(
-                            "Mon",
-                            style: TextStyle(fontSize: 18),
+                          Row(
+                            children: [
+                              const Text(
+                                "Mon",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ],
                           ),
                           SizedBox(
                             height: size.height*0.01,
                           ),
-                          const Text(
-                            "Tue",
-                            style: TextStyle(fontSize: 18),
+                          Row(
+                            children: [
+                              const Text(
+                                "Tue",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ],
                           ),
                           SizedBox(
                             height: size.height*0.01,
                           ),
-                          const Text(
-                            "Wed",
-                            style: TextStyle(fontSize: 18),
+                          Row(
+                            children: [
+                              const Text(
+                                "Wed",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ],
                           ),
                         ],
                       ),
                       Column(
                         children: [
-                          const Text(
-                            "Thur",
-                            style: TextStyle(fontSize: 18),
+                          Row(
+                            children: [
+                              const Text(
+                                "Thur",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ],
                           ),
                           SizedBox(
                             height: size.height*0.01,
                           ),
-                          const Text(
-                            "Fri",
-                            style: TextStyle(fontSize: 18),
+                          Row(
+                            children: [
+                              const Text(
+                                "Fri",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ],
                           ),
                           SizedBox(
                             height: size.height*0.01,

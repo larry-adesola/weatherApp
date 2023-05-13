@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/pages/welcome.dart';
+import 'package:weather_app/pages/welcomeBase.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
           )
       ),
       debugShowCheckedModeBanner: false,
-      home: const Welcome(),
+      home: WelcomeBase(key: baseKey,),
     );
   }
 }

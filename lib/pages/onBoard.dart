@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/pages/homeBase.dart';
 
 class Pref extends StatefulWidget {
   const Pref({Key? key}) : super(key: key);
@@ -180,16 +181,42 @@ class _PrefState extends State<Pref> {
         SizedBox(
           height: size.height * 0.04,
         ),
-        Container(
-          width: size.width * 0.4,
-          height: size.height * 0.05,
-          decoration: BoxDecoration(
-              border: Border.all(color: Colors.black, width: 2.5),
-              borderRadius: BorderRadius.circular(12)),
-          child: const Center(
-            child: Text(
-              "Next",
-              style: TextStyle(color: Colors.black),
+        GestureDetector(
+          onTap: (){
+            setState(() {
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) => HomeBase(),
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    final begin =  Offset(1.0, 0.0);
+                    const end = Offset.zero;
+                    const curve = Curves.easeInOut;
+                    final tween = Tween(begin: begin, end: end);
+                    final curvedAnimation = CurvedAnimation(
+                      parent: animation,
+                      curve: curve,
+                    );
+                    return SlideTransition(
+                      position: tween.animate(curvedAnimation),
+                      child: child,
+                    );
+                  },
+                ),
+              );
+            });
+          },
+          child: Container(
+            width: size.width * 0.4,
+            height: size.height * 0.05,
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.black, width: 2.5),
+                borderRadius: BorderRadius.circular(12)),
+            child: const Center(
+              child: Text(
+                "Next",
+                style: TextStyle(color: Colors.black),
+              ),
             ),
           ),
         ),

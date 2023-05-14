@@ -20,9 +20,6 @@ class _WelcomeState extends State<Welcome> {
             height: size.height * 0.01,
           ),
           Lottie.asset('assets/anims/weather.json'),
-          SizedBox(
-            height: size.height * 0.01,
-          ),
           Padding(
             padding: EdgeInsets.only(left: size.width * 0.05),
       child: Column(

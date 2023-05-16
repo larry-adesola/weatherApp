@@ -30,6 +30,7 @@ environment:
 dependencies:
   drop_down_list_menu: ^0.0.9
   lottie: ^2.3.2
+  flutter_scale_ruler:
   flutter:
     sdk: flutter
 

@@ -66,9 +66,9 @@ class _WelcomeState extends State<Welcome> {
                         padding: EdgeInsets.only(
                             left: size.width * 0.01, right: size.width * 0.01),
                         child: TextFormField(
-                          //controller: emailControl,
+                          controller: baseKey.currentState?.city,
                           autocorrect: false,
-                          //focusNode: emailFocusNode,
+                          focusNode: baseKey.currentState?.cityFocus,
                           decoration: InputDecoration(
                               hintText: 'Name Your City...',
                               hintStyle: TextStyle(color: Colors.grey.shade700),
@@ -88,6 +88,7 @@ class _WelcomeState extends State<Welcome> {
           ),
           GestureDetector(
             onTap:(){
+              baseKey.currentState?.cityFocus.unfocus();
               baseKey.currentState?.nextPressed();
             },
             child: Container(

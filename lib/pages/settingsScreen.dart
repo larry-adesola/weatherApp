@@ -16,7 +16,8 @@ class _SettingScreenState extends State<SettingScreen> {
         SizedBox(
           height: size.height * 0.175,
         ),
-        Text('Settings')
+        Text('Settings'),
+
       ]),
     );
   }

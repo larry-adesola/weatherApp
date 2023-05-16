@@ -13,119 +13,51 @@ class HomeBase extends StatefulWidget {
 }
 
 class _HomeBaseState extends State<HomeBase> {
-  bool mainOn = true;
-  bool suggOn = false;
-  bool settingOn = false;
+  int _selectedIndex = 0; // 0 -> Main, 1 -> Suggestions, 2 -> Settings
 
-  void suggPressed() {
-    setState(() {
-      mainOn = false;
-      suggOn = true;
-      settingOn = false;
-    });
-  }
-
-  void homePressed() {
-    setState(() {
-      mainOn = true;
-      suggOn = false;
-      settingOn = false;
-    });
-  }
-
-  void settingPressed() {
-    setState(() {
-      mainOn = false;
-      suggOn = false;
-      settingOn = true;
-    });
-  }
+  final PageController _pageController = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.blue,
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              SizedBox(
-                height: size.height,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 500),
-                      transform: Matrix4.translationValues(
-                          mainOn ? 0 : -size.width, 0, 0),
-                      curve: Curves.decelerate,
-                      child: const MainScreen(),
-                    ),
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 500),
-                      transform: Matrix4.translationValues(
-                          suggOn ? 0 : size.width, 0, 0),
-                      curve: Curves.easeInOut,
-                      child: const SuggScreen(),
-                    ),
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 500),
-                      transform: Matrix4.translationValues(
-                          settingOn ? 0 : -size.width, 0, 0),
-                      curve: Curves.decelerate,
-                      child: const SettingScreen(),
-                    ),
-                    Positioned(
-                      top: size.height*0.88,
-                      child: Material(
-                        color: Colors.blue,
-                        shadowColor: Colors.black26,
-                        elevation: 200,
-                        child: Container(
-                          width: size.width * 0.7,
-                          height: size.height * 0.1,
-                          decoration: BoxDecoration(
-                            boxShadow: [BoxShadow(color: Colors.black, offset: Offset(1,1))],
-                              color: Colors.white,
-                              border: Border.all(color: Colors.white, width: 2.5),
-                              borderRadius: BorderRadius.circular(50)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              GestureDetector(
-                                  onTap: (){
-                                    settingPressed();
-                                  },
-                                  child: settingOn
-                                      ? Icon(Icons.settings)
-                                      : Icon(Icons.settings_outlined)),
-                              GestureDetector(
-                                  onTap: (){
-                                    homePressed();
-                                  },
-                                  child: mainOn
-                                      ? Icon(Icons.home)
-                                      : Icon(Icons.home_outlined)),
-                              GestureDetector(
-                                  onTap: (){
-                                    suggPressed();
-                                  },
-                                  child: suggOn
-                                      ? Icon(Icons.lightbulb)
-                                      : Icon(Icons.lightbulb_outline))
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        children: const [
+          MainScreen(),
+          SuggScreen(),
+          SettingScreen(),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.directions_run),
+            label: 'Suggestions',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
+        backgroundColor: Colors.blue[600],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: (index) {
+          _pageController.animateToPage(index,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.fastOutSlowIn);
+        },
       ),
     );
   }

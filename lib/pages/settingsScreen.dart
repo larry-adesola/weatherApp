@@ -10,7 +10,7 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   ScaleValue? _scaleValue;
-  //ScaleValue? _scaleValueCms;
+  ScaleValue? _scaleValueCms;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

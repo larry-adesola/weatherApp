@@ -103,7 +103,7 @@ class _WelcomeState extends State<Welcome> {
                           autocorrect: false,
                           focusNode: baseKey.currentState?.cityFocus,
                           decoration: InputDecoration(
-                              hintText: 'Name Your City...',
+                              hintText: 'Put the country after commas...',
                               hintStyle: TextStyle(color: Colors.grey.shade700),
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none),

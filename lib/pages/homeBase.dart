@@ -3,10 +3,11 @@ import 'package:weather_app/pages/mainScreen.dart';
 import 'package:weather_app/pages/settingsScreen.dart';
 import 'package:weather_app/pages/suggestionScreen.dart';
 
+import '../users.dart';
+
 class HomeBase extends StatefulWidget {
-  String cityName;
-  Map<String, String> preferred;
-  HomeBase({Key? key, required this.cityName, required this.preferred}) : super(key: key);
+  UserInfo userInfo;
+  HomeBase({Key? key, required this.userInfo}) : super(key: key);
 
   @override
   State<HomeBase> createState() => _HomeBaseState();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/pages/homeBase.dart';
 import 'package:weather_app/pages/welcomeBase.dart';
+import 'package:weather_app/users.dart';
 
 class Pref extends StatefulWidget {
   const Pref({Key? key}) : super(key: key);
@@ -28,8 +29,6 @@ class _PrefState extends State<Pref> {
     const DropdownMenuEntry(value: '7pm - 8pm', label: '7pm - 8pm'),
     const DropdownMenuEntry(value: '8pm - 9pm', label: '8pm - 9pm'),
     const DropdownMenuEntry(value: '9pm - 10pm', label: '9pm- 10pm'),
-
-
   ];
   @override
   Widget build(BuildContext context) {
@@ -70,8 +69,9 @@ class _PrefState extends State<Pref> {
                       DropdownMenu(
                         width: size.width * 0.4,
                         dropdownMenuEntries: timeRanges,
-                        onSelected: (value){
-                          baseKey.currentState?.preferredTimes['monday'] = value;
+                        onSelected: (value) {
+                          baseKey.currentState?.preferredTimes['monday'] =
+                              value;
                         },
                       )
                     ],
@@ -91,8 +91,9 @@ class _PrefState extends State<Pref> {
                       DropdownMenu(
                         width: size.width * 0.4,
                         dropdownMenuEntries: timeRanges,
-                        onSelected: (value){
-                          baseKey.currentState?.preferredTimes['tuesday'] = value;
+                        onSelected: (value) {
+                          baseKey.currentState?.preferredTimes['tuesday'] =
+                              value;
                         },
                       )
                     ],
@@ -112,14 +113,16 @@ class _PrefState extends State<Pref> {
                       DropdownMenu(
                         width: size.width * 0.4,
                         dropdownMenuEntries: timeRanges,
-                        onSelected: (value){
-                          baseKey.currentState?.preferredTimes['wednesday'] = value;
+                        onSelected: (value) {
+                          baseKey.currentState?.preferredTimes['wednesday'] =
+                              value;
                         },
                       )
                     ],
                   ),
                   SizedBox(
-                    height: size.height * 0.01,),
+                    height: size.height * 0.01,
+                  ),
                   Row(
                     children: [
                       const Text(
@@ -132,8 +135,9 @@ class _PrefState extends State<Pref> {
                       DropdownMenu(
                         width: size.width * 0.4,
                         dropdownMenuEntries: timeRanges,
-                        onSelected: (value){
-                          baseKey.currentState?.preferredTimes['thursday'] = value;
+                        onSelected: (value) {
+                          baseKey.currentState?.preferredTimes['thursday'] =
+                              value;
                         },
                       )
                     ],
@@ -153,8 +157,9 @@ class _PrefState extends State<Pref> {
                       DropdownMenu(
                         width: size.width * 0.4,
                         dropdownMenuEntries: timeRanges,
-                        onSelected: (value){
-                          baseKey.currentState?.preferredTimes['friday'] = value;
+                        onSelected: (value) {
+                          baseKey.currentState?.preferredTimes['friday'] =
+                              value;
                         },
                       )
                     ],
@@ -174,8 +179,9 @@ class _PrefState extends State<Pref> {
                       DropdownMenu(
                         width: size.width * 0.4,
                         dropdownMenuEntries: timeRanges,
-                        onSelected: (value){
-                          baseKey.currentState?.preferredTimes['saturday'] = value;
+                        onSelected: (value) {
+                          baseKey.currentState?.preferredTimes['saturday'] =
+                              value;
                         },
                       )
                     ],
@@ -195,8 +201,9 @@ class _PrefState extends State<Pref> {
                       DropdownMenu(
                         width: size.width * 0.4,
                         dropdownMenuEntries: timeRanges,
-                        onSelected: (value){
-                          baseKey.currentState?.preferredTimes['sunday'] = value;
+                        onSelected: (value) {
+                          baseKey.currentState?.preferredTimes['sunday'] =
+                              value;
                         },
                       )
                     ],
@@ -210,14 +217,20 @@ class _PrefState extends State<Pref> {
           height: size.height * 0.04,
         ),
         GestureDetector(
-          onTap: (){
+          onTap: () {
             setState(() {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) => HomeBase(cityName: baseKey.currentState!.city.value.toString(), preferred: baseKey.currentState!.preferredTimes,),
-                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                    final begin =  const Offset(1.0, 0.0);
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      HomeBase(
+                    userInfo: UserInfo(
+                        cityName: baseKey.currentState!.city.text,
+                        preferredTimes: baseKey.currentState!.preferredTimes),
+                  ),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    final begin = const Offset(1.0, 0.0);
                     const end = Offset.zero;
                     const curve = Curves.easeInOut;
                     final tween = Tween(begin: begin, end: end);

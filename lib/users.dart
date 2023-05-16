@@ -1,10 +1,11 @@
 class UserInfo{
 
-  final String cityName;
-  List<String> preferredTimes = [];
+  String cityName;
+  Map<String, String>? preferredTimes;
 
   UserInfo({
-    required this.cityName
+    required this.cityName,
+    this.preferredTimes
   });
 
 

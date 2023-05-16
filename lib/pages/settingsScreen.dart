@@ -15,22 +15,29 @@ class _SettingScreenState extends State<SettingScreen> {
     return Center(
       child: Column(children: [
         SizedBox(
-          height: size.height * 0.175,
+          height: size.height * 0.1,
         ),
-        Text('Settings'),
-        Text("Clothing recommendation adjustment"),
+        Padding(
+          padding: EdgeInsets.only(left: size.width * 0.05),
+          child: const Align(alignment: Alignment.topLeft,
+              child: Text('Settings', style: TextStyle(
+                fontSize: 34
+              ),)),
+        ),
+        SizedBox(
+          height: size.height * 0.075,
+        ),
+        const Text("Clothing recommendation adjustment"),
         Text(
           "${_currentSliderValue}",
           style: TextStyle(fontSize: 25.0),
+        ),
+        SizedBox(
+          height: 20.0,
+          child: DecoratedBox(
+            decoration: BoxDecoration(color: Colors.blue),
           ),
-          SizedBox(
-            height: 20.0,
-            child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.blue
-                ),
-            ),
-          ),
+        ),
         Slider(
           value: _currentSliderValue,
           min: -5,
@@ -45,7 +52,7 @@ class _SettingScreenState extends State<SettingScreen> {
             });
           },
         ),
-        ]),
+      ]),
     );
   }
 }

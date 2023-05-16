@@ -102,10 +102,11 @@ class _WelcomeState extends State<Welcome> {
             onTap:() async {
               baseKey.currentState?.cityFocus.unfocus();
               bool valid = await isValidCity(baseKey.currentState!.city.value.toString());
-              print(valid);
+              /*print(valid);
               if(valid){
                 baseKey.currentState?.nextPressed();
-              }
+              }*/
+              baseKey.currentState?.nextPressed();
             },
             child: Container(
               width: size.width * 0.4,

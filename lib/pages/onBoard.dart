@@ -19,7 +19,7 @@ class _PrefState extends State<Pref> {
     const DropdownMenuEntry(value: '10am - 11am', label: '10am - 11am'),
     const DropdownMenuEntry(value: '11am - 12pm', label: '11am - 12pm'),
     const DropdownMenuEntry(value: '12pm - 1pm', label: '12pm - 1pm'),
-    const DropdownMenuEntry(value: '1pm - 2pm', label: '1am - 2am'),
+    const DropdownMenuEntry(value: '1pm - 2pm', label: '1pm - 2pm'),
     const DropdownMenuEntry(value: '2pm - 3pm', label: '2pm - 3pm'),
     const DropdownMenuEntry(value: '3pm - 4pm', label: '3pm - 4pm'),
     const DropdownMenuEntry(value: '4pm - 5pm', label: '4pm - 5pm'),

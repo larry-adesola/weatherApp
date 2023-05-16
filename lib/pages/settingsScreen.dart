@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_scale_ruler/flutter_scale_ruler.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -9,8 +8,7 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  ScaleValue? _scaleValue;
-  ScaleValue? _scaleValueCms;
+  double _currentSliderValue = 0;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -22,23 +20,31 @@ class _SettingScreenState extends State<SettingScreen> {
         Text('Settings'),
         Text("Clothing recommendation adjustment"),
         Text(
-          "${_scaleValue?.feet ?? "0"} Feet",
-          style: TextStyle(fontSize: 18.0),
+          "${_currentSliderValue}",
+          style: TextStyle(fontSize: 25.0),
           ),
           SizedBox(
             height: 20.0,
+            child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: Colors.blue
+                ),
+            ),
           ),
-        ScaleRuler.lengthMeasurement(
-          maxValue: 8,
-          minValue: 2,
-          isFeet: true,
-          stepIndicatorColor: Colors.brown,
-          stepIndicatorDividerColor: Colors.blue,
-          onChanged: (ScaleValue? scaleValue) {
+        Slider(
+          value: _currentSliderValue,
+          min: -5,
+          max: 5,
+          divisions: 10,
+          inactiveColor: Colors.blueGrey,
+          activeColor: Colors.yellow,
+          label: _currentSliderValue.round().toString(),
+          onChanged: (double value) {
             setState(() {
-              _scaleValue = scaleValue;
+              _currentSliderValue = value;
             });
-          }),
+          },
+        ),
         ]),
     );
   }

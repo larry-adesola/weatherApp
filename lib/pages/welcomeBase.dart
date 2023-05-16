@@ -15,6 +15,26 @@ class WelcomeBase extends StatefulWidget {
 class _WelcomeBaseState extends State<WelcomeBase> {
   bool welcomeOn = true;
   bool prefOn = false;
+  final TextEditingController city = TextEditingController();
+  final FocusNode cityFocus = FocusNode();
+
+  var preferredTimes = {
+    'monday': '',
+    'tuesday': '',
+    'wednesday': '',
+    'thursday': '',
+    'friday': '',
+    'saturday': '',
+    'sunday': ''
+  };
+
+  /*String mondayTime = '';
+  String tuesdayTime = '';
+  String wednesdayTime = '';
+  String thursdayTime = '';
+  String fridayTime = '';
+  String saturdayTime = '';
+  String sundayTime = '';*/
 
   void nextPressed() {
     setState(() {
@@ -22,6 +42,7 @@ class _WelcomeBaseState extends State<WelcomeBase> {
       prefOn = true;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -32,14 +53,20 @@ class _WelcomeBaseState extends State<WelcomeBase> {
         child: Center(
           child: Stack(
             children: [
-              AnimatedContainer(duration: const Duration(milliseconds: 500),
-                transform: Matrix4.translationValues(welcomeOn? 0:-size.width, 0, 0),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 500),
+                transform: Matrix4.translationValues(
+                    welcomeOn ? 0 : -size.width, 0, 0),
                 curve: Curves.decelerate,
-              child: const Welcome(),),
-              AnimatedContainer(duration: const Duration(milliseconds: 500),
-                transform: Matrix4.translationValues(prefOn? 0:size.width, 0, 0),
+                child: const Welcome(),
+              ),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 500),
+                transform:
+                    Matrix4.translationValues(prefOn ? 0 : size.width, 0, 0),
                 curve: Curves.easeInOut,
-                child: const Pref(),),
+                child: const Pref(),
+              ),
             ],
           ),
         ),

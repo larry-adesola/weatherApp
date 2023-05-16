@@ -31,9 +31,13 @@ class _WelcomeState extends State<Welcome> {
 
   Future<bool> isValidCity(String cityName) async {
     const apiKey = '3194812ebdac044591796f914fbabf78';
+    final encodedCityName = Uri.encodeComponent(cityName);
     final url =
-        'https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey';
+        'https://api.openweathermap.org/data/2.5/weather?q=$encodedCityName&appid=$apiKey';
+    print(url);
+    print(url);
     final response = await http.get(Uri.parse(url));
+    print(response);
     final decodedResponse = jsonDecode(response.body);
     return decodedResponse['cod'] == 200;
   }
@@ -119,7 +123,7 @@ class _WelcomeState extends State<Welcome> {
             onTap: () async {
               baseKey.currentState?.cityFocus.unfocus();
               bool valid = await isValidCity(
-                  baseKey.currentState!.city.value.toString());
+                  baseKey.currentState!.city.value.text);
               if (valid) {
                 baseKey.currentState?.nextPressed();
               } else {
@@ -141,7 +145,7 @@ class _WelcomeState extends State<Welcome> {
             ),
           ),
           SizedBox(
-            height: size.height*0.12,
+            height: size.height*0.11,
           )
         ],
       ),

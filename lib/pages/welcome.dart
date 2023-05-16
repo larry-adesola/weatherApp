@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:motion_toast/resources/arrays.dart';
 import 'package:weather_app/pages/welcomeBase.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,15 +15,29 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
+  void _displayDeleteMotionToast(String title, String description) {
+    MotionToast.info(
+      title: Text(
+        title,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      description: Text(description),
+      animationType: AnimationType.fromTop,
+      position: MotionToastPosition.top,
+    ).show(context);
+  }
+
   Future<bool> isValidCity(String cityName) async {
     const apiKey = '3194812ebdac044591796f914fbabf78';
     final url =
         'https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey';
     final response = await http.get(Uri.parse(url));
     final decodedResponse = jsonDecode(response.body);
-    print(decodedResponse);
     return decodedResponse['cod'] == 200;
   }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -34,7 +50,7 @@ class _WelcomeState extends State<Welcome> {
           Lottie.asset('assets/anims/weather.json'),
           Padding(
             padding: EdgeInsets.only(left: size.width * 0.05),
-      child: Column(
+            child: Column(
               children: [
                 const Align(
                     alignment: Alignment.topLeft,
@@ -78,6 +94,7 @@ class _WelcomeState extends State<Welcome> {
                         padding: EdgeInsets.only(
                             left: size.width * 0.01, right: size.width * 0.01),
                         child: TextFormField(
+                          scrollPadding: EdgeInsets.only(bottom: size.height*0.4),
                           controller: baseKey.currentState?.city,
                           autocorrect: false,
                           focusNode: baseKey.currentState?.cityFocus,
@@ -86,7 +103,7 @@ class _WelcomeState extends State<Welcome> {
                               hintStyle: TextStyle(color: Colors.grey.shade700),
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none),
-                          style: TextStyle(color: Colors.black),
+                          style: const TextStyle(color: Colors.black),
                         ),
                       ),
                     ),
@@ -99,14 +116,15 @@ class _WelcomeState extends State<Welcome> {
             height: size.height * 0.05,
           ),
           GestureDetector(
-            onTap:() async {
+            onTap: () async {
               baseKey.currentState?.cityFocus.unfocus();
-              bool valid = await isValidCity(baseKey.currentState!.city.value.toString());
-              /*print(valid);
-              if(valid){
+              bool valid = await isValidCity(
+                  baseKey.currentState!.city.value.toString());
+              if (valid) {
                 baseKey.currentState?.nextPressed();
-              }*/
-              baseKey.currentState?.nextPressed();
+              } else {
+                _displayDeleteMotionToast('Invalid City', 'Enter a valid city');
+              }
             },
             child: Container(
               width: size.width * 0.4,
@@ -122,6 +140,9 @@ class _WelcomeState extends State<Welcome> {
               ),
             ),
           ),
+          SizedBox(
+            height: size.height*0.12,
+          )
         ],
       ),
     );

@@ -102,6 +102,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  flutter_scale_ruler:
+    dependency: "direct main"
+    description:
+      name: flutter_scale_ruler
+      sha256: "12202ddb6bab7d4b745d5aea01ee55bcc28bda4c4f2f02a4a4e23fe50dcfc27f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter

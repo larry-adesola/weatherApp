@@ -31,6 +31,7 @@ dependencies:
   drop_down_list_menu: ^0.0.9
   lottie: ^2.3.2
   flutter_scale_ruler:
+  http: ^0.13.5
   flutter:
     sdk: flutter
 

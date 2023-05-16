@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:weather_app/pages/welcomeBase.dart';
+import 'package:http/http.dart' as http;
 
 class Welcome extends StatefulWidget {
   const Welcome({Key? key}) : super(key: key);
@@ -10,6 +13,15 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
+  Future<bool> isValidCity(String cityName) async {
+    const apiKey = '3194812ebdac044591796f914fbabf78';
+    final url =
+        'https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=$apiKey';
+    final response = await http.get(Uri.parse(url));
+    final decodedResponse = jsonDecode(response.body);
+    print(decodedResponse);
+    return decodedResponse['cod'] == 200;
+  }
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -87,9 +99,13 @@ class _WelcomeState extends State<Welcome> {
             height: size.height * 0.05,
           ),
           GestureDetector(
-            onTap:(){
+            onTap:() async {
               baseKey.currentState?.cityFocus.unfocus();
-              baseKey.currentState?.nextPressed();
+              bool valid = await isValidCity(baseKey.currentState!.city.value.toString());
+              print(valid);
+              if(valid){
+                baseKey.currentState?.nextPressed();
+              }
             },
             child: Container(
               width: size.width * 0.4,

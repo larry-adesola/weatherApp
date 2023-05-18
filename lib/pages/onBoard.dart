@@ -43,12 +43,13 @@ class _PrefState extends State<Pref> {
           child: Column(
             children: [
               const Align(
-                alignment: Alignment.topLeft,
+                alignment: Alignment.topCenter,
                 child: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
                   child: Text(
-                    "When Do You Usually Run Each Day?",
-                    style: TextStyle(fontSize: 27),
+                    "When do you usually run each day?",
+                    style: TextStyle(fontSize: 28),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),

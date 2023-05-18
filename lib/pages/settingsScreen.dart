@@ -27,7 +27,8 @@ class _SettingScreenState extends State<SettingScreen> {
           child: const Align(alignment: Alignment.topLeft,
               child: Text('Settings', style: TextStyle(
                 fontSize: 34
-              ),)),
+              ),),
+          ),
         ),
         SizedBox(
           height: size.height * 0.075,

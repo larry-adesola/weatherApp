@@ -14,7 +14,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  Map<String, String> weatherIcons = {'Clouds': 'assets/icons/clouds.png'};
+  Map<String, String> weatherIcons = {'Clouds': 'assets/icons/clouds.png', 'Clear' : 'clear.png'};
 
   Future<Map<String, dynamic>> _getWeather() async {
     final apiKey = UserInfo().getAPIkey();

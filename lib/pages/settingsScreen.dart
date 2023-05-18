@@ -10,7 +10,7 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   double _currentSliderValue = 0;
-  final TextEditingController _settingsCity = TextEditingController();
+  final TextEditingController _settingsCity = TextEditingController(text: UserInfo().getCity());
   final FocusNode _settingsFocus = FocusNode();
   final _preferredTimes = {
     'monday': '',
@@ -46,124 +46,130 @@ class _SettingScreenState extends State<SettingScreen> {
     final size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Center(
-        child: Column(
-            children: [
+        child: Column(children: [
           SizedBox(
             height: size.height * 0.1,
           ),
           Padding(
             padding: EdgeInsets.only(left: size.width * 0.05),
-            child: const Align(alignment: Alignment.topLeft,
-                child: Text('Settings', style: TextStyle(
-                  fontSize: 34
-                ),)),
+            child: const Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Settings',
+                  style: TextStyle(fontSize: 34),
+                )),
           ),
-        //),
-        SizedBox(
-          height: size.height * 0.075,
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: size.width*0.05, right: size.width*0.05),
-          child: Tooltip(
-            message: "Adjust the clothing adjustments by the selected temperature." +
-                "\ne.g. -3 will give recommendations as if it were 3 °C colder.",
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.white
+          //),
+          SizedBox(
+            height: size.height * 0.075,
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width * 0.05, right: size.width * 0.05),
+            child: Tooltip(
+              message:
+                  "Adjust the clothing adjustments by the selected temperature." +
+                      "\ne.g. -3 will give recommendations as if it were 3 °C colder.",
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10), color: Colors.white),
+              textStyle: const TextStyle(fontSize: 14.0),
+              child: const Text("Clothing recommendations adjustment"),
             ),
-            textStyle: const TextStyle(fontSize: 14.0),
-            child: const Text("Clothing recommendations adjustment"),
           ),
-        ),
-        Text(
-          "${_currentSliderValue.round()} °C",
-          style: const TextStyle(fontSize: 18.0),
-        ),
-        const SizedBox(
-          height: 20.0,
-          child: DecoratedBox(
-            decoration: BoxDecoration(color: Colors.blue),
+          Text(
+            "${_currentSliderValue.round()} °C",
+            style: const TextStyle(fontSize: 18.0),
           ),
-        ),
-        Slider(
-          value: _currentSliderValue,
-          min: -5,
-          max: 5,
-          divisions: 10,
-          inactiveColor: Colors.blueGrey,
-          activeColor: Colors.yellow,
-          label: _currentSliderValue.round().toString(),
-          onChanged: (double value) {
-            setState(() {
-              _currentSliderValue = value;
-            });
-          },
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: size.width*0.05, right: size.width*0.05),
-          child: const Text(
+          SizedBox(
+            height: size.height*0.02,
+            child: const DecoratedBox(
+              decoration: BoxDecoration(color: Colors.blue),
+            ),
+          ),
+          Slider(
+            value: _currentSliderValue,
+            min: -5,
+            max: 5,
+            divisions: 10,
+            inactiveColor: Colors.blueGrey,
+            activeColor: Colors.yellow,
+            label: _currentSliderValue.round().toString(),
+            onChanged: (double value) {
+              setState(() {
+                _currentSliderValue = value;
+              });
+            },
+          ),
+          SizedBox(height: size.height*0.05,),
+          const Text(
             "Change location",
             style: TextStyle(fontSize: 20.0),
           ),
-        ),
-        SizedBox(
-          height: size.height * 0.01,
-        ),
-        Align(
-          alignment: Alignment.center,
-          child: Container(
-            width: size.width * 0.8,
-            height: size.height * 0.08,
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 2.5),
-                borderRadius: BorderRadius.circular(12)
-            ),
-            child: Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: EdgeInsets.only(
-                    left: size.width * 0.05, right: size.width * 0.05
-                ),
-                child: TextFormField(
-                  scrollPadding: EdgeInsets.only(bottom: size.height*0.4),
-                  controller: _settingsCity,
-                  autocorrect: false,
-                  focusNode: _settingsFocus,
-                  decoration: InputDecoration(
-                      hintText: 'Put the country after a comma...',
-                      hintStyle: TextStyle(color: Colors.grey.shade700),
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none
+          SizedBox(
+            height: size.height * 0.02,
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              width: size.width * 0.8,
+              height: size.height * 0.08,
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 2.5),
+                  borderRadius: BorderRadius.circular(12)),
+              child: Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      left: size.width * 0.01, right: size.width * 0.01),
+                  child: TextFormField(
+                    scrollPadding: EdgeInsets.only(bottom: size.height * 0.4),
+                    controller: _settingsCity,
+                    autocorrect: false,
+                    focusNode: _settingsFocus,
+                    decoration: InputDecoration(
+                        hintStyle: TextStyle(color: Colors.grey.shade700),
+                        enabledBorder: InputBorder.none,
+                        focusedBorder: InputBorder.none),
+                    style: const TextStyle(color: Colors.black),
                   ),
-                  style: const TextStyle(color: Colors.black),
                 ),
               ),
             ),
           ),
-        ),
-              SizedBox(
-                height: size.height * 0.1,
+          SizedBox(
+            height: size.height * 0.05,
+          ),
+          const Align(
+            alignment: Alignment.topLeft,
+            child: Align(
+              alignment: Alignment.center,
+              child: Text(
+                'Changed Preferred Times',
+                style: TextStyle(fontSize: 20),
+                textAlign: TextAlign.center,
               ),
-              Column( children: [
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
+            ),
+          ),
+          SizedBox(
+            height: size.height * 0.02,
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: size.width * 0.05),
+            child: Column(
+              children: [
                 Row(
                   children: [
-                    const Text(
-                      "Mon",
-                      style: TextStyle(fontSize: 18),
-                    ),
                     SizedBox(
-                      width: size.width * 0.065,
+                      width: size.width * 0.2,
+                      child: const Text(" Mon", style: TextStyle(fontSize: 18),),
                     ),
                     DropdownMenu(
-                      width: size.width * 0.4,
+                      width: size.width * 0.65,
                       dropdownMenuEntries: _timeRanges,
                       onSelected: (value) {
-                        _preferredTimes['monday']=value;
+                        UserInfo().setPreferredTimes('monday', value);
                       },
-                    ),
+                    )
                   ],
                 ),
                 SizedBox(
@@ -171,20 +177,17 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "Tue",
-                      style: TextStyle(fontSize: 18),
-                    ),
                     SizedBox(
-                      width: size.width * 0.065,
+                      width: size.width * 0.2,
+                      child: const Text(" Tue", style: TextStyle(fontSize: 18),),
                     ),
                     DropdownMenu(
-                      width: size.width * 0.4,
+                      width: size.width * 0.65,
                       dropdownMenuEntries: _timeRanges,
                       onSelected: (value) {
-                        _preferredTimes['tuesday']=value;
+                        UserInfo().setPreferredTimes('tuesday', value);
                       },
-                    ),
+                    )
                   ],
                 ),
                 SizedBox(
@@ -192,20 +195,17 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "Wed",
-                      style: TextStyle(fontSize: 18),
-                    ),
                     SizedBox(
-                      width: size.width * 0.065,
+                      width: size.width * 0.2,
+                      child: const Text(" Wed", style: TextStyle(fontSize: 18),),
                     ),
                     DropdownMenu(
-                      width: size.width * 0.4,
+                      width: size.width * 0.65,
                       dropdownMenuEntries: _timeRanges,
                       onSelected: (value) {
-                        _preferredTimes['wednesday']=value;
+                        UserInfo().setPreferredTimes('wednesday', value);
                       },
-                    ),
+                    )
                   ],
                 ),
                 SizedBox(
@@ -213,20 +213,17 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "Thu",
-                      style: TextStyle(fontSize: 18),
-                    ),
                     SizedBox(
-                      width: size.width * 0.065,
+                      width: size.width * 0.2,
+                      child: const Text(" Thu", style: TextStyle(fontSize: 18),),
                     ),
                     DropdownMenu(
-                      width: size.width * 0.4,
+                      width: size.width * 0.65,
                       dropdownMenuEntries: _timeRanges,
                       onSelected: (value) {
-                        _preferredTimes['thursday']=value;
+                        UserInfo().setPreferredTimes('thursday', value);
                       },
-                    ),
+                    )
                   ],
                 ),
                 SizedBox(
@@ -234,20 +231,17 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "Fri",
-                      style: TextStyle(fontSize: 18),
-                    ),
                     SizedBox(
-                      width: size.width * 0.065,
+                      width: size.width * 0.2,
+                      child: const Text(" Fri", style: TextStyle(fontSize: 18),),
                     ),
                     DropdownMenu(
-                      width: size.width * 0.4,
+                      width: size.width * 0.65,
                       dropdownMenuEntries: _timeRanges,
                       onSelected: (value) {
-                        _preferredTimes['friday']=value;
+                        UserInfo().setPreferredTimes('friday', value);
                       },
-                    ),
+                    )
                   ],
                 ),
                 SizedBox(
@@ -255,20 +249,17 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "Sat",
-                      style: TextStyle(fontSize: 18),
-                    ),
                     SizedBox(
-                      width: size.width * 0.065,
+                      width: size.width * 0.2,
+                      child: const Text(" Sat", style: TextStyle(fontSize: 18),),
                     ),
                     DropdownMenu(
-                      width: size.width * 0.4,
+                      width: size.width * 0.65,
                       dropdownMenuEntries: _timeRanges,
                       onSelected: (value) {
-                        _preferredTimes['saturday']=value;
+                        UserInfo().setPreferredTimes('saturday', value);
                       },
-                    ),
+                    )
                   ],
                 ),
                 SizedBox(
@@ -276,60 +267,75 @@ class _SettingScreenState extends State<SettingScreen> {
                 ),
                 Row(
                   children: [
-                    const Text(
-                      "Sun",
-                      style: TextStyle(fontSize: 18),
-                    ),
                     SizedBox(
-                      width: size.width * 0.065,
+                      width: size.width * 0.2,
+                      child: const Text(" Sun", style: TextStyle(fontSize: 18),),
                     ),
                     DropdownMenu(
-                      width: size.width * 0.4,
+                      width: size.width * 0.65,
                       dropdownMenuEntries: _timeRanges,
                       onSelected: (value) {
-                        _preferredTimes['sunday']=value;
+                        UserInfo().setPreferredTimes('sunday', value);
                       },
-                    ),
+                    )
                   ],
                 ),
               ],
-
-              ),
-              SizedBox(
-                height: size.height * 0.04,
-              ),
-              GestureDetector(
-                onTap: (){
-                  UserInfo().setCity(_settingsCity.text);
-                  if(_preferredTimes['monday']!=''){
-                    UserInfo().setPreferredTimes('monday', (_preferredTimes['monday'])!);
-                  }
-                  if(_preferredTimes['tuesday']!=''){
-                    UserInfo().setPreferredTimes('tuesday', (_preferredTimes['tuesday'])!);
-                  }
-                  if(_preferredTimes['wednesday']!=''){
-                    UserInfo().setPreferredTimes('wednesday', (_preferredTimes['wednesday'])!);
-                  }
-                  if(_preferredTimes['thursday']!=''){
-                    UserInfo().setPreferredTimes('thursday', (_preferredTimes['thursday'])!);
-                  }
-                  if(_preferredTimes['friday']!=''){
-                    UserInfo().setPreferredTimes('friday', (_preferredTimes['friday'])!);
-                  }
-                  if(_preferredTimes['saturday']!=''){
-                    UserInfo().setPreferredTimes('saturday', (_preferredTimes['saturday'])!);
-                  }
-                  if(_preferredTimes['sunday']!=''){
-                    UserInfo().setPreferredTimes('sunday', (_preferredTimes['sunday'])!);
-                  }
-                },
-                child: Container(
-                  color: Colors.amber,
-                  padding: const EdgeInsets.all(8),
-                  child: const Text("SAVE"),
+            ),
+          ),
+          SizedBox(
+            height: size.height * 0.04,
+          ),
+          GestureDetector(
+            onTap: () {
+              UserInfo().setCity(_settingsCity.text);
+              if (_preferredTimes['monday'] != '') {
+                UserInfo()
+                    .setPreferredTimes('monday', (_preferredTimes['monday'])!);
+              }
+              if (_preferredTimes['tuesday'] != '') {
+                UserInfo().setPreferredTimes(
+                    'tuesday', (_preferredTimes['tuesday'])!);
+              }
+              if (_preferredTimes['wednesday'] != '') {
+                UserInfo().setPreferredTimes(
+                    'wednesday', (_preferredTimes['wednesday'])!);
+              }
+              if (_preferredTimes['thursday'] != '') {
+                UserInfo().setPreferredTimes(
+                    'thursday', (_preferredTimes['thursday'])!);
+              }
+              if (_preferredTimes['friday'] != '') {
+                UserInfo()
+                    .setPreferredTimes('friday', (_preferredTimes['friday'])!);
+              }
+              if (_preferredTimes['saturday'] != '') {
+                UserInfo().setPreferredTimes(
+                    'saturday', (_preferredTimes['saturday'])!);
+              }
+              if (_preferredTimes['sunday'] != '') {
+                UserInfo()
+                    .setPreferredTimes('sunday', (_preferredTimes['sunday'])!);
+              }
+            },
+            child: Container(
+              width: size.width * 0.4,
+              height: size.height * 0.05,
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black, width: 2.5),
+                  borderRadius: BorderRadius.circular(12)),
+              child: const Center(
+                child: Text(
+                  "SAVE",
+                  style: TextStyle(color: Colors.black),
                 ),
               ),
-      ]),
+            ),
+          ),
+          SizedBox(
+            height: size.height*0.05,
+          )
+        ]),
       ),
     );
   }

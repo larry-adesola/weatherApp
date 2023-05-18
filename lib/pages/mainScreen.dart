@@ -63,6 +63,7 @@ class _MainScreenState extends State<MainScreen> {
         return aDiff < bDiff ? a : b;
       });
       // Extract the desired weather information from the closest forecast
+      print(closestForecast);
       return closestForecast;
 
       // Print the weather information for the closest forecast

@@ -4,6 +4,7 @@ class WeatherData {
     'few clouds': 'assets/icons/clouds.png',
     'overcast clouds': 'assets/icons/clouds.png',
     'rain' : 'assets/icons/rain.png',
+    'light rain' : 'assets/icons/rain.png',
     'broken clouds' : 'assets/icons/clouds.png',
     'clear sky' : 'assets/icons/sun.png',
     'shower rain' : 'assets/icons/rain.png',

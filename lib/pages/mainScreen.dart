@@ -175,7 +175,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
           SizedBox(
-            height: size.height * 0.05,
+            height: size.height * 0.02,
           ),
           FutureBuilder(
               future: _getForecast(UserInfo().getPreferredTimes()[DateFormat('EEEE').format(DateTime.now())]!),

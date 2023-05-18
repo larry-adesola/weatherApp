@@ -68,7 +68,7 @@ class _PrefState extends State<Pref> {
                         width: size.width * 0.65,
                         dropdownMenuEntries: _timeRanges,
                         onSelected: (value) {
-                          UserInfo().setPreferredTimes('monday', value);
+                          UserInfo().setPreferredTimes('Monday', value);
                         },
                       )
                     ],
@@ -86,7 +86,7 @@ class _PrefState extends State<Pref> {
                       width: size.width * 0.65,
                         dropdownMenuEntries: _timeRanges,
                         onSelected: (value) {
-                          UserInfo().setPreferredTimes('tuesday', value);
+                          UserInfo().setPreferredTimes('Tuesday', value);
                         },
                       )
                     ],
@@ -104,7 +104,7 @@ class _PrefState extends State<Pref> {
                         width: size.width * 0.65,
                         dropdownMenuEntries: _timeRanges,
                         onSelected: (value) {
-                          UserInfo().setPreferredTimes('wednesday', value);
+                          UserInfo().setPreferredTimes('Wednesday', value);
                         },
                       )
                     ],
@@ -122,7 +122,7 @@ class _PrefState extends State<Pref> {
                         width: size.width * 0.65,
                         dropdownMenuEntries: _timeRanges,
                         onSelected: (value) {
-                          UserInfo().setPreferredTimes('thursday', value);
+                          UserInfo().setPreferredTimes('Thursday', value);
                         },
                       )
                     ],
@@ -140,7 +140,7 @@ class _PrefState extends State<Pref> {
                         width: size.width * 0.65,
                         dropdownMenuEntries: _timeRanges,
                         onSelected: (value) {
-                          UserInfo().setPreferredTimes('friday', value);
+                          UserInfo().setPreferredTimes('Friday', value);
                         },
                       )
                     ],
@@ -158,7 +158,7 @@ class _PrefState extends State<Pref> {
                         width: size.width * 0.65,
                         dropdownMenuEntries: _timeRanges,
                         onSelected: (value) {
-                          UserInfo().setPreferredTimes('saturday', value);
+                          UserInfo().setPreferredTimes('Saturday', value);
                         },
                       )
                     ],
@@ -176,7 +176,7 @@ class _PrefState extends State<Pref> {
                         width: size.width * 0.65,
                         dropdownMenuEntries: _timeRanges,
                         onSelected: (value) {
-                          UserInfo().setPreferredTimes('sunday', value);
+                          UserInfo().setPreferredTimes('Sunday', value);
                         },
                       )
                     ],

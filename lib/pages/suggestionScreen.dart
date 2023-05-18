@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../users.dart';
 
 class SuggScreen extends StatefulWidget {
   const SuggScreen({Key? key}) : super(key: key);
@@ -9,6 +10,7 @@ class SuggScreen extends StatefulWidget {
 }
 
 class _SuggScreenState extends State<SuggScreen> {
+  final UserInfo userInfo = UserInfo.getInstance();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

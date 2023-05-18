@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/pages/welcome.dart';
 
+import 'homeBase.dart';
 import 'onBoard.dart';
-
-final GlobalKey<_WelcomeBaseState> welcomeBaseKey = GlobalKey<_WelcomeBaseState>();
 
 class WelcomeBase extends StatefulWidget {
   const WelcomeBase({Key? key}) : super(key: key);
@@ -13,35 +12,7 @@ class WelcomeBase extends StatefulWidget {
 }
 
 class _WelcomeBaseState extends State<WelcomeBase> {
-  bool welcomeOn = true;
-  bool prefOn = false;
-  final TextEditingController city = TextEditingController();
-  final FocusNode cityFocus = FocusNode();
-
-  var preferredTimes = {
-    'monday': '',
-    'tuesday': '',
-    'wednesday': '',
-    'thursday': '',
-    'friday': '',
-    'saturday': '',
-    'sunday': ''
-  };
-
-  /*String mondayTime = '';
-  String tuesdayTime = '';
-  String wednesdayTime = '';
-  String thursdayTime = '';
-  String fridayTime = '';
-  String saturdayTime = '';
-  String sundayTime = '';*/
-
-  void nextPressed() {
-    setState(() {
-      welcomeOn = false;
-      prefOn = true;
-    });
-  }
+  int onboardStage = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -56,16 +27,48 @@ class _WelcomeBaseState extends State<WelcomeBase> {
               AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
                 transform: Matrix4.translationValues(
-                    welcomeOn ? 0 : -size.width, 0, 0),
+                    -onboardStage * size.width, 0, 0
+                ),
                 curve: Curves.decelerate,
-                child: const Welcome(),
+                child: Welcome(
+                  nextPressed: () {
+                    onboardStage = 1;
+                  },
+                ),
               ),
               AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
-                transform:
-                    Matrix4.translationValues(prefOn ? 0 : size.width, 0, 0),
+                transform: Matrix4.translationValues(
+                    (1-onboardStage) * size.width, 0, 0
+                ),
                 curve: Curves.easeInOut,
-                child: const Pref(),
+                child: Pref(
+                  nextPressed: () {
+                    onboardStage = 2;
+                    setState(() {
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (context, animation, secondaryAnimation) => const HomeBase(),
+                          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            const begin = Offset(1.0, 0.0);
+                            const end = Offset.zero;
+                            const curve = Curves.easeInOut;
+                            final tween = Tween(begin: begin, end: end);
+                            final curvedAnimation = CurvedAnimation(
+                              parent: animation,
+                              curve: curve,
+                            );
+                            return SlideTransition(
+                              position: tween.animate(curvedAnimation),
+                              child: child,
+                            );
+                          },
+                        ),
+                      );
+                    });
+                  },
+                ),
               ),
             ],
           ),

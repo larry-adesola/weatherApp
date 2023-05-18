@@ -4,30 +4,25 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:weather_app/pages/homeBase.dart';
 import 'package:weather_app/users.dart';
 
 class MainScreen extends StatefulWidget {
-  UserInfo userInfo;
-  MainScreen({Key? key, required this.userInfo}) : super(key: key);
+  const MainScreen({Key? key}) : super(key: key);
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final UserInfo _userInfo = UserInfo.getInstance();
   Map<String, String> weatherIcons = {'Clouds': 'assets/icons/clouds.png'};
 
   Future<Map<String, dynamic>> getWeather() async {
-    const apiKey = '3194812ebdac044591796f914fbabf78';
-    final encodedCityName = Uri.encodeComponent(widget.userInfo.cityName);
-    final url =
-        'https://api.openweathermap.org/data/2.5/weather?q=$encodedCityName&appid=$apiKey';
-
+    final apiKey = _userInfo.getAPIkey();
+    final encodedCityName = Uri.encodeComponent(_userInfo.getCity());
+    final url = 'https://api.openweathermap.org/data/2.5/weather?q=$encodedCityName&appid=$apiKey';
     final response = await http.get(Uri.parse(url));
-    print(response);
     final decodedResponse = jsonDecode(response.body);
-    print(decodedResponse);
     if (response.statusCode == 200) {
       return decodedResponse;
     } else {
@@ -48,8 +43,8 @@ class _MainScreenState extends State<MainScreen> {
           height: size.height * 0.1,
         ),
         Text(
-          widget.userInfo.cityName,
-          style: TextStyle(fontSize: 35),
+          _userInfo.getCity(),
+          style: const TextStyle(fontSize: 35),
         ),
         SizedBox(
           height: size.height * 0.05,
@@ -61,15 +56,15 @@ class _MainScreenState extends State<MainScreen> {
               return Column(
                 children: [
                   Lottie.asset('assets/anims/loading.json'),
-                  Text('Loading')
+                  const Text('Loading')
                 ],
               );
             } else if (snapshot.connectionState == ConnectionState.none) {
-              return Text('Go To Settings and Enter City Properly');
+              return const Text('Go To Settings and Enter City Properly');
             } else {
               return Column(
                 children: [
-                  Container(
+                  SizedBox(
                     //color: Colors.white,
                     height: size.height*0.2,
                     child: Center(
@@ -78,19 +73,21 @@ class _MainScreenState extends State<MainScreen> {
                         children: [
                           Column(
                             children: [
-                              Container(
+                              SizedBox(
                                   width: size.width * 0.4,
                                   child: Image.asset(
-                                      weatherIcons[snapshot.data?['weather'][0]['main']]!)),
+                                      weatherIcons[snapshot.data?['weather'][0]['main']]!
+                                  )
+                              ),
                               SizedBox(height: size.height*0.01,),
                               Text(snapshot.data?['weather'][0]['description']!)
                             ],
                           ),
                           Column(
                             children: [
-                              Text('Current', style: TextStyle(fontSize: 30),),
+                              const Text('Current', style: TextStyle(fontSize: 30),),
                               SizedBox(height: size.height*0.01,),
-                              Text('${Temperature(snapshot.data!['main']['temp'], 'K').valueIn('C').round()} °C', style: TextStyle(fontSize: 28),),
+                              Text('${Temperature(snapshot.data!['main']['temp'], 'K').valueIn('C').round()} °C', style: const TextStyle(fontSize: 28),),
                               SizedBox(height: size.height*0.01,),
                               Text('${DateTime.now().hour}:${_twoDigits(DateTime.now().minute)}')
                             ],

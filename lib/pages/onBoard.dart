@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/pages/homeBase.dart';
-import 'package:weather_app/pages/welcomeBase.dart';
 import 'package:weather_app/users.dart';
 
 class Pref extends StatefulWidget {
-  const Pref({Key? key}) : super(key: key);
+  final VoidCallback nextPressed;
+  const Pref({Key? key, required this.nextPressed}) : super(key: key);
 
   @override
   State<Pref> createState() => _PrefState();
 }
 
 class _PrefState extends State<Pref> {
-  final List<DropdownMenuEntry> timeRanges = [
+  final UserInfo _userInfo = UserInfo.getInstance();
+  final List<DropdownMenuEntry> _timeRanges = [
     const DropdownMenuEntry(value: '', label: 'No Preferred Time'),
     const DropdownMenuEntry(value: '6am - 7am', label: '6am - 7am'),
     const DropdownMenuEntry(value: '7am - 8am', label: '7am - 8am'),
@@ -30,6 +30,7 @@ class _PrefState extends State<Pref> {
     const DropdownMenuEntry(value: '8pm - 9pm', label: '8pm - 9pm'),
     const DropdownMenuEntry(value: '9pm - 10pm', label: '9pm- 10pm'),
   ];
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -43,7 +44,7 @@ class _PrefState extends State<Pref> {
           child: Column(
             children: [
               const Align(
-                alignment: Alignment.topCenter,
+                alignment: Alignment.topLeft,
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
@@ -62,14 +63,13 @@ class _PrefState extends State<Pref> {
                     children: [
                       SizedBox(
                         width: size.width * 0.2,
-                        child: Text(" Mon", style: TextStyle(fontSize: 18),),
+                        child: const Text(" Mon", style: TextStyle(fontSize: 18),),
                       ),
                       DropdownMenu(
                         width: size.width * 0.65,
-                        dropdownMenuEntries: timeRanges,
+                        dropdownMenuEntries: _timeRanges,
                         onSelected: (value) {
-                          welcomeBaseKey.currentState?.preferredTimes['monday'] =
-                              value;
+                          _userInfo.setPreferredTimes('monday', value);
                         },
                       )
                     ],
@@ -81,14 +81,13 @@ class _PrefState extends State<Pref> {
                     children: [
                     SizedBox(
                       width: size.width * 0.2,
-                      child: Text(" Tue", style: TextStyle(fontSize: 18),),
+                      child: const Text(" Tue", style: TextStyle(fontSize: 18),),
                     ),
                     DropdownMenu(
                       width: size.width * 0.65,
-                        dropdownMenuEntries: timeRanges,
+                        dropdownMenuEntries: _timeRanges,
                         onSelected: (value) {
-                          welcomeBaseKey.currentState?.preferredTimes['tuesday'] =
-                              value;
+                          _userInfo.setPreferredTimes('tuesday', value);
                         },
                       )
                     ],
@@ -100,14 +99,13 @@ class _PrefState extends State<Pref> {
                     children: [
                       SizedBox(
                         width: size.width * 0.2,
-                        child: Text(" Wed", style: TextStyle(fontSize: 18),),
+                        child: const Text(" Wed", style: TextStyle(fontSize: 18),),
                       ),
                       DropdownMenu(
                         width: size.width * 0.65,
-                        dropdownMenuEntries: timeRanges,
+                        dropdownMenuEntries: _timeRanges,
                         onSelected: (value) {
-                          welcomeBaseKey.currentState?.preferredTimes['wednesday'] =
-                              value;
+                          _userInfo.setPreferredTimes('wednesday', value);
                         },
                       )
                     ],
@@ -119,14 +117,13 @@ class _PrefState extends State<Pref> {
                     children: [
                       SizedBox(
                         width: size.width * 0.2,
-                        child: Text(" Thu", style: TextStyle(fontSize: 18),),
+                        child: const Text(" Thu", style: TextStyle(fontSize: 18),),
                       ),
                       DropdownMenu(
                         width: size.width * 0.65,
-                        dropdownMenuEntries: timeRanges,
+                        dropdownMenuEntries: _timeRanges,
                         onSelected: (value) {
-                          welcomeBaseKey.currentState?.preferredTimes['thursday'] =
-                              value;
+                          _userInfo.setPreferredTimes('thursday', value);
                         },
                       )
                     ],
@@ -138,14 +135,13 @@ class _PrefState extends State<Pref> {
                     children: [
                       SizedBox(
                         width: size.width * 0.2,
-                        child: Text(" Fri", style: TextStyle(fontSize: 18),),
+                        child: const Text(" Fri", style: TextStyle(fontSize: 18),),
                       ),
                       DropdownMenu(
                         width: size.width * 0.65,
-                        dropdownMenuEntries: timeRanges,
+                        dropdownMenuEntries: _timeRanges,
                         onSelected: (value) {
-                          welcomeBaseKey.currentState?.preferredTimes['friday'] =
-                              value;
+                          _userInfo.setPreferredTimes('friday', value);
                         },
                       )
                     ],
@@ -157,14 +153,13 @@ class _PrefState extends State<Pref> {
                     children: [
                       SizedBox(
                         width: size.width * 0.2,
-                        child: Text(" Sat", style: TextStyle(fontSize: 18),),
+                        child: const Text(" Sat", style: TextStyle(fontSize: 18),),
                       ),
                       DropdownMenu(
                         width: size.width * 0.65,
-                        dropdownMenuEntries: timeRanges,
+                        dropdownMenuEntries: _timeRanges,
                         onSelected: (value) {
-                          welcomeBaseKey.currentState?.preferredTimes['saturday'] =
-                              value;
+                          _userInfo.setPreferredTimes('saturday', value);
                         },
                       )
                     ],
@@ -176,14 +171,13 @@ class _PrefState extends State<Pref> {
                     children: [
                       SizedBox(
                         width: size.width * 0.2,
-                        child: Text(" Sun", style: TextStyle(fontSize: 18),),
+                        child: const Text(" Sun", style: TextStyle(fontSize: 18),),
                       ),
                       DropdownMenu(
                         width: size.width * 0.65,
-                        dropdownMenuEntries: timeRanges,
+                        dropdownMenuEntries: _timeRanges,
                         onSelected: (value) {
-                          welcomeBaseKey.currentState?.preferredTimes['sunday'] =
-                              value;
+                          _userInfo.setPreferredTimes('sunday', value);
                         },
                       )
                     ],
@@ -198,34 +192,7 @@ class _PrefState extends State<Pref> {
         ),
         GestureDetector(
           onTap: () {
-            setState(() {
-              Navigator.push(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) =>
-                      HomeBase(
-                    userInfo: UserInfo(
-                        cityName: welcomeBaseKey.currentState!.city.text,
-                        preferredTimes: welcomeBaseKey.currentState!.preferredTimes),
-                  ),
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                    final begin = const Offset(1.0, 0.0);
-                    const end = Offset.zero;
-                    const curve = Curves.easeInOut;
-                    final tween = Tween(begin: begin, end: end);
-                    final curvedAnimation = CurvedAnimation(
-                      parent: animation,
-                      curve: curve,
-                    );
-                    return SlideTransition(
-                      position: tween.animate(curvedAnimation),
-                      child: child,
-                    );
-                  },
-                ),
-              );
-            });
+            widget.nextPressed();
           },
           child: Container(
             width: size.width * 0.4,

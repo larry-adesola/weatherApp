@@ -1,20 +1,23 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
-import 'package:weather_app/pages/welcomeBase.dart';
-import 'package:http/http.dart' as http;
+
+import '../users.dart';
 
 class Welcome extends StatefulWidget {
-  const Welcome({Key? key}) : super(key: key);
+  final VoidCallback nextPressed;
+  const Welcome({Key? key, required this.nextPressed}) : super(key: key);
 
   @override
   State<Welcome> createState() => _WelcomeState();
 }
 
 class _WelcomeState extends State<Welcome> {
+  final UserInfo _userInfo = UserInfo.getInstance();
+  final TextEditingController _cityText = TextEditingController();
+  final FocusNode _cityFocus = FocusNode();
+
   void _displayDeleteMotionToast(String title, String description) {
     MotionToast.info(
       title: Text(
@@ -29,19 +32,6 @@ class _WelcomeState extends State<Welcome> {
     ).show(context);
   }
 
-  Future<bool> isValidCity(String cityName) async {
-    const apiKey = '3194812ebdac044591796f914fbabf78';
-    final encodedCityName = Uri.encodeComponent(cityName);
-    final url =
-        'https://api.openweathermap.org/data/2.5/weather?q=$encodedCityName&appid=$apiKey';
-    print(url);
-    print(url);
-    final response = await http.get(Uri.parse(url));
-    print(response);
-    final decodedResponse = jsonDecode(response.body);
-    return decodedResponse['cod'] == 200;
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -53,33 +43,30 @@ class _WelcomeState extends State<Welcome> {
           ),
           Lottie.asset('assets/anims/weather.json'),
           Padding(
-            padding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.05),
+            padding: EdgeInsets.only(left: size.width * 0.05),
             child: Column(
               children: [
                 const Align(
-                    alignment: Alignment.topCenter,
+                    alignment: Alignment.topLeft,
                     child: Text(
                       'Welcome',
-                      style: TextStyle(fontSize: 36),
+                      style: TextStyle(fontSize: 35),
                     )),
-                const SizedBox(
-                  height: 18,
-                ),
                 const Align(
-                    alignment: Alignment.topCenter,
+                    alignment: Alignment.topLeft,
                     child: Text(
                       "Let's Get Running",
-                      style: TextStyle(fontSize: 32, fontStyle: FontStyle.italic),
+                      style: TextStyle(fontSize: 35),
                     )),
                 SizedBox(
                   height: size.height * 0.1,
                 ),
                 const Align(
-                  alignment: Alignment.topCenter,
+                  alignment: Alignment.topLeft,
                   child: Align(
-                    alignment: Alignment.center,
+                    alignment: Alignment.centerLeft,
                     child: Text(
-                      "What city are you from?",
+                      "What City Are You From?",
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
@@ -88,7 +75,7 @@ class _WelcomeState extends State<Welcome> {
                   height: size.height * 0.01,
                 ),
                 Align(
-                  alignment: Alignment.topCenter,
+                  alignment: Alignment.topLeft,
                   child: Container(
                     width: size.width * 0.8,
                     height: size.height * 0.08,
@@ -99,14 +86,14 @@ class _WelcomeState extends State<Welcome> {
                       alignment: Alignment.centerLeft,
                       child: Padding(
                         padding: EdgeInsets.only(
-                            left: size.width * 0.05, right: size.width * 0.05),
+                            left: size.width * 0.01, right: size.width * 0.01),
                         child: TextFormField(
                           scrollPadding: EdgeInsets.only(bottom: size.height*0.4),
-                          controller: welcomeBaseKey.currentState?.city,
+                          controller: _cityText,
                           autocorrect: false,
-                          focusNode: welcomeBaseKey.currentState?.cityFocus,
+                          focusNode: _cityFocus,
                           decoration: InputDecoration(
-                              hintText: 'Put the country after a comma...',
+                              hintText: 'Put the country after commas...',
                               hintStyle: TextStyle(color: Colors.grey.shade700),
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none),
@@ -124,11 +111,10 @@ class _WelcomeState extends State<Welcome> {
           ),
           GestureDetector(
             onTap: () async {
-              welcomeBaseKey.currentState?.cityFocus.unfocus();
-              bool valid = await isValidCity(
-                  welcomeBaseKey.currentState!.city.value.text);
+              _cityFocus.unfocus();
+              bool valid = await _userInfo.setCity(_cityText.value.text);
               if (valid) {
-                welcomeBaseKey.currentState?.nextPressed();
+                widget.nextPressed();
               } else {
                 _displayDeleteMotionToast('Invalid City', 'Enter a valid city');
               }

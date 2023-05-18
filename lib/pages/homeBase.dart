@@ -3,14 +3,8 @@ import 'package:weather_app/pages/mainScreen.dart';
 import 'package:weather_app/pages/settingsScreen.dart';
 import 'package:weather_app/pages/suggestionScreen.dart';
 
-import '../users.dart';
-
-final GlobalKey<_HomeBaseState> homeBaseKey = GlobalKey<_HomeBaseState>();
-
-
 class HomeBase extends StatefulWidget {
-  UserInfo userInfo;
-  HomeBase({Key? key, required this.userInfo}) : super(key: key);
+  const HomeBase({Key? key}) : super(key: key);
 
   @override
   State<HomeBase> createState() => _HomeBaseState();
@@ -33,14 +27,14 @@ class _HomeBaseState extends State<HomeBase> {
             _selectedIndex = index;
           });
         },
-        children: [
-          MainScreen(userInfo: widget.userInfo,),
+        children: const [
+          MainScreen(),
           SuggScreen(),
           SettingScreen(),
         ],
       ),
       bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0), ),
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0), ),
         child: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(

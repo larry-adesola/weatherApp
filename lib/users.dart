@@ -7,9 +7,9 @@ class UserInfo{
   static final UserInfo _instance = UserInfo._internal();
 
   final String _apiKey = '3194812ebdac044591796f914fbabf78';
-
   bool _onboarded = false;
   String? _cityName;
+  int _clothingScore  = 0;
   final Map<String, String> _preferredTimes = {
     'monday': '',
     'tuesday': '',
@@ -30,6 +30,7 @@ class UserInfo{
     final prefs = await SharedPreferences.getInstance();
     _onboarded = prefs.getBool('onboard') ?? false;
     _cityName = prefs.getString('city');
+    _clothingScore = prefs.getInt('clothing') ?? 0;
     for (String day in _preferredTimes.keys) {
       _preferredTimes[day] = prefs.getString(day) ?? '';
     }
@@ -46,6 +47,12 @@ class UserInfo{
       prefs.setString('city', cityName);
     }
     return decodedResponse['cod'] == 200;
+  }
+
+  Future<void> setClothingScore(int clothingScore) async {
+    final prefs = await SharedPreferences.getInstance();
+    _clothingScore = clothingScore;
+    prefs.setInt('clothing', clothingScore);
   }
 
   Future<void> setPreferredTimes(String day, String time) async {
@@ -69,6 +76,10 @@ class UserInfo{
       throw UnsupportedError("Invalid City");
     }
     return _cityName!;
+  }
+
+  int getClothingScore() {
+    return _clothingScore;
   }
 
   Map<String, String> getPreferredTimes() {

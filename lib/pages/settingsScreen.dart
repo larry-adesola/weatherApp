@@ -144,7 +144,7 @@ class _SettingScreenState extends State<SettingScreen> {
             child: Align(
               alignment: Alignment.center,
               child: Text(
-                'Changed Preferred Times',
+                'Change Preferred Times',
                 style: TextStyle(fontSize: 20),
                 textAlign: TextAlign.center,
               ),

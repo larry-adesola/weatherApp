@@ -23,22 +23,22 @@ class _SettingScreenState extends State<SettingScreen> {
   };
   final List<DropdownMenuEntry> _timeRanges = [
     const DropdownMenuEntry(value: '', label: 'No Preferred Time'),
-    const DropdownMenuEntry(value: '6am - 7am', label: '6am - 7am'),
-    const DropdownMenuEntry(value: '7am - 8am', label: '7am - 8am'),
-    const DropdownMenuEntry(value: '8am - 9am', label: '8am - 9am'),
-    const DropdownMenuEntry(value: '9am - 10am', label: '9am - 10am'),
-    const DropdownMenuEntry(value: '10am - 11am', label: '10am - 11am'),
-    const DropdownMenuEntry(value: '11am - 12pm', label: '11am - 12pm'),
-    const DropdownMenuEntry(value: '12pm - 1pm', label: '12pm - 1pm'),
-    const DropdownMenuEntry(value: '1pm - 2pm', label: '1pm - 2pm'),
-    const DropdownMenuEntry(value: '2pm - 3pm', label: '2pm - 3pm'),
-    const DropdownMenuEntry(value: '3pm - 4pm', label: '3pm - 4pm'),
-    const DropdownMenuEntry(value: '4pm - 5pm', label: '4pm - 5pm'),
-    const DropdownMenuEntry(value: '5pm - 6pm', label: '5pm - 6pm'),
-    const DropdownMenuEntry(value: '6pm - 7pm', label: '6pm - 7pm'),
-    const DropdownMenuEntry(value: '7pm - 8pm', label: '7pm - 8pm'),
-    const DropdownMenuEntry(value: '8pm - 9pm', label: '8pm - 9pm'),
-    const DropdownMenuEntry(value: '9pm - 10pm', label: '9pm- 10pm'),
+    const DropdownMenuEntry(value: '06:00:00', label: '6am - 7am'),
+    const DropdownMenuEntry(value: '07:00:00', label: '7am - 8am'),
+    const DropdownMenuEntry(value: '08:00:00', label: '8am - 9am'),
+    const DropdownMenuEntry(value: '09:00:00', label: '9am - 10am'),
+    const DropdownMenuEntry(value: '10:00:00', label: '10am - 11am'),
+    const DropdownMenuEntry(value: '11:00:00', label: '11am - 12pm'),
+    const DropdownMenuEntry(value: '12:00:00', label: '12pm - 1pm'),
+    const DropdownMenuEntry(value: '13:00:00', label: '1pm - 2pm'),
+    const DropdownMenuEntry(value: '14:00:00', label: '2pm - 3pm'),
+    const DropdownMenuEntry(value: '15:00:00', label: '3pm - 4pm'),
+    const DropdownMenuEntry(value: '16:00:00', label: '4pm - 5pm'),
+    const DropdownMenuEntry(value: '17:00:00', label: '5pm - 6pm'),
+    const DropdownMenuEntry(value: '18:00:00', label: '6pm - 7pm'),
+    const DropdownMenuEntry(value: '19:00:00', label: '7pm - 8pm'),
+    const DropdownMenuEntry(value: '20:00:00', label: '8pm - 9pm'),
+    const DropdownMenuEntry(value: '21:00:00', label: '9pm- 10pm'),
   ];
 
   @override
@@ -289,7 +289,7 @@ class _SettingScreenState extends State<SettingScreen> {
           GestureDetector(
             onTap: () {
               UserInfo().setCity(_settingsCity.text);
-              if (_preferredTimes['monday'] != '') {
+              /*if (_preferredTimes['monday'] != '') {
                 UserInfo()
                     .setPreferredTimes('monday', (_preferredTimes['monday'])!);
               }
@@ -316,7 +316,8 @@ class _SettingScreenState extends State<SettingScreen> {
               if (_preferredTimes['sunday'] != '') {
                 UserInfo()
                     .setPreferredTimes('sunday', (_preferredTimes['sunday'])!);
-              }
+              }*/
+              //dont think all that is necessary as there is a setPreferred for each dropmenu already
             },
             child: Container(
               width: size.width * 0.4,

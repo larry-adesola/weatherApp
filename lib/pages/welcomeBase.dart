@@ -28,7 +28,7 @@ class _WelcomeBaseState extends State<WelcomeBase> {
               AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
                 transform: Matrix4.translationValues(
-                    -onboardStage * size.width, 0, 0
+                    onboardStage == 0 ? 0 : -size.width, 0, 0
                 ),
                 curve: Curves.decelerate,
                 child: Welcome(

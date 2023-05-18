@@ -39,10 +39,8 @@ class UserInfo{
     final prefs = await SharedPreferences.getInstance();
     final encodedCityName = Uri.encodeComponent(cityName);
     final url = 'https://api.openweathermap.org/data/2.5/weather?q=$encodedCityName&appid=$_apiKey';
-    print(url);
     final response = await http.get(Uri.parse(url));
     final decodedResponse = jsonDecode(response.body);
-    print(decodedResponse);
     if (decodedResponse['cod'] == 200) {
       _cityName = cityName;
       prefs.setString('city', cityName);

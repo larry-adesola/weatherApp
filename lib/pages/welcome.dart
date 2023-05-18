@@ -99,7 +99,7 @@ class _WelcomeState extends State<Welcome> {
                       alignment: Alignment.centerLeft,
                       child: Padding(
                         padding: EdgeInsets.only(
-                            left: size.width * 0.01, right: size.width * 0.01),
+                            left: size.width * 0.05, right: size.width * 0.05),
                         child: TextFormField(
                           scrollPadding: EdgeInsets.only(bottom: size.height*0.4),
                           controller: welcomeBaseKey.currentState?.city,

@@ -93,14 +93,14 @@ class _SettingScreenState extends State<SettingScreen> {
               alignment: Alignment.center,
               child: Padding(
                 padding: EdgeInsets.only(
-                    left: size.width * 0.1, right: size.width * 0.1),
+                    left: size.width * 0.05, right: size.width * 0.05),
                 child: TextFormField(
                   scrollPadding: EdgeInsets.only(bottom: size.height*0.4),
                   controller: settingsCity,
                   autocorrect: false,
                   focusNode: settingsFocus,
                   decoration: InputDecoration(
-                      hintText: 'Put the country after commas...',
+                      hintText: 'Put the country after a comma...',
                       hintStyle: TextStyle(color: Colors.grey.shade700),
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none),

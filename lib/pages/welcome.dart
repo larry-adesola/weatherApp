@@ -41,6 +41,9 @@ class _WelcomeState extends State<Welcome> {
             height: size.height * 0.01,
           ),
           Lottie.asset('assets/anims/weather.json'),
+          SizedBox(
+            height: size.height * 0.05,
+          ),
           Padding(
             padding: EdgeInsets.only(left: size.width * 0.05),
             child: Column(
@@ -89,6 +92,7 @@ class _WelcomeState extends State<Welcome> {
                         child: TextFormField(
                           scrollPadding: EdgeInsets.only(bottom: size.height*0.4),
                           controller: _cityText,
+                          cursorColor: Colors.black,
                           autocorrect: false,
                           focusNode: _cityFocus,
                           decoration: InputDecoration(

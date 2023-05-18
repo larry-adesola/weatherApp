@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/pages/welcome.dart';
+import 'package:weather_app/users.dart';
 
 import 'homeBase.dart';
 import 'onBoard.dart';
@@ -45,6 +46,7 @@ class _WelcomeBaseState extends State<WelcomeBase> {
                 child: Pref(
                   nextPressed: () {
                     onboardStage = 2;
+                    UserInfo().finishOnboard();
                     setState(() {
                       Navigator.push(
                         context,

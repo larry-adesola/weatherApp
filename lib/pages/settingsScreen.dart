@@ -2,19 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/users.dart';
 
 class SettingScreen extends StatefulWidget {
-  UserInfo userInfo;
-  SettingScreen({Key? key, required this.userInfo}) : super(key: key);
+  const SettingScreen({Key? key}) : super(key: key);
 
   @override
   State<SettingScreen> createState() => _SettingScreenState();
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  final UserInfo _userInfo = UserInfo.getInstance();
   double _currentSliderValue = 0;
-  TextEditingController settingsCity = TextEditingController();
-  FocusNode settingsFocus = FocusNode();
-  var preferredTimes = {
+  final TextEditingController _settingsCity = TextEditingController();
+  final FocusNode _settingsFocus = FocusNode();
+  final _preferredTimes = {
     'monday': '',
     'tuesday': '',
     'wednesday': '',
@@ -23,7 +21,7 @@ class _SettingScreenState extends State<SettingScreen> {
     'saturday': '',
     'sunday': ''
   };
-  final List<DropdownMenuEntry> timeRanges = [
+  final List<DropdownMenuEntry> _timeRanges = [
     const DropdownMenuEntry(value: '', label: 'No Preferred Time'),
     const DropdownMenuEntry(value: '6am - 7am', label: '6am - 7am'),
     const DropdownMenuEntry(value: '7am - 8am', label: '7am - 8am'),
@@ -42,8 +40,6 @@ class _SettingScreenState extends State<SettingScreen> {
     const DropdownMenuEntry(value: '8pm - 9pm', label: '8pm - 9pm'),
     const DropdownMenuEntry(value: '9pm - 10pm', label: '9pm- 10pm'),
   ];
-  final TextEditingController _settingsCity = TextEditingController();
-  final FocusNode _settingsFocus = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -163,10 +159,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     DropdownMenu(
                       width: size.width * 0.4,
-                      dropdownMenuEntries: timeRanges,
+                      dropdownMenuEntries: _timeRanges,
                       onSelected: (value) {
-                        //isaac;
-                        preferredTimes?['monday']=value;
+                        _preferredTimes['monday']=value;
                       },
                     ),
                   ],
@@ -185,10 +180,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     DropdownMenu(
                       width: size.width * 0.4,
-                      dropdownMenuEntries: timeRanges,
+                      dropdownMenuEntries: _timeRanges,
                       onSelected: (value) {
-                        //isaac;
-                        preferredTimes?['tuesday']=value;
+                        _preferredTimes['tuesday']=value;
                       },
                     ),
                   ],
@@ -207,10 +201,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     DropdownMenu(
                       width: size.width * 0.4,
-                      dropdownMenuEntries: timeRanges,
+                      dropdownMenuEntries: _timeRanges,
                       onSelected: (value) {
-                        //isaac;
-                        preferredTimes?['wednesday']=value;
+                        _preferredTimes['wednesday']=value;
                       },
                     ),
                   ],
@@ -229,9 +222,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     DropdownMenu(
                       width: size.width * 0.4,
-                      dropdownMenuEntries: timeRanges,
+                      dropdownMenuEntries: _timeRanges,
                       onSelected: (value) {
-                        preferredTimes?['thursday']=value;
+                        _preferredTimes['thursday']=value;
                       },
                     ),
                   ],
@@ -250,9 +243,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     DropdownMenu(
                       width: size.width * 0.4,
-                      dropdownMenuEntries: timeRanges,
+                      dropdownMenuEntries: _timeRanges,
                       onSelected: (value) {
-                        preferredTimes?['friday']=value;
+                        _preferredTimes['friday']=value;
                       },
                     ),
                   ],
@@ -271,9 +264,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     DropdownMenu(
                       width: size.width * 0.4,
-                      dropdownMenuEntries: timeRanges,
+                      dropdownMenuEntries: _timeRanges,
                       onSelected: (value) {
-                        preferredTimes?['saturday']=value;
+                        _preferredTimes['saturday']=value;
                       },
                     ),
                   ],
@@ -292,9 +285,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     DropdownMenu(
                       width: size.width * 0.4,
-                      dropdownMenuEntries: timeRanges,
+                      dropdownMenuEntries: _timeRanges,
                       onSelected: (value) {
-                        preferredTimes?['sunday']=value;
+                        _preferredTimes['sunday']=value;
                       },
                     ),
                   ],
@@ -307,44 +300,33 @@ class _SettingScreenState extends State<SettingScreen> {
               ),
               GestureDetector(
                 onTap: (){
-                  //widget.userInfo.cityName = settingsCity.text;
-                  //widget.userInfo.preferredTimes =
-                  //_settingsCity
-                  widget.userInfo.setCity(settingsCity.text);
-
-                  if(preferredTimes['monday']!=''){
-                    //widget.userInfo.preferredTimes?['monday'] = preferredTimes['monday']!;
-                    widget.userInfo.setPreferredTimes('monday', (preferredTimes['monday'])!);
+                  UserInfo().setCity(_settingsCity.text);
+                  if(_preferredTimes['monday']!=''){
+                    UserInfo().setPreferredTimes('monday', (_preferredTimes['monday'])!);
                   }
-                  if(preferredTimes['tuesday']!=''){
-                    //widget.userInfo.preferredTimes?['tuesday'] = preferredTimes['tuesday']!;
-                    widget.userInfo.setPreferredTimes('tuesday', (preferredTimes['tuesday'])!);
+                  if(_preferredTimes['tuesday']!=''){
+                    UserInfo().setPreferredTimes('tuesday', (_preferredTimes['tuesday'])!);
                   }
-                  if(preferredTimes['wednesday']!=''){
-                    //widget.userInfo.preferredTimes?['wednesday'] = preferredTimes['wednesday']!;
-                    widget.userInfo.setPreferredTimes('wednesday', (preferredTimes['wednesday'])!);
+                  if(_preferredTimes['wednesday']!=''){
+                    UserInfo().setPreferredTimes('wednesday', (_preferredTimes['wednesday'])!);
                   }
-                  if(preferredTimes['thursday']!=''){
-                    //widget.userInfo.preferredTimes?['thursday'] = preferredTimes['thursday']!;
-                    widget.userInfo.setPreferredTimes('thursday', (preferredTimes['thursday'])!);
+                  if(_preferredTimes['thursday']!=''){
+                    UserInfo().setPreferredTimes('thursday', (_preferredTimes['thursday'])!);
                   }
-                  if(preferredTimes['friday']!=''){
-                    // widget.userInfo.preferredTimes?['friday'] = preferredTimes['friday']!;
-                    widget.userInfo.setPreferredTimes('friday', (preferredTimes['friday'])!);
+                  if(_preferredTimes['friday']!=''){
+                    UserInfo().setPreferredTimes('friday', (_preferredTimes['friday'])!);
                   }
-                  if(preferredTimes['saturday']!=''){
-                    // widget.userInfo.preferredTimes?['saturday'] = preferredTimes['saturday']!;
-                    widget.userInfo.setPreferredTimes('saturday', (preferredTimes['saturday'])!);
+                  if(_preferredTimes['saturday']!=''){
+                    UserInfo().setPreferredTimes('saturday', (_preferredTimes['saturday'])!);
                   }
-                  if(preferredTimes['sunday']!=''){
-                    //widget.userInfo.preferredTimes?['sunday'] = preferredTimes['sunday']!;
-                    widget.userInfo.setPreferredTimes('sunday', (preferredTimes['sunday'])!);
+                  if(_preferredTimes['sunday']!=''){
+                    UserInfo().setPreferredTimes('sunday', (_preferredTimes['sunday'])!);
                   }
                 },
                 child: Container(
                   color: Colors.amber,
                   padding: const EdgeInsets.all(8),
-                  child: Text("SAVE"),
+                  child: const Text("SAVE"),
                 ),
               ),
       ]),

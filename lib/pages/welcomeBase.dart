@@ -33,7 +33,9 @@ class _WelcomeBaseState extends State<WelcomeBase> {
                 curve: Curves.decelerate,
                 child: Welcome(
                   nextPressed: () {
-                    onboardStage = 1;
+                    setState(() {
+                      onboardStage = 1;
+                    });
                   },
                 ),
               ),
@@ -42,12 +44,12 @@ class _WelcomeBaseState extends State<WelcomeBase> {
                 transform: Matrix4.translationValues(
                     (1-onboardStage) * size.width, 0, 0
                 ),
-                curve: Curves.easeInOut,
+                curve: Curves.decelerate,
                 child: Pref(
                   nextPressed: () {
-                    onboardStage = 2;
                     UserInfo().finishOnboard();
                     setState(() {
+                      onboardStage = 2;
                       Navigator.push(
                         context,
                         PageRouteBuilder(
@@ -55,7 +57,7 @@ class _WelcomeBaseState extends State<WelcomeBase> {
                           transitionsBuilder: (context, animation, secondaryAnimation, child) {
                             const begin = Offset(1.0, 0.0);
                             const end = Offset.zero;
-                            const curve = Curves.easeInOut;
+                            const curve = Curves.decelerate;
                             final tween = Tween(begin: begin, end: end);
                             final curvedAnimation = CurvedAnimation(
                               parent: animation,

@@ -33,8 +33,8 @@ class _HomeBaseState extends State<HomeBase> {
             _selectedIndex = index;
           });
         },
-        children: const [
-          MainScreen(),
+        children: [
+          MainScreen(userInfo: widget.userInfo,),
           SuggScreen(),
           SettingScreen(),
         ],

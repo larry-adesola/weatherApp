@@ -31,6 +31,7 @@ dependencies:
   drop_down_list_menu: ^0.0.9
   lottie: ^2.3.2
   flutter_scale_ruler:
+  converter:
   http: ^0.13.5
   motion_toast: ^2.6.5
   flutter:
@@ -66,6 +67,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - assets/anims/
+   - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -57,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.1"
+  converter:
+    dependency: "direct main"
+    description:
+      name: converter
+      sha256: "92bd8c7bf5ab3e083f7aad80ee5d587d265f70707807310384bd6c4a7bc57ada"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.6"
   crypto:
     dependency: transitive
     description:
@@ -81,6 +89,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.9"
+  equatable:
+    dependency: transitive
+    description:
+      name: equatable
+      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -131,6 +147,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  invertible:
+    dependency: transitive
+    description:
+      name: invertible
+      sha256: "2e88300b67085adf5e766839a49e3a8da7db85d8826a9068bba24e015b79381a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   js:
     dependency: transitive
     description:

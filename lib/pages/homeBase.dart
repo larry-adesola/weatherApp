@@ -5,6 +5,9 @@ import 'package:weather_app/pages/suggestionScreen.dart';
 
 import '../users.dart';
 
+final GlobalKey<_HomeBaseState> homeBaseKey = GlobalKey<_HomeBaseState>();
+
+
 class HomeBase extends StatefulWidget {
   UserInfo userInfo;
   HomeBase({Key? key, required this.userInfo}) : super(key: key);

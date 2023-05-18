@@ -99,9 +99,9 @@ class _WelcomeState extends State<Welcome> {
                             left: size.width * 0.01, right: size.width * 0.01),
                         child: TextFormField(
                           scrollPadding: EdgeInsets.only(bottom: size.height*0.4),
-                          controller: baseKey.currentState?.city,
+                          controller: welcomeBaseKey.currentState?.city,
                           autocorrect: false,
-                          focusNode: baseKey.currentState?.cityFocus,
+                          focusNode: welcomeBaseKey.currentState?.cityFocus,
                           decoration: InputDecoration(
                               hintText: 'Put the country after commas...',
                               hintStyle: TextStyle(color: Colors.grey.shade700),
@@ -121,11 +121,11 @@ class _WelcomeState extends State<Welcome> {
           ),
           GestureDetector(
             onTap: () async {
-              baseKey.currentState?.cityFocus.unfocus();
+              welcomeBaseKey.currentState?.cityFocus.unfocus();
               bool valid = await isValidCity(
-                  baseKey.currentState!.city.value.text);
+                  welcomeBaseKey.currentState!.city.value.text);
               if (valid) {
-                baseKey.currentState?.nextPressed();
+                welcomeBaseKey.currentState?.nextPressed();
               } else {
                 _displayDeleteMotionToast('Invalid City', 'Enter a valid city');
               }

@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
           )
       ),
       debugShowCheckedModeBanner: false,
-      home: WelcomeBase(key: baseKey,),
+      home: WelcomeBase(key: welcomeBaseKey,),
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:weather_app/pages/welcome.dart';
 
 import 'onBoard.dart';
 
-final GlobalKey<_WelcomeBaseState> baseKey = GlobalKey<_WelcomeBaseState>();
+final GlobalKey<_WelcomeBaseState> welcomeBaseKey = GlobalKey<_WelcomeBaseState>();
 
 class WelcomeBase extends StatefulWidget {
   const WelcomeBase({Key? key}) : super(key: key);

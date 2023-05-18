@@ -70,7 +70,7 @@ class _PrefState extends State<Pref> {
                         width: size.width * 0.4,
                         dropdownMenuEntries: timeRanges,
                         onSelected: (value) {
-                          baseKey.currentState?.preferredTimes['monday'] =
+                          welcomeBaseKey.currentState?.preferredTimes['monday'] =
                               value;
                         },
                       )
@@ -92,7 +92,7 @@ class _PrefState extends State<Pref> {
                         width: size.width * 0.4,
                         dropdownMenuEntries: timeRanges,
                         onSelected: (value) {
-                          baseKey.currentState?.preferredTimes['tuesday'] =
+                          welcomeBaseKey.currentState?.preferredTimes['tuesday'] =
                               value;
                         },
                       )
@@ -114,7 +114,7 @@ class _PrefState extends State<Pref> {
                         width: size.width * 0.4,
                         dropdownMenuEntries: timeRanges,
                         onSelected: (value) {
-                          baseKey.currentState?.preferredTimes['wednesday'] =
+                          welcomeBaseKey.currentState?.preferredTimes['wednesday'] =
                               value;
                         },
                       )
@@ -136,7 +136,7 @@ class _PrefState extends State<Pref> {
                         width: size.width * 0.4,
                         dropdownMenuEntries: timeRanges,
                         onSelected: (value) {
-                          baseKey.currentState?.preferredTimes['thursday'] =
+                          welcomeBaseKey.currentState?.preferredTimes['thursday'] =
                               value;
                         },
                       )
@@ -158,7 +158,7 @@ class _PrefState extends State<Pref> {
                         width: size.width * 0.4,
                         dropdownMenuEntries: timeRanges,
                         onSelected: (value) {
-                          baseKey.currentState?.preferredTimes['friday'] =
+                          welcomeBaseKey.currentState?.preferredTimes['friday'] =
                               value;
                         },
                       )
@@ -180,7 +180,7 @@ class _PrefState extends State<Pref> {
                         width: size.width * 0.4,
                         dropdownMenuEntries: timeRanges,
                         onSelected: (value) {
-                          baseKey.currentState?.preferredTimes['saturday'] =
+                          welcomeBaseKey.currentState?.preferredTimes['saturday'] =
                               value;
                         },
                       )
@@ -202,7 +202,7 @@ class _PrefState extends State<Pref> {
                         width: size.width * 0.4,
                         dropdownMenuEntries: timeRanges,
                         onSelected: (value) {
-                          baseKey.currentState?.preferredTimes['sunday'] =
+                          welcomeBaseKey.currentState?.preferredTimes['sunday'] =
                               value;
                         },
                       )
@@ -225,8 +225,8 @@ class _PrefState extends State<Pref> {
                   pageBuilder: (context, animation, secondaryAnimation) =>
                       HomeBase(
                     userInfo: UserInfo(
-                        cityName: baseKey.currentState!.city.text,
-                        preferredTimes: baseKey.currentState!.preferredTimes),
+                        cityName: welcomeBaseKey.currentState!.city.text,
+                        preferredTimes: welcomeBaseKey.currentState!.preferredTimes),
                   ),
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) {

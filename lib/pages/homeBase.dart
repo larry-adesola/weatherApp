@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/pages/mainScreen.dart';
 import 'package:weather_app/pages/settingsScreen.dart';
 import 'package:weather_app/pages/suggestionScreen.dart';
+import 'package:weather_app/users.dart';
 
 class HomeBase extends StatefulWidget {
   const HomeBase({Key? key}) : super(key: key);
 
-  get userInfo => null;
+  //get userInfo => null;
 
   @override
   State<HomeBase> createState() => _HomeBaseState();
@@ -32,7 +33,7 @@ class _HomeBaseState extends State<HomeBase> {
         children: [
           MainScreen(),
           SuggScreen(),
-          SettingScreen(userInfo: widget.userInfo),
+          SettingScreen(userInfo: UserInfo.getInstance()),
         ],
       ),
       bottomNavigationBar: ClipRRect(

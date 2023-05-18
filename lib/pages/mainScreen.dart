@@ -15,7 +15,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final UserInfo _userInfo = UserInfo.getInstance();
-  Map<String, String> weatherIcons = {'Clouds': 'assets/icons/clouds.png'};
+  Map<String, String> weatherIcons = {'Clouds': 'assets/icons/clouds.png', 'Clear': 'assets/icons/clear.png'};
 
   Future<Map<String, dynamic>> getWeather() async {
     final apiKey = _userInfo.getAPIkey();
@@ -23,6 +23,7 @@ class _MainScreenState extends State<MainScreen> {
     final url = 'https://api.openweathermap.org/data/2.5/weather?q=$encodedCityName&appid=$apiKey';
     final response = await http.get(Uri.parse(url));
     final decodedResponse = jsonDecode(response.body);
+    print(decodedResponse);
     if (response.statusCode == 200) {
       return decodedResponse;
     } else {

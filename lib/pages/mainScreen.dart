@@ -14,19 +14,18 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final UserInfo _userInfo = UserInfo.getInstance();
-  Map<String, String> weatherIcons = {'Clouds': 'assets/icons/clouds.png', 'Clear': 'assets/icons/clear.png'};
+  Map<String, String> weatherIcons = {'Clouds': 'assets/icons/clouds.png'};
 
-  Future<Map<String, dynamic>> getWeather() async {
-    final apiKey = _userInfo.getAPIkey();
-    final encodedCityName = Uri.encodeComponent(_userInfo.getCity());
+  Future<Map<String, dynamic>> _getWeather() async {
+    final apiKey = UserInfo().getAPIkey();
+    final encodedCityName = Uri.encodeComponent(UserInfo().getCity());
     final url = 'https://api.openweathermap.org/data/2.5/weather?q=$encodedCityName&appid=$apiKey';
     final response = await http.get(Uri.parse(url));
     final decodedResponse = jsonDecode(response.body);
-    print(decodedResponse);
     if (response.statusCode == 200) {
       return decodedResponse;
-    } else {
+    }
+    else {
       throw Exception('Failed to fetch weather data');
     }
   }
@@ -44,14 +43,14 @@ class _MainScreenState extends State<MainScreen> {
           height: size.height * 0.1,
         ),
         Text(
-          _userInfo.getCity(),
+          UserInfo().getCity(),
           style: const TextStyle(fontSize: 35),
         ),
         SizedBox(
           height: size.height * 0.05,
         ),
         FutureBuilder(
-          future: getWeather(),
+          future: _getWeather(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Column(
@@ -60,9 +59,11 @@ class _MainScreenState extends State<MainScreen> {
                   const Text('Loading')
                 ],
               );
-            } else if (snapshot.connectionState == ConnectionState.none) {
+            }
+            else if (snapshot.connectionState == ConnectionState.none) {
               return const Text('Go To Settings and Enter City Properly');
-            } else {
+            }
+            else {
               return Column(
                 children: [
                   SizedBox(

@@ -14,7 +14,6 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
-  final UserInfo _userInfo = UserInfo.getInstance();
   final TextEditingController _cityText = TextEditingController();
   final FocusNode _cityFocus = FocusNode();
 
@@ -112,7 +111,7 @@ class _WelcomeState extends State<Welcome> {
           GestureDetector(
             onTap: () async {
               _cityFocus.unfocus();
-              bool valid = await _userInfo.setCity(_cityText.value.text);
+              bool valid = await UserInfo().setCity(_cityText.value.text);
               if (valid) {
                 widget.nextPressed();
               } else {

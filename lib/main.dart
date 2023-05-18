@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weather_app/pages/homeBase.dart';
 import 'package:weather_app/pages/welcomeBase.dart';
+import 'package:lottie/lottie.dart';
 
 import 'users.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
           )
       ),
       debugShowCheckedModeBanner: false,
-      home: const WelcomeBase(),
+      home: const LoadingPage(),
     );
   }
 }
@@ -36,31 +37,29 @@ class LoadingPage extends StatefulWidget {
 }
 
 class _LoadingPageState extends State<LoadingPage> {
-  final UserInfo _userInfo = UserInfo.getInstance();
-
-  @override
-  void initState() {
-    super.initState();
-    _loadUserInfo();
-  }
-
-  //Loading counter value on start
-  Future<void> _loadUserInfo() async {
-    final prefs = await SharedPreferences.getInstance();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Loading...',
-            ),
-          ],
-        ),
+        child: FutureBuilder(
+          future: UserInfo().loadData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Column(
+                children: [
+                  Lottie.asset('assets/anims/loading.json'),
+                  const Text('Loading')
+                ],
+              );
+            }
+            else if (snapshot.connectionState == ConnectionState.none) {
+              return const Text('Loading Error');
+            }
+            else {
+              return UserInfo().hasOnboard() ? const HomeBase() : const WelcomeBase();
+            }
+          },
+        )
       ),
     );
   }

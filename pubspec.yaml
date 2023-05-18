@@ -34,6 +34,7 @@ dependencies:
   converter:
   http: ^0.13.5
   motion_toast: ^2.6.5
+  intl:
   flutter:
     sdk: flutter
 

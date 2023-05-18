@@ -13,13 +13,13 @@ class _SettingScreenState extends State<SettingScreen> {
   final TextEditingController _settingsCity = TextEditingController(text: UserInfo().getCity());
   final FocusNode _settingsFocus = FocusNode();
   final _preferredTimes = {
-    'monday': '',
-    'tuesday': '',
-    'wednesday': '',
-    'thursday': '',
-    'friday': '',
-    'saturday': '',
-    'sunday': ''
+    'Monday': '',
+    'Tuesday': '',
+    'Wednesday': '',
+    'Thursday': '',
+    'Friday': '',
+    'Saturday': '',
+    'Sunday': ''
   };
   final List<DropdownMenuEntry> _timeRanges = [
     const DropdownMenuEntry(value: '', label: 'No Preferred Time'),
@@ -166,8 +166,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     DropdownMenu(
                       width: size.width * 0.65,
                       dropdownMenuEntries: _timeRanges,
+                      initialSelection: UserInfo().getPreferredTimes()['Monday'],
                       onSelected: (value) {
-                        UserInfo().setPreferredTimes('monday', value);
+                        UserInfo().setPreferredTimes('Monday', value);
                       },
                     )
                   ],
@@ -183,9 +184,10 @@ class _SettingScreenState extends State<SettingScreen> {
                     ),
                     DropdownMenu(
                       width: size.width * 0.65,
+                      initialSelection: UserInfo().getPreferredTimes()['Tuesday'],
                       dropdownMenuEntries: _timeRanges,
                       onSelected: (value) {
-                        UserInfo().setPreferredTimes('tuesday', value);
+                        UserInfo().setPreferredTimes('Tuesday', value);
                       },
                     )
                   ],
@@ -202,8 +204,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     DropdownMenu(
                       width: size.width * 0.65,
                       dropdownMenuEntries: _timeRanges,
+                      initialSelection: UserInfo().getPreferredTimes()['Wednesday'],
                       onSelected: (value) {
-                        UserInfo().setPreferredTimes('wednesday', value);
+                        UserInfo().setPreferredTimes('Wednesday', value);
                       },
                     )
                   ],
@@ -220,8 +223,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     DropdownMenu(
                       width: size.width * 0.65,
                       dropdownMenuEntries: _timeRanges,
+                      initialSelection: UserInfo().getPreferredTimes()['Thursday'],
                       onSelected: (value) {
-                        UserInfo().setPreferredTimes('thursday', value);
+                        UserInfo().setPreferredTimes('Thursday', value);
                       },
                     )
                   ],
@@ -238,8 +242,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     DropdownMenu(
                       width: size.width * 0.65,
                       dropdownMenuEntries: _timeRanges,
+                      initialSelection: UserInfo().getPreferredTimes()['Friday'],
                       onSelected: (value) {
-                        UserInfo().setPreferredTimes('friday', value);
+                        UserInfo().setPreferredTimes('Friday', value);
                       },
                     )
                   ],
@@ -256,8 +261,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     DropdownMenu(
                       width: size.width * 0.65,
                       dropdownMenuEntries: _timeRanges,
+                      initialSelection: UserInfo().getPreferredTimes()['Saturday'],
                       onSelected: (value) {
-                        UserInfo().setPreferredTimes('saturday', value);
+                        UserInfo().setPreferredTimes('Saturday', value);
                       },
                     )
                   ],
@@ -274,8 +280,9 @@ class _SettingScreenState extends State<SettingScreen> {
                     DropdownMenu(
                       width: size.width * 0.65,
                       dropdownMenuEntries: _timeRanges,
+                      initialSelection: UserInfo().getPreferredTimes()['Sunday'],
                       onSelected: (value) {
-                        UserInfo().setPreferredTimes('sunday', value);
+                        UserInfo().setPreferredTimes('Sunday', value);
                       },
                     )
                   ],

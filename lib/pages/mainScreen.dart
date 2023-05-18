@@ -38,10 +38,8 @@ class _MainScreenState extends State<MainScreen> {
     final encodedCityName = Uri.encodeComponent(UserInfo().getCity());
     final url =
         'https://api.openweathermap.org/data/2.5/forecast?q=$encodedCityName&appid=$apiKey';
-    print(url);
     final response = await http.get(Uri.parse(url));
     final decodedResponse = jsonDecode(response.body);
-    print(decodedResponse);
     if (response.statusCode == 200) {
       final forecastList = decodedResponse['list'];
 
@@ -64,7 +62,6 @@ class _MainScreenState extends State<MainScreen> {
         final bDiff = bTime.difference(targetDateTime).inSeconds.abs();
         return aDiff < bDiff ? a : b;
       });
-      print(closestForecast);
       // Extract the desired weather information from the closest forecast
       return closestForecast;
 
@@ -126,7 +123,7 @@ class _MainScreenState extends State<MainScreen> {
                             SizedBox(
                                 width: size.width * 0.4,
                                 child: Image.asset(WeatherData().weatherIcons[
-                                    snapshot.data?['weather'][0]['main']]!)),
+                                    snapshot.data?['weather'][0]['description']]!)),
                             SizedBox(
                               height: size.height * 0.01,
                             ),
@@ -190,7 +187,7 @@ class _MainScreenState extends State<MainScreen> {
                     ],
                   );
                 } else if (snapshot.hasError) {
-                  return const Text('Go To Settings and Enter City Properly');
+                  return const Text('No Preferred Time Chosen', style: TextStyle(fontSize: 10),);
                 }
                 String time = UserInfo().getPreferredTimes()[DateFormat('EEEE').format(DateTime.now())]!.substring(0, 5);
                 String hourPlusOne = '${int.parse(time.substring(0,2)) + 1}:00';
@@ -218,7 +215,7 @@ class _MainScreenState extends State<MainScreen> {
                               SizedBox(
                                   width: size.width * 0.2,
                                   child: Image.asset(WeatherData().weatherIcons[
-                                  snapshot.data?['weather'][0]['main']]!)),
+                                  snapshot.data?['weather'][0]['description']]!)),
                               SizedBox(
                                 height: size.height * 0.005,
                               ),

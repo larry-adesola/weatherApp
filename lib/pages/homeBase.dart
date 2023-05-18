@@ -6,6 +6,8 @@ import 'package:weather_app/pages/suggestionScreen.dart';
 class HomeBase extends StatefulWidget {
   const HomeBase({Key? key}) : super(key: key);
 
+  get userInfo => null;
+
   @override
   State<HomeBase> createState() => _HomeBaseState();
 }
@@ -27,10 +29,10 @@ class _HomeBaseState extends State<HomeBase> {
             _selectedIndex = index;
           });
         },
-        children: const [
+        children: [
           MainScreen(),
           SuggScreen(),
-          SettingScreen(),
+          SettingScreen(userInfo: widget.userInfo),
         ],
       ),
       bottomNavigationBar: ClipRRect(

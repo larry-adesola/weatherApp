@@ -53,30 +53,33 @@ class _WelcomeState extends State<Welcome> {
           ),
           Lottie.asset('assets/anims/weather.json'),
           Padding(
-            padding: EdgeInsets.only(left: size.width * 0.05),
+            padding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.05),
             child: Column(
               children: [
                 const Align(
-                    alignment: Alignment.topLeft,
+                    alignment: Alignment.topCenter,
                     child: Text(
                       'Welcome',
-                      style: TextStyle(fontSize: 35),
+                      style: TextStyle(fontSize: 36),
                     )),
+                const SizedBox(
+                  height: 18,
+                ),
                 const Align(
-                    alignment: Alignment.topLeft,
+                    alignment: Alignment.topCenter,
                     child: Text(
                       "Let's Get Running",
-                      style: TextStyle(fontSize: 35),
+                      style: TextStyle(fontSize: 32, fontStyle: FontStyle.italic),
                     )),
                 SizedBox(
                   height: size.height * 0.1,
                 ),
                 const Align(
-                  alignment: Alignment.topLeft,
+                  alignment: Alignment.topCenter,
                   child: Align(
-                    alignment: Alignment.centerLeft,
+                    alignment: Alignment.center,
                     child: Text(
-                      "What City Are You From?",
+                      "What city are you from?",
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
@@ -85,7 +88,7 @@ class _WelcomeState extends State<Welcome> {
                   height: size.height * 0.01,
                 ),
                 Align(
-                  alignment: Alignment.topLeft,
+                  alignment: Alignment.topCenter,
                   child: Container(
                     width: size.width * 0.8,
                     height: size.height * 0.08,
@@ -96,14 +99,14 @@ class _WelcomeState extends State<Welcome> {
                       alignment: Alignment.centerLeft,
                       child: Padding(
                         padding: EdgeInsets.only(
-                            left: size.width * 0.01, right: size.width * 0.01),
+                            left: size.width * 0.05, right: size.width * 0.05),
                         child: TextFormField(
                           scrollPadding: EdgeInsets.only(bottom: size.height*0.4),
                           controller: welcomeBaseKey.currentState?.city,
                           autocorrect: false,
                           focusNode: welcomeBaseKey.currentState?.cityFocus,
                           decoration: InputDecoration(
-                              hintText: 'Put the country after commas...',
+                              hintText: 'Put the country after a comma...',
                               hintStyle: TextStyle(color: Colors.grey.shade700),
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none),

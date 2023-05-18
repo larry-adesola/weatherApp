@@ -43,12 +43,13 @@ class _PrefState extends State<Pref> {
           child: Column(
             children: [
               const Align(
-                alignment: Alignment.topLeft,
+                alignment: Alignment.topCenter,
                 child: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
                   child: Text(
-                    "When Do You Usually Run Each Day?",
-                    style: TextStyle(fontSize: 27),
+                    "When do you like to run each day?",
+                    style: TextStyle(fontSize: 28),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -59,15 +60,12 @@ class _PrefState extends State<Pref> {
                 children: [
                   Row(
                     children: [
-                      const Text(
-                        "Mon",
-                        style: TextStyle(fontSize: 18),
-                      ),
                       SizedBox(
-                        width: size.width * 0.05,
+                        width: size.width * 0.2,
+                        child: Text(" Mon", style: TextStyle(fontSize: 18),),
                       ),
                       DropdownMenu(
-                        width: size.width * 0.4,
+                        width: size.width * 0.65,
                         dropdownMenuEntries: timeRanges,
                         onSelected: (value) {
                           welcomeBaseKey.currentState?.preferredTimes['monday'] =
@@ -81,15 +79,12 @@ class _PrefState extends State<Pref> {
                   ),
                   Row(
                     children: [
-                      const Text(
-                        "Tue",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      SizedBox(
-                        width: size.width * 0.065,
-                      ),
-                      DropdownMenu(
-                        width: size.width * 0.4,
+                    SizedBox(
+                      width: size.width * 0.2,
+                      child: Text(" Tue", style: TextStyle(fontSize: 18),),
+                    ),
+                    DropdownMenu(
+                      width: size.width * 0.65,
                         dropdownMenuEntries: timeRanges,
                         onSelected: (value) {
                           welcomeBaseKey.currentState?.preferredTimes['tuesday'] =
@@ -103,15 +98,12 @@ class _PrefState extends State<Pref> {
                   ),
                   Row(
                     children: [
-                      const Text(
-                        "Wed",
-                        style: TextStyle(fontSize: 18),
-                      ),
                       SizedBox(
-                        width: size.width * 0.045,
+                        width: size.width * 0.2,
+                        child: Text(" Wed", style: TextStyle(fontSize: 18),),
                       ),
                       DropdownMenu(
-                        width: size.width * 0.4,
+                        width: size.width * 0.65,
                         dropdownMenuEntries: timeRanges,
                         onSelected: (value) {
                           welcomeBaseKey.currentState?.preferredTimes['wednesday'] =
@@ -125,15 +117,12 @@ class _PrefState extends State<Pref> {
                   ),
                   Row(
                     children: [
-                      const Text(
-                        "Thur",
-                        style: TextStyle(fontSize: 18),
-                      ),
                       SizedBox(
-                        width: size.width * 0.04,
+                        width: size.width * 0.2,
+                        child: Text(" Thu", style: TextStyle(fontSize: 18),),
                       ),
                       DropdownMenu(
-                        width: size.width * 0.4,
+                        width: size.width * 0.65,
                         dropdownMenuEntries: timeRanges,
                         onSelected: (value) {
                           welcomeBaseKey.currentState?.preferredTimes['thursday'] =
@@ -147,15 +136,12 @@ class _PrefState extends State<Pref> {
                   ),
                   Row(
                     children: [
-                      const Text(
-                        "Fri",
-                        style: TextStyle(fontSize: 18),
-                      ),
                       SizedBox(
-                        width: size.width * 0.085,
+                        width: size.width * 0.2,
+                        child: Text(" Fri", style: TextStyle(fontSize: 18),),
                       ),
                       DropdownMenu(
-                        width: size.width * 0.4,
+                        width: size.width * 0.65,
                         dropdownMenuEntries: timeRanges,
                         onSelected: (value) {
                           welcomeBaseKey.currentState?.preferredTimes['friday'] =
@@ -169,15 +155,12 @@ class _PrefState extends State<Pref> {
                   ),
                   Row(
                     children: [
-                      const Text(
-                        "Sat",
-                        style: TextStyle(fontSize: 18),
-                      ),
                       SizedBox(
-                        width: size.width * 0.065,
+                        width: size.width * 0.2,
+                        child: Text(" Sat", style: TextStyle(fontSize: 18),),
                       ),
                       DropdownMenu(
-                        width: size.width * 0.4,
+                        width: size.width * 0.65,
                         dropdownMenuEntries: timeRanges,
                         onSelected: (value) {
                           welcomeBaseKey.currentState?.preferredTimes['saturday'] =
@@ -191,15 +174,12 @@ class _PrefState extends State<Pref> {
                   ),
                   Row(
                     children: [
-                      const Text(
-                        "Sun",
-                        style: TextStyle(fontSize: 18),
-                      ),
                       SizedBox(
-                        width: size.width * 0.055,
+                        width: size.width * 0.2,
+                        child: Text(" Sun", style: TextStyle(fontSize: 18),),
                       ),
                       DropdownMenu(
-                        width: size.width * 0.4,
+                        width: size.width * 0.65,
                         dropdownMenuEntries: timeRanges,
                         onSelected: (value) {
                           welcomeBaseKey.currentState?.preferredTimes['sunday'] =

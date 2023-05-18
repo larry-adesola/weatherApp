@@ -39,29 +39,32 @@ class _HomeBaseState extends State<HomeBase> {
           SettingScreen(),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.directions_run),
-            label: 'Suggestions',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        backgroundColor: Colors.blue[600],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: (index) {
-          _pageController.animateToPage(index,
-              duration: const Duration(milliseconds: 500),
-              curve: Curves.fastOutSlowIn);
-        },
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0), ),
+        child: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.directions_run),
+              label: 'Suggestions',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+            ),
+          ],
+          backgroundColor: Colors.white,
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.blue,
+          onTap: (index) {
+            _pageController.animateToPage(index,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.fastOutSlowIn);
+          },
+        ),
       ),
     );
   }

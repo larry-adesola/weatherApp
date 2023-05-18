@@ -34,6 +34,10 @@ class _MainScreenState extends State<MainScreen> {
       throw Exception('Failed to fetch weather data');
     }
   }
+  String _twoDigits(int n) {
+    if (n >= 10) return '$n';
+    return '0$n';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,27 +69,35 @@ class _MainScreenState extends State<MainScreen> {
             } else {
               return Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
+                  Container(
+                    //color: Colors.white,
+                    height: size.height*0.2,
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Container(
-                              width: size.width * 0.4,
-                              child: Image.asset(
-                                  weatherIcons[snapshot.data?['weather'][0]['main']]!)),
-                          SizedBox(height: size.height*0.01,),
-                          Text(snapshot.data?['weather'][0]['description']!)
+                          Column(
+                            children: [
+                              Container(
+                                  width: size.width * 0.4,
+                                  child: Image.asset(
+                                      weatherIcons[snapshot.data?['weather'][0]['main']]!)),
+                              SizedBox(height: size.height*0.01,),
+                              Text(snapshot.data?['weather'][0]['description']!)
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              Text('Current', style: TextStyle(fontSize: 30),),
+                              SizedBox(height: size.height*0.01,),
+                              Text('${Temperature(snapshot.data!['main']['temp'], 'K').valueIn('C').round()} °C', style: TextStyle(fontSize: 28),),
+                              SizedBox(height: size.height*0.01,),
+                              Text('${DateTime.now().hour}:${_twoDigits(DateTime.now().minute)}')
+                            ],
+                          )
                         ],
                       ),
-                      Column(
-                        children: [
-                          Text('Current', style: TextStyle(fontSize: 25),),
-                          SizedBox(height: size.height*0.01,),
-                          Text('${Temperature(snapshot.data!['main']['temp'], 'K').valueIn('C').round()} °C', style: TextStyle(fontSize: 25),)
-                        ],
-                      )
-                    ],
+                    ),
                   )
                 ],
               );

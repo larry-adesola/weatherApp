@@ -19,8 +19,7 @@ class _MainScreenState extends State<MainScreen> {
   Future<Map<String, dynamic>> _getWeather() async {
     final apiKey = UserInfo().getAPIkey();
     final encodedCityName = Uri.encodeComponent(UserInfo().getCity());
-    final url =
-        'https://api.openweathermap.org/data/2.5/weather?q=$encodedCityName&appid=$apiKey';
+    final url = 'https://api.openweathermap.org/data/2.5/weather?q=$encodedCityName&appid=$apiKey';
     final response = await http.get(Uri.parse(url));
     final decodedResponse = jsonDecode(response.body);
     if (response.statusCode == 200) {
@@ -36,8 +35,7 @@ class _MainScreenState extends State<MainScreen> {
     }
     final apiKey = UserInfo().getAPIkey();
     final encodedCityName = Uri.encodeComponent(UserInfo().getCity());
-    final url =
-        'https://api.openweathermap.org/data/2.5/forecast?q=$encodedCityName&appid=$apiKey';
+    final url = 'https://api.openweathermap.org/data/2.5/forecast?q=$encodedCityName&appid=$apiKey';
     final response = await http.get(Uri.parse(url));
     final decodedResponse = jsonDecode(response.body);
     if (response.statusCode == 200) {
@@ -63,10 +61,7 @@ class _MainScreenState extends State<MainScreen> {
         return aDiff < bDiff ? a : b;
       });
       // Extract the desired weather information from the closest forecast
-      print(closestForecast);
       return closestForecast;
-
-      // Print the weather information for the closest forecast
     } else {
       throw Exception('Failed to fetch weather data');
     }
@@ -124,7 +119,9 @@ class _MainScreenState extends State<MainScreen> {
                             SizedBox(
                                 width: size.width * 0.4,
                                 child: Image.asset(WeatherData().weatherIcons[
-                                    snapshot.data?['weather'][0]['description']]!)),
+                                    snapshot.data?['weather'][0]['description']]!
+                                )
+                            ),
                             SizedBox(
                               height: size.height * 0.01,
                             ),
@@ -178,7 +175,7 @@ class _MainScreenState extends State<MainScreen> {
             height: size.height * 0.02,
           ),
           FutureBuilder(
-              future: _getForecast(UserInfo().getPreferredTimes()[DateFormat('EEEE').format(DateTime.now())]!),
+              future: _getForecast(UserInfo().getPreferredTimes()[DateFormat('E').format(DateTime.now())]!),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Column(
@@ -190,7 +187,7 @@ class _MainScreenState extends State<MainScreen> {
                 } else if (snapshot.hasError) {
                   return const Text('No Preferred Time Chosen', style: TextStyle(fontSize: 10),);
                 }
-                String time = UserInfo().getPreferredTimes()[DateFormat('EEEE').format(DateTime.now())]!.substring(0, 5);
+                String time = UserInfo().getPreferredTimes()[DateFormat('E').format(DateTime.now())]!.substring(0, 5);
                 String hourPlusOne = '${int.parse(time.substring(0,2)) + 1}:00';
                 return Container(
                     width: size.width * 0.9,
@@ -203,7 +200,7 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                       Text(
                         '$time - $hourPlusOne',
-                        style: TextStyle(fontSize: 20),
+                        style: const TextStyle(fontSize: 20),
                       ),
                       SizedBox(
                         height: size.height * 0.025,
@@ -252,7 +249,7 @@ class _MainScreenState extends State<MainScreen> {
                             children: [
                               Row(
                                 children: [
-                                  Icon(Icons.air),
+                                  const Icon(Icons.air),
                                   SizedBox(width: size.width*0.02,),
                                   Text("${snapshot.data!['wind']['speed']} Knots")
                                 ],
@@ -263,7 +260,7 @@ class _MainScreenState extends State<MainScreen> {
                             children: [
                               Row(
                                 children: [
-                                  Icon(Icons.remove_red_eye),
+                                  const Icon(Icons.remove_red_eye),
                                   SizedBox(width: size.width*0.02,),
                                   Text("${snapshot.data!['visibility']} m")
                                 ],

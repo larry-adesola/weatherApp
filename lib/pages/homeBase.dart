@@ -29,7 +29,7 @@ class _HomeBaseState extends State<HomeBase> {
             _selectedIndex = index;
           });
         },
-        children: [
+        children: const [
           MainScreen(),
           SuggScreen(),
           SettingScreen(),

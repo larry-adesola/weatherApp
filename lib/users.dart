@@ -11,13 +11,13 @@ class UserInfo{
   String? _cityName;
   int _clothingScore  = 0;
   final Map<String, String> _preferredTimes = {
-    'Monday': '',
-    'Tuesday': '',
-    'Wednesday': '',
-    'Thursday': '',
-    'Friday': '',
-    'Saturday': '',
-    'Sunday': ''
+    'Mon': '',
+    'Tue': '',
+    'Wed': '',
+    'Thu': '',
+    'Fri': '',
+    'Sat': '',
+    'Sun': ''
   };
 
   factory UserInfo() {

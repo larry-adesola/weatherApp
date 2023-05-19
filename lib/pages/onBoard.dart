@@ -10,6 +10,7 @@ class Pref extends StatefulWidget {
 }
 
 class _PrefState extends State<Pref> {
+  final Map<String, String> _preferredTimes = UserInfo().getPreferredTimes();
   final List<DropdownMenuEntry> _timeRanges = [
     const DropdownMenuEntry(value: '', label: 'No Preferred Time'),
     const DropdownMenuEntry(value: '06:00:00', label: '6am - 7am'),
@@ -57,130 +58,26 @@ class _PrefState extends State<Pref> {
                 height: size.height * 0.03,
               ),
               Column(
-                children: [
+                children: [ for (String key in _preferredTimes.keys)
                   Row(
                     children: [
                       SizedBox(
                         width: size.width * 0.2,
-                        child: const Text(" Mon", style: TextStyle(fontSize: 18),),
+                        child: Text(key, style: const TextStyle(fontSize: 18)),
                       ),
                       DropdownMenu(
+                        initialSelection: '',
                         width: size.width * 0.65,
                         dropdownMenuEntries: _timeRanges,
                         onSelected: (value) {
-                          UserInfo().setPreferredTimes('Monday', value);
+                          _preferredTimes[key] = value;
                         },
                       )
                     ],
                   ),
                   SizedBox(
                     height: size.height * 0.01,
-                  ),
-                  Row(
-                    children: [
-                    SizedBox(
-                      width: size.width * 0.2,
-                      child: const Text(" Tue", style: TextStyle(fontSize: 18),),
-                    ),
-                    DropdownMenu(
-                      width: size.width * 0.65,
-                        dropdownMenuEntries: _timeRanges,
-                        onSelected: (value) {
-                          UserInfo().setPreferredTimes('Tuesday', value);
-                        },
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height * 0.01,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: size.width * 0.2,
-                        child: const Text(" Wed", style: TextStyle(fontSize: 18),),
-                      ),
-                      DropdownMenu(
-                        width: size.width * 0.65,
-                        dropdownMenuEntries: _timeRanges,
-                        onSelected: (value) {
-                          UserInfo().setPreferredTimes('Wednesday', value);
-                        },
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height * 0.01,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: size.width * 0.2,
-                        child: const Text(" Thu", style: TextStyle(fontSize: 18),),
-                      ),
-                      DropdownMenu(
-                        width: size.width * 0.65,
-                        dropdownMenuEntries: _timeRanges,
-                        onSelected: (value) {
-                          UserInfo().setPreferredTimes('Thursday', value);
-                        },
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height * 0.01,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: size.width * 0.2,
-                        child: const Text(" Fri", style: TextStyle(fontSize: 18),),
-                      ),
-                      DropdownMenu(
-                        width: size.width * 0.65,
-                        dropdownMenuEntries: _timeRanges,
-                        onSelected: (value) {
-                          UserInfo().setPreferredTimes('Friday', value);
-                        },
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height * 0.01,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: size.width * 0.2,
-                        child: const Text(" Sat", style: TextStyle(fontSize: 18),),
-                      ),
-                      DropdownMenu(
-                        width: size.width * 0.65,
-                        dropdownMenuEntries: _timeRanges,
-                        onSelected: (value) {
-                          UserInfo().setPreferredTimes('Saturday', value);
-                        },
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: size.height * 0.01,
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: size.width * 0.2,
-                        child: const Text(" Sun", style: TextStyle(fontSize: 18),),
-                      ),
-                      DropdownMenu(
-                        width: size.width * 0.65,
-                        dropdownMenuEntries: _timeRanges,
-                        onSelected: (value) {
-                          UserInfo().setPreferredTimes('Sunday', value);
-                        },
-                      )
-                    ],
-                  ),
+                  )
                 ],
               ),
             ],
@@ -191,6 +88,9 @@ class _PrefState extends State<Pref> {
         ),
         GestureDetector(
           onTap: () {
+            for (String key in _preferredTimes.keys) {
+              UserInfo().setPreferredTimes(key, _preferredTimes[key]!);
+            }
             widget.nextPressed();
           },
           child: Container(

@@ -11,18 +11,10 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  double _currentSliderValue = 0;
+  int _clothingScore = UserInfo().getClothingScore();
   final TextEditingController _settingsCity = TextEditingController(text: UserInfo().getCity());
   final FocusNode _settingsFocus = FocusNode();
-  final _preferredTimes = {
-    'Monday': '',
-    'Tuesday': '',
-    'Wednesday': '',
-    'Thursday': '',
-    'Friday': '',
-    'Saturday': '',
-    'Sunday': ''
-  };
+  final Map<String, String> _preferredTimes = Map.from(UserInfo().getPreferredTimes());
   final List<DropdownMenuEntry> _timeRanges = [
     const DropdownMenuEntry(value: '', label: 'No Preferred Time'),
     const DropdownMenuEntry(value: '06:00:00', label: '6am - 7am'),
@@ -42,7 +34,8 @@ class _SettingScreenState extends State<SettingScreen> {
     const DropdownMenuEntry(value: '20:00:00', label: '8pm - 9pm'),
     const DropdownMenuEntry(value: '21:00:00', label: '9pm- 10pm'),
   ];
-  void notifSave(String title, String description) {
+
+  void _displayNotification(String title, String description) {
     MotionToast.info(
       title: Text(
         title,
@@ -83,7 +76,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 left: size.width * 0.05, right: size.width * 0.05),
             child: Tooltip(
               message:
-                  "Adjust the clothing adjustments by the selected temperature." +
+                  "Adjust the clothing adjustments by the selected temperature."
                       "\ne.g. -3 will give recommendations as if it were 3 °C colder.",
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10), color: Colors.white),
@@ -92,7 +85,7 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
           ),
           Text(
-            "${_currentSliderValue.round()} °C",
+            "$_clothingScore °C",
             style: const TextStyle(fontSize: 18.0),
           ),
           SizedBox(
@@ -102,17 +95,16 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
           ),
           Slider(
-            value: _currentSliderValue,
+            value: _clothingScore.toDouble(),
             min: -5,
             max: 5,
             divisions: 10,
             inactiveColor: Colors.blueGrey,
             activeColor: Colors.yellow,
-            label: _currentSliderValue.round().toString(),
+            label: _clothingScore.toString(),
             onChanged: (double value) {
               setState(() {
-                _currentSliderValue = value;
-                UserInfo().setClothingScore(_currentSliderValue.round());
+                _clothingScore = value.round();
               });
             },
           ),
@@ -172,176 +164,47 @@ class _SettingScreenState extends State<SettingScreen> {
           Padding(
             padding: EdgeInsets.only(left: size.width * 0.05),
             child: Column(
-              children: [
+              children: [ for (String day in _preferredTimes.keys)
                 Row(
                   children: [
                     SizedBox(
                       width: size.width * 0.2,
-                      child: const Text(" Mon", style: TextStyle(fontSize: 18),),
+                      child: Text(day, style: const TextStyle(fontSize: 18),),
                     ),
                     DropdownMenu(
                       width: size.width * 0.65,
                       dropdownMenuEntries: _timeRanges,
-                      initialSelection: UserInfo().getPreferredTimes()['Monday'],
+                      initialSelection: _preferredTimes[day],
                       onSelected: (value) {
-                        UserInfo().setPreferredTimes('Monday', value);
+                        _preferredTimes[day] = value;
+                        print(_preferredTimes);
+                        print(UserInfo().getPreferredTimes());
                       },
                     )
                   ],
                 ),
                 SizedBox(
                   height: size.height * 0.01,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: size.width * 0.2,
-                      child: const Text(" Tue", style: TextStyle(fontSize: 18),),
-                    ),
-                    DropdownMenu(
-                      width: size.width * 0.65,
-                      initialSelection: UserInfo().getPreferredTimes()['Tuesday'],
-                      dropdownMenuEntries: _timeRanges,
-                      onSelected: (value) {
-                        UserInfo().setPreferredTimes('Tuesday', value);
-                      },
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: size.width * 0.2,
-                      child: const Text(" Wed", style: TextStyle(fontSize: 18),),
-                    ),
-                    DropdownMenu(
-                      width: size.width * 0.65,
-                      dropdownMenuEntries: _timeRanges,
-                      initialSelection: UserInfo().getPreferredTimes()['Wednesday'],
-                      onSelected: (value) {
-                        UserInfo().setPreferredTimes('Wednesday', value);
-                      },
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: size.width * 0.2,
-                      child: const Text(" Thu", style: TextStyle(fontSize: 18),),
-                    ),
-                    DropdownMenu(
-                      width: size.width * 0.65,
-                      dropdownMenuEntries: _timeRanges,
-                      initialSelection: UserInfo().getPreferredTimes()['Thursday'],
-                      onSelected: (value) {
-                        UserInfo().setPreferredTimes('Thursday', value);
-                      },
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: size.width * 0.2,
-                      child: const Text(" Fri", style: TextStyle(fontSize: 18),),
-                    ),
-                    DropdownMenu(
-                      width: size.width * 0.65,
-                      dropdownMenuEntries: _timeRanges,
-                      initialSelection: UserInfo().getPreferredTimes()['Friday'],
-                      onSelected: (value) {
-                        UserInfo().setPreferredTimes('Friday', value);
-                      },
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: size.width * 0.2,
-                      child: const Text(" Sat", style: TextStyle(fontSize: 18),),
-                    ),
-                    DropdownMenu(
-                      width: size.width * 0.65,
-                      dropdownMenuEntries: _timeRanges,
-                      initialSelection: UserInfo().getPreferredTimes()['Saturday'],
-                      onSelected: (value) {
-                        UserInfo().setPreferredTimes('Saturday', value);
-                      },
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: size.width * 0.2,
-                      child: const Text(" Sun", style: TextStyle(fontSize: 18),),
-                    ),
-                    DropdownMenu(
-                      width: size.width * 0.65,
-                      dropdownMenuEntries: _timeRanges,
-                      initialSelection: UserInfo().getPreferredTimes()['Sunday'],
-                      onSelected: (value) {
-                        UserInfo().setPreferredTimes('Sunday', value);
-                      },
-                    )
-                  ],
-                ),
-              ],
+                )
+              ]
             ),
           ),
           SizedBox(
             height: size.height * 0.04,
           ),
           GestureDetector(
-            onTap: () {
-              UserInfo().setCity(_settingsCity.text);
-              notifSave("Saved", "Your changes have been saved");
-              /*if (_preferredTimes['monday'] != '') {
-                UserInfo()
-                    .setPreferredTimes('monday', (_preferredTimes['monday'])!);
+            onTap: () async {
+              _settingsFocus.unfocus();
+              bool valid = await UserInfo().setCity(_settingsCity.value.text);
+              if (valid) {
+                UserInfo().setClothingScore(_clothingScore);
+                for (String key in _preferredTimes.keys) {
+                  UserInfo().setPreferredTimes(key, _preferredTimes[key]!);
+                }
+                _displayNotification("Saved", "Your changes have been saved");
+              } else {
+                _displayNotification('Invalid City', 'Enter a valid city');
               }
-              if (_preferredTimes['tuesday'] != '') {
-                UserInfo().setPreferredTimes(
-                    'tuesday', (_preferredTimes['tuesday'])!);
-              }
-              if (_preferredTimes['wednesday'] != '') {
-                UserInfo().setPreferredTimes(
-                    'wednesday', (_preferredTimes['wednesday'])!);
-              }
-              if (_preferredTimes['thursday'] != '') {
-                UserInfo().setPreferredTimes(
-                    'thursday', (_preferredTimes['thursday'])!);
-              }
-              if (_preferredTimes['friday'] != '') {
-                UserInfo()
-                    .setPreferredTimes('friday', (_preferredTimes['friday'])!);
-              }
-              if (_preferredTimes['saturday'] != '') {
-                UserInfo().setPreferredTimes(
-                    'saturday', (_preferredTimes['saturday'])!);
-              }
-              if (_preferredTimes['sunday'] != '') {
-                UserInfo()
-                    .setPreferredTimes('sunday', (_preferredTimes['sunday'])!);
-              }*/
-              //dont think all that is necessary as there is a setPreferred for each dropmenu already
             },
             child: Container(
               width: size.width * 0.4,

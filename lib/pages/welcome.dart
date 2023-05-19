@@ -17,7 +17,7 @@ class _WelcomeState extends State<Welcome> {
   final TextEditingController _cityText = TextEditingController();
   final FocusNode _cityFocus = FocusNode();
 
-  void _displayDeleteMotionToast(String title, String description) {
+  void _displayNotification(String title, String description) {
     MotionToast.info(
       title: Text(
         title,
@@ -119,7 +119,7 @@ class _WelcomeState extends State<Welcome> {
               if (valid) {
                 widget.nextPressed();
               } else {
-                _displayDeleteMotionToast('Invalid City', 'Enter a valid city');
+                _displayNotification('Invalid City', 'Enter a valid city');
               }
             },
             child: Container(

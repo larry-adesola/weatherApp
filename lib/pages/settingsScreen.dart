@@ -14,7 +14,7 @@ class _SettingScreenState extends State<SettingScreen> {
   int _clothingScore = UserInfo().getClothingScore();
   final TextEditingController _settingsCity = TextEditingController(text: UserInfo().getCity());
   final FocusNode _settingsFocus = FocusNode();
-  final Map<String, String> _preferredTimes = Map.from(UserInfo().getPreferredTimes());
+  final Map<String, String> _preferredTimes = UserInfo().getPreferredTimes();
   final List<DropdownMenuEntry> _timeRanges = [
     const DropdownMenuEntry(value: '', label: 'No Preferred Time'),
     const DropdownMenuEntry(value: '06:00:00', label: '6am - 7am'),

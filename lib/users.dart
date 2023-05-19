@@ -83,7 +83,7 @@ class UserInfo{
   }
 
   Map<String, String> getPreferredTimes() {
-    return _preferredTimes;
+    return Map.from(_preferredTimes);
   }
 
   bool hasOnboard() {

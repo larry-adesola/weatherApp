@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/pages/homeBase.dart';
 import 'package:weather_app/pages/welcomeBase.dart';
+import 'package:lottie/lottie.dart';
+
+import 'users.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +24,43 @@ class MyApp extends StatelessWidget {
           )
       ),
       debugShowCheckedModeBanner: false,
-      home: WelcomeBase(key: welcomeBaseKey,),
+      home: const LoadingPage(),
+    );
+  }
+}
+
+class LoadingPage extends StatefulWidget {
+  const LoadingPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoadingPage> createState() => _LoadingPageState();
+}
+
+class _LoadingPageState extends State<LoadingPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: FutureBuilder(
+          future: UserInfo().loadData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Column(
+                children: [
+                  Lottie.asset('assets/anims/loading.json'),
+                  const Text('Loading')
+                ],
+              );
+            }
+            else if (snapshot.connectionState == ConnectionState.none) {
+              return const Text('Loading Error');
+            }
+            else {
+              return UserInfo().hasOnboard() ? const HomeBase() : const WelcomeBase();
+            }
+          },
+        )
+      ),
     );
   }
 }

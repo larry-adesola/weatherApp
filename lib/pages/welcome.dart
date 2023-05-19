@@ -1,21 +1,23 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:motion_toast/motion_toast.dart';
 import 'package:motion_toast/resources/arrays.dart';
-import 'package:weather_app/pages/welcomeBase.dart';
-import 'package:http/http.dart' as http;
+
+import '../users.dart';
 
 class Welcome extends StatefulWidget {
-  const Welcome({Key? key}) : super(key: key);
+  final VoidCallback nextPressed;
+  const Welcome({Key? key, required this.nextPressed}) : super(key: key);
 
   @override
   State<Welcome> createState() => _WelcomeState();
 }
 
 class _WelcomeState extends State<Welcome> {
-  void _displayDeleteMotionToast(String title, String description) {
+  final TextEditingController _cityText = TextEditingController();
+  final FocusNode _cityFocus = FocusNode();
+
+  void _displayNotification(String title, String description) {
     MotionToast.info(
       title: Text(
         title,
@@ -29,19 +31,6 @@ class _WelcomeState extends State<Welcome> {
     ).show(context);
   }
 
-  Future<bool> isValidCity(String cityName) async {
-    const apiKey = '3194812ebdac044591796f914fbabf78';
-    final encodedCityName = Uri.encodeComponent(cityName);
-    final url =
-        'https://api.openweathermap.org/data/2.5/weather?q=$encodedCityName&appid=$apiKey';
-    print(url);
-    print(url);
-    final response = await http.get(Uri.parse(url));
-    print(response);
-    final decodedResponse = jsonDecode(response.body);
-    return decodedResponse['cod'] == 200;
-  }
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -52,6 +41,9 @@ class _WelcomeState extends State<Welcome> {
             height: size.height * 0.01,
           ),
           Lottie.asset('assets/anims/weather.json'),
+          SizedBox(
+            height: size.height * 0.05,
+          ),
           Padding(
             padding: EdgeInsets.only(left: size.width * 0.05),
             child: Column(
@@ -99,9 +91,10 @@ class _WelcomeState extends State<Welcome> {
                             left: size.width * 0.01, right: size.width * 0.01),
                         child: TextFormField(
                           scrollPadding: EdgeInsets.only(bottom: size.height*0.4),
-                          controller: welcomeBaseKey.currentState?.city,
+                          controller: _cityText,
+                          cursorColor: Colors.black,
                           autocorrect: false,
-                          focusNode: welcomeBaseKey.currentState?.cityFocus,
+                          focusNode: _cityFocus,
                           decoration: InputDecoration(
                               hintText: 'Put the country after commas...',
                               hintStyle: TextStyle(color: Colors.grey.shade700),
@@ -121,13 +114,12 @@ class _WelcomeState extends State<Welcome> {
           ),
           GestureDetector(
             onTap: () async {
-              welcomeBaseKey.currentState?.cityFocus.unfocus();
-              bool valid = await isValidCity(
-                  welcomeBaseKey.currentState!.city.value.text);
+              _cityFocus.unfocus();
+              bool valid = await UserInfo().setCity(_cityText.value.text);
               if (valid) {
-                welcomeBaseKey.currentState?.nextPressed();
+                widget.nextPressed();
               } else {
-                _displayDeleteMotionToast('Invalid City', 'Enter a valid city');
+                _displayNotification('Invalid City', 'Enter a valid city');
               }
             },
             child: Container(

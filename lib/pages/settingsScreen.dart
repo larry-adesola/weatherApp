@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:motion_toast/motion_toast.dart';
+import 'package:motion_toast/resources/arrays.dart';
 import 'package:weather_app/users.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -40,6 +42,19 @@ class _SettingScreenState extends State<SettingScreen> {
     const DropdownMenuEntry(value: '20:00:00', label: '8pm - 9pm'),
     const DropdownMenuEntry(value: '21:00:00', label: '9pm- 10pm'),
   ];
+  void notifSave(String title, String description) {
+    MotionToast.info(
+      title: Text(
+        title,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      description: Text(description),
+      animationType: AnimationType.fromTop,
+      position: MotionToastPosition.top,
+    ).show(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +112,7 @@ class _SettingScreenState extends State<SettingScreen> {
             onChanged: (double value) {
               setState(() {
                 _currentSliderValue = value;
+                UserInfo().setClothingScore(_currentSliderValue.round());
               });
             },
           ),
@@ -296,6 +312,7 @@ class _SettingScreenState extends State<SettingScreen> {
           GestureDetector(
             onTap: () {
               UserInfo().setCity(_settingsCity.text);
+              notifSave("Saved", "Your changes have been saved");
               /*if (_preferredTimes['monday'] != '') {
                 UserInfo()
                     .setPreferredTimes('monday', (_preferredTimes['monday'])!);

@@ -1,11 +1,10 @@
-import 'dart:convert';
 import 'package:converter/converter.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:weather_app/data.dart';
 import 'package:weather_app/users.dart';
+import 'package:weather_app/weatherapi.dart';
 import 'package:intl/intl.dart';
 
 class MainScreen extends StatefulWidget {
@@ -16,57 +15,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  Future<Map<String, dynamic>> _getWeather() async {
-    final apiKey = UserInfo().getAPIkey();
-    final encodedCityName = Uri.encodeComponent(UserInfo().getCity());
-    final url = 'https://api.openweathermap.org/data/2.5/weather?q=$encodedCityName&appid=$apiKey';
-    final response = await http.get(Uri.parse(url));
-    final decodedResponse = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      return decodedResponse;
-    } else {
-      throw Exception('Failed to fetch weather data');
-    }
-  }
-
-  Future<Map<String, dynamic>> _getForecast(String targetTime) async {
-    if (targetTime == ''){
-      throw Exception('No Preferred Time');
-    }
-    final apiKey = UserInfo().getAPIkey();
-    final encodedCityName = Uri.encodeComponent(UserInfo().getCity());
-    final url = 'https://api.openweathermap.org/data/2.5/forecast?q=$encodedCityName&appid=$apiKey';
-    final response = await http.get(Uri.parse(url));
-    final decodedResponse = jsonDecode(response.body);
-    if (response.statusCode == 200) {
-      final forecastList = decodedResponse['list'];
-
-      // Parse the target time string
-      final parsedTime = DateFormat('HH:mm:ss').parse(targetTime);
-      final targetDateTime = DateTime(
-        DateTime.now().year,
-        DateTime.now().month,
-        DateTime.now().day,
-        parsedTime.hour,
-        parsedTime.minute,
-        parsedTime.second,
-      );
-
-      // Find the closest matching forecast for the target time
-      final closestForecast = forecastList.reduce((a, b) {
-        final aTime = DateTime.fromMillisecondsSinceEpoch(a['dt'] * 1000).toLocal();
-        final bTime = DateTime.fromMillisecondsSinceEpoch(b['dt'] * 1000).toLocal();
-        final aDiff = aTime.difference(targetDateTime).inSeconds.abs();
-        final bDiff = bTime.difference(targetDateTime).inSeconds.abs();
-        return aDiff < bDiff ? a : b;
-      });
-      // Extract the desired weather information from the closest forecast
-      return closestForecast;
-    } else {
-      throw Exception('Failed to fetch weather data');
-    }
-  }
-
   String _twoDigits(int n) {
     if (n >= 10) return '$n';
     return '0$n';
@@ -89,7 +37,7 @@ class _MainScreenState extends State<MainScreen> {
             height: size.height * 0.05,
           ),
           FutureBuilder(
-            future: _getWeather(),
+            future: Weather().getWeather(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Column(
@@ -175,7 +123,7 @@ class _MainScreenState extends State<MainScreen> {
             height: size.height * 0.02,
           ),
           FutureBuilder(
-              future: _getForecast(UserInfo().getPreferredTimes()[DateFormat('E').format(DateTime.now())]!),
+              future: Weather().getForecast(UserInfo().getPreferredTimes()[DateFormat('E').format(DateTime.now())]!),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Column(

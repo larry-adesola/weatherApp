@@ -1,9 +1,8 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UserInfo{
+class UserInfo {
   static final UserInfo _instance = UserInfo._internal();
 
   final String _apiKey = '3194812ebdac044591796f914fbabf78';

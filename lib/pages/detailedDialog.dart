@@ -1,6 +1,7 @@
 import 'package:converter/converter.dart';
-
 import 'package:flutter/material.dart';
+
+import 'package:weather_app/users.dart';
 
 class DetailedDialog {
   static final DetailedDialog _instance = DetailedDialog._internal();
@@ -40,6 +41,19 @@ class DetailedDialog {
                         ),
                       ),
                     ),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.02,
+                  ),
+                  Text(
+                    UserInfo().getCity(),
+                    style: const TextStyle(fontSize: 28),
+                  ),
+                  Text(
+                      '${snapshot.data!['dt']}'
+                  ),
+                  SizedBox(
+                    height: size.height * 0.03,
                   ),
                   Text(
                     '${Temperature(

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       title: 'Weather App',
       theme: ThemeData(
           fontFamily: 'Quicksand',
@@ -44,6 +44,13 @@ class _LoadingPageState extends State<LoadingPage> {
         child: FutureBuilder(
           future: UserInfo().loadData(),
           builder: (context, snapshot) {
+            try {
+              print('loaded city: ${UserInfo().getCity()}');
+              // Get latest city details (e.g. timezone for daylight saving time)
+              UserInfo().setCity(UserInfo().getCity());
+            } on UnsupportedError catch (e) { // Error raised once on load but works immediately after. Not sure why
+              print('failed to reload city details');
+            }
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Column(
                 children: [

@@ -21,7 +21,7 @@ class UserInfo {
   };
   //can use key transformation stuff for the clothes addjusment thing
   //also the temperature must be lower than
-  final Map<double, String> _tempToOutfit = {
+  Map<double, String> _tempToOutfit = {
     5: 'assets/icons/jacket.png',
     10: 'assets/icons/tracksuit.png',
     15: 'assets/icons/hoodie.png',
@@ -80,6 +80,16 @@ class UserInfo {
     final prefs = await SharedPreferences.getInstance();
     _clothingScore = clothingScore;
     prefs.setInt('clothing', clothingScore);
+
+    Map<double, String> newMap = {};
+
+    _tempToOutfit.forEach((key, value) {
+      double updatedKey = key + clothingScore;
+      newMap[updatedKey] = value;
+    });
+
+    _tempToOutfit = newMap;
+
   }
 
   Future<void> setPreferredTimes(String day, String time) async {

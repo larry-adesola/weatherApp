@@ -277,11 +277,12 @@ class _MainScreenState extends State<MainScreen> {
                                 children: [
                                   Text('Outfit:'),
                                   SizedBox(width: size.width * 0.08,),
-                                  Image.asset(UserInfo().outfitChoose(temp))
+                                  Image.asset(UserInfo().outfitChoose(temp), scale: 1.4,)
                                 ],
                               ),
                             ],
                           ),
+                          SizedBox(height: size.height*0.01,)
                         ],
                       ),
                       SizedBox(

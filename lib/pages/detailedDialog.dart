@@ -18,7 +18,12 @@ class DetailedDialog {
     return showDialog<void>(
         context: context,
         builder: (BuildContext context) {
+          final size = MediaQuery.of(context).size;
           return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0))
+            ),
+            insetPadding: EdgeInsets.only(top: size.height*0.04, bottom: size.height*0.4),
             content: Column(
                 children: [
                   Align(
@@ -51,7 +56,7 @@ class DetailedDialog {
                   ),
                   Text(
                     // this is OK because all Dart integers are 64 bit
-                      '${DateTime.fromMillisecondsSinceEpoch(snapshot.data!['dt'] * 1000)}'
+                      '${DateTime.fromMillisecondsSinceEpoch(snapshot.data!['dt'] * 1000)}'.substring(0, 19)
                   ),
                   SizedBox(
                     height: size.height * 0.03,
@@ -61,24 +66,46 @@ class DetailedDialog {
                         snapshot.data!['main']['temp'], 'K')
                         .valueIn('C')
                         .round()} °C',
-                    style: const TextStyle(fontSize: 28),
+                    style: const TextStyle(fontSize: 25),
+                  ),
+                  SizedBox(
+                    height: size.height * 0.01,
                   ),
                   Text( // General description
-                    snapshot.data?['weather'][0]['description']!
+                    'Conditions: ${snapshot.data?['weather'][0]['description']!}'
+                  ),
+                  SizedBox(
+                    height: size.height * 0.01,
                   ),
                   Text( // Humidity
                     'Humidity: ${snapshot.data?['main']['humidity']}%'
                   ),
+                  SizedBox(
+                    height: size.height * 0.01,
+                  ),
                   Text( // Wind
-                    'Wind: ${(snapshot.data?['wind']['speed'] * 3.6).toStringAsFixed(0)}kmh blowing at ${snapshot.data?['wind']['deg']} degrees'
+                    'Wind: ${(snapshot.data?['wind']['speed'] * 3.6).toStringAsFixed(0)}kmh @ ${snapshot.data?['wind']['deg']}°'
+                  ),
+                  SizedBox(
+                    height: size.height * 0.01,
                   ),
                   Text( // Visibility
                     'Visibility: ${snapshot.data?['visibility'] == 10000 ? "Far" : snapshot.data?['visibility']}'
                   ),
-                  Text( // UV
-                    'UV: ${snapshot.data?['uvi']} is this a separate API call'
+                  SizedBox(
+                    height: size.height * 0.01,
                   ),
-                  Text('Air quality: is this a separate API call'), // Air quality
+                  const Text( // UV
+                    'UV: 3-Low'
+                  ),
+                  SizedBox(
+                    height: size.height * 0.01,
+                  ),
+                  Text('Air quality: 3-Low'),
+                  SizedBox(
+                    height: size.height * 0.01,
+                  ),
+                  Text('Outfit: ?'), // Air quality
                 ]
             ),
           );

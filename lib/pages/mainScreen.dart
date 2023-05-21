@@ -153,102 +153,145 @@ class _MainScreenState extends State<MainScreen> {
                 String time = UserInfo().getPreferredTimes()[DateFormat('E')
                     .format(DateTime.now())]!.substring(0, 5);
                 String hourPlusOne = '${_twoDigits(int.parse(time.substring(0, 2)) + 1)}:00';
-                return GestureDetector(
-                    onTap: () => DetailedDialog().buildDetailedDialog(context, snapshot, size),
-                    child: Container(
-                        width: size.width * 0.9,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.blue[700]!, width: 2.5),
-                            borderRadius: BorderRadius.circular(30)),
-                        child: Column(children: [
-                          SizedBox(
-                            height: size.height * 0.025,
-                          ),
-                          Text(
-                            '$time - $hourPlusOne',
-                            style: const TextStyle(fontSize: 20),
-                          ),
-                          SizedBox(
-                            height: size.height * 0.025,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                return Container(
+                    width: size.width * 0.9,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Colors.blue[700]!, width: 2.5),
+                        borderRadius: BorderRadius.circular(30)),
+                    child: Column(children: [
+                      SizedBox(
+                        height: size.height * 0.025,
+                      ),
+                      Text(
+                        '$time - $hourPlusOne',
+                        style: const TextStyle(fontSize: 20),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.025,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
                             children: [
-                              Column(
-                                children: [
-                                  SizedBox(
-                                      width: size.width * 0.2,
-                                      child: Image.asset(
-                                          WeatherData().weatherIcons[
-                                          snapshot
-                                              .data?['weather'][0]['description']]!)),
-                                  SizedBox(
-                                    height: size.height * 0.005,
-                                  ),
-                                  Text(snapshot
-                                      .data?['weather'][0]['description']!)
-                                ],
+                              SizedBox(
+                                  width: size.width * 0.2,
+                                  child: Image.asset(
+                                      WeatherData().weatherIcons[
+                                      snapshot
+                                          .data?['weather'][0]['description']]!)),
+                              SizedBox(
+                                height: size.height * 0.005,
                               ),
-                              Column(
+                              Text(snapshot
+                                  .data?['weather'][0]['description']!)
+                            ],
+                          ),
+                          Column(
+                            children: [
+                              SizedBox(
+                                height: size.height * 0.01,
+                              ),
+                              Row(
                                 children: [
-                                  SizedBox(
-                                    height: size.height * 0.01,
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.thermostat, size: 40,),
-                                      Text(
-                                        '${Temperature(
-                                            snapshot.data!['main']['temp'], 'K')
-                                            .valueIn('C')
-                                            .round()} °C',
-                                        style: const TextStyle(fontSize: 30),
-                                      ),
-                                    ],
+                                  const Icon(Icons.thermostat, size: 40,),
+                                  Text(
+                                    '${Temperature(
+                                        snapshot.data!['main']['temp'], 'K')
+                                        .valueIn('C')
+                                        .round()} °C',
+                                    style: const TextStyle(fontSize: 30),
                                   ),
                                 ],
                               ),
+                            ],
+                          ),
 
-                            ],
-                          ),
-                          SizedBox(
-                            height: size.height * 0.025,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        ],
+                      ),
+                      SizedBox(
+                        height: size.height * 0.04,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
                             children: [
-                              Column(
+                              Row(
                                 children: [
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.air),
-                                      SizedBox(width: size.width * 0.02,),
-                                      Text("${snapshot
-                                          .data!['wind']['speed']} Knots")
-                                    ],
-                                  )
+                                  const Icon(Icons.air),
+                                  SizedBox(width: size.width * 0.02,),
+                                  Text("${snapshot
+                                      .data!['wind']['speed']} Knots")
                                 ],
                               ),
-                              Column(
+                              SizedBox(height: size.height*0.03,),
+                              Row(
                                 children: [
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.remove_red_eye),
-                                      SizedBox(width: size.width * 0.02,),
-                                      Text("${snapshot.data!['visibility']} m")
-                                    ],
-                                  )
+                                  const Icon(Icons.water_drop),
+                                  Text('Humidity'),
+                                  SizedBox(width: size.width * 0.02,),
+                                  Text(
+                                    '${snapshot.data?['main']['humidity']}%',
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: size.height*0.03,),
+                              Row(
+                                children: [
+                                  const Icon(Icons.sunny),
+                                  Text('UV'),
+                                  SizedBox(width: size.width * 0.05,),
+                                  Text(
+                                    '3 - Low',
+                                  ),
                                 ],
                               ),
                             ],
                           ),
-                          SizedBox(
-                            height: size.height * 0.02,
-                          )
-                        ]))
-                );
-              })
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(Icons.remove_red_eye),
+                                  SizedBox(width: size.width * 0.02,),
+                                  Text("${snapshot.data!['visibility']} m")
+                                ],
+                              ),
+                              SizedBox(height: size.height*0.03,),
+                              Row(
+                                children: [
+                                  const Icon(Icons.cloud),
+                                  SizedBox(width: size.width * 0.01,),
+                                  const Text('Air Quality'),
+                                  SizedBox(width: size.width * 0.02,),
+                                  const Text(
+                                    '3 - Low',
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: size.height*0.03,),
+                              Row(
+                                children: [
+                                  const Icon(Icons.person),
+                                  Text('Outfit'),
+                                  SizedBox(width: size.width * 0.08,),
+                                  Text(
+                                    '?',
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: size.height * 0.02,
+                      )
+                    ]));
+              }),
+          SizedBox(height: size.height*0.02,)
         ]),
       ),
     );

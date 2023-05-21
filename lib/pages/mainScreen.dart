@@ -132,7 +132,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
           SizedBox(
-            height: size.height * 0.02,
+            height: size.height * 0.01,
           ),
           FutureBuilder(
               future: Weather().getForecast(

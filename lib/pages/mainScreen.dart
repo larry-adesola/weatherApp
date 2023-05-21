@@ -50,7 +50,7 @@ class _MainScreenState extends State<MainScreen> {
                   ],
                 );
               } else if (snapshot.hasError) {
-                return const Text('Go To Settings and Enter City Properly');
+                return const Text('Go to Settings and Enter City Properly');
               }
               return GestureDetector(
                 onTap: () => DetailedDialog().buildDetailedDialog(context, snapshot, size),
@@ -102,9 +102,9 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                               Text(
                                   '${_twoDigits(DateTime.now().toUtc()
-                                      .add(Duration(seconds: snapshot.data!['timezone'])).hour)}:${
+                                      .add(Duration(seconds: UserInfo().getTimeZone())).hour)}:${
                                       _twoDigits(DateTime.now().toUtc().
-                                      add(Duration(seconds: snapshot.data!['timezone'])).minute)}')
+                                      add(Duration(seconds: UserInfo().getTimeZone())).minute)}')
                             ],
                           )
                         ],

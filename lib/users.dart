@@ -8,6 +8,7 @@ class UserInfo {
   final String _apiKey = '3194812ebdac044591796f914fbabf78';
   bool _onboarded = false;
   String? _cityName;
+  int _cityTimeZone = 0;  // Difference to UTC+0 in seconds
   int _clothingScore  = 0;
   final Map<String, String> _preferredTimes = {
     'Mon': '',
@@ -47,6 +48,7 @@ class UserInfo {
       final city = "$nameOfCity, $countryOfCity";
       _cityName = city;
       prefs.setString('city', city);
+      _cityTimeZone = decodedResponse['timezone'];
     }
     return decodedResponse['cod'] == 200;
   }
@@ -78,6 +80,10 @@ class UserInfo {
       throw UnsupportedError("Invalid City");
     }
     return _cityName!;
+  }
+
+  int getTimeZone() {
+    return _cityTimeZone;
   }
 
   int getClothingScore() {

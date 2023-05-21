@@ -1,9 +1,8 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UserInfo{
+class UserInfo {
   static final UserInfo _instance = UserInfo._internal();
 
   final String _apiKey = '3194812ebdac044591796f914fbabf78';
@@ -43,8 +42,11 @@ class UserInfo{
     final response = await http.get(Uri.parse(url));
     final decodedResponse = jsonDecode(response.body);
     if (decodedResponse['cod'] == 200) {
-      _cityName = cityName;
-      prefs.setString('city', cityName);
+      final nameOfCity = decodedResponse['name'];
+      final countryOfCity = decodedResponse['sys']['country'];
+      final city = "$nameOfCity, $countryOfCity";
+      _cityName = city;
+      prefs.setString('city', city);
     }
     return decodedResponse['cod'] == 200;
   }
@@ -83,7 +85,7 @@ class UserInfo{
   }
 
   Map<String, String> getPreferredTimes() {
-    return _preferredTimes;
+    return Map.from(_preferredTimes);
   }
 
   bool hasOnboard() {

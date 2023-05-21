@@ -96,7 +96,7 @@ class _WelcomeState extends State<Welcome> {
                           autocorrect: false,
                           focusNode: _cityFocus,
                           decoration: InputDecoration(
-                              hintText: 'Put the country after commas...',
+                              hintText: 'Put the country after a comma...',
                               hintStyle: TextStyle(color: Colors.grey.shade700),
                               enabledBorder: InputBorder.none,
                               focusedBorder: InputBorder.none),

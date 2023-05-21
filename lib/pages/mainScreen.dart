@@ -72,7 +72,7 @@ class _MainScreenState extends State<MainScreen> {
                               SizedBox(
                                   width: size.width * 0.4,
                                   child: Image.asset(WeatherData().weatherIcons[
-                                  snapshot.data?['weather'][0]['description']]!
+                                  snapshot.data?['weather'][0]['main']]!
                                   )
                               ),
                               SizedBox(
@@ -180,7 +180,7 @@ class _MainScreenState extends State<MainScreen> {
                                   child: Image.asset(
                                       WeatherData().weatherIcons[
                                       snapshot
-                                          .data?['weather'][0]['description']]!)),
+                                          .data?['weather'][0]['main']]!)),
                               SizedBox(
                                 height: size.height * 0.005,
                               ),

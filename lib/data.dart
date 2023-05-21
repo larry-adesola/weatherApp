@@ -1,15 +1,11 @@
 class WeatherData {
   Map<String, String> weatherIcons = {
-    'scattered clouds': 'assets/icons/clouds.png',
-    'few clouds': 'assets/icons/clouds.png',
-    'overcast clouds': 'assets/icons/clouds.png',
-    'rain' : 'assets/icons/rain.png',
-    'light rain' : 'assets/icons/rain.png',
-    'broken clouds' : 'assets/icons/clouds.png',
-    'clear sky' : 'assets/icons/sun.png',
-    'shower rain' : 'assets/icons/rain.png',
-    'thunderstorm' : 'assets/icons/thunder.png',
-    'snow' : 'assets/icons/snow.png',
-    'mist' : 'assets/icons/mist.png'
+    'Clouds': 'assets/icons/clouds.png',
+    'Drizzle' : 'assets/icons/rain.png',
+    'Rain' : 'assets/icons/rain.png',
+    'Clear' : 'assets/icons/sun.png',
+    'Thunderstorm' : 'assets/icons/thunder.png',
+    'Snow' : 'assets/icons/snow.png',
+    'Mist' : 'assets/icons/mist.png'
   };
 }

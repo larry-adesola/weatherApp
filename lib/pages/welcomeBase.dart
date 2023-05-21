@@ -27,9 +27,7 @@ class _WelcomeBaseState extends State<WelcomeBase> {
             children: [
               AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
-                transform: Matrix4.translationValues(
-                    onboardStage == 0 ? 0 : -size.width, 0, 0
-                ),
+                transform: Matrix4.translationValues(onboardStage == 0 ? 0 : -size.width, 0, 0),
                 curve: Curves.decelerate,
                 child: Welcome(
                   nextPressed: () {
@@ -41,13 +39,11 @@ class _WelcomeBaseState extends State<WelcomeBase> {
               ),
               AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
-                transform: Matrix4.translationValues(
-                    (1-onboardStage) * size.width, 0, 0
-                ),
+                transform: Matrix4.translationValues((1 - onboardStage) * size.width, 0, 0),
                 curve: Curves.decelerate,
                 child: Pref(
                   nextPressed: () {
-                    UserInfo().finishOnboard();
+                    UserInfo().setOnboard(true);
                     setState(() {
                       onboardStage = 2;
                       Navigator.push(

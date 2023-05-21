@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:weather_app/pages/homeBase.dart';
 import 'package:weather_app/pages/welcomeBase.dart';
-import 'package:lottie/lottie.dart';
 
 import 'users.dart';
 
@@ -18,11 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Weather App',
       theme: ThemeData(
-          fontFamily: 'Quicksand',
-          textTheme: const TextTheme(
-              bodyMedium: TextStyle(fontWeight: FontWeight.w900)
-          )
-      ),
+          fontFamily: 'Quicksand', textTheme: const TextTheme(bodyMedium: TextStyle(fontWeight: FontWeight.w900))),
       debugShowCheckedModeBanner: false,
       home: const LoadingPage(),
     );
@@ -41,33 +37,20 @@ class _LoadingPageState extends State<LoadingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: FutureBuilder(
-          future: UserInfo().loadData(),
-          builder: (context, snapshot) {
-            try {
-              print('loaded city: ${UserInfo().getCity()}');
-              // Get latest city details (e.g. timezone for daylight saving time)
-              UserInfo().setCity(UserInfo().getCity());
-            } on UnsupportedError catch (e) { // Error raised once on load but works immediately after. Not sure why
-              print('failed to reload city details');
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Column(
-                children: [
-                  Lottie.asset('assets/anims/loading.json'),
-                  const Text('Loading')
-                ],
-              );
-            }
-            else if (snapshot.connectionState == ConnectionState.none) {
-              return const Text('Loading Error');
-            }
-            else {
-              return UserInfo().hasOnboard() ? const HomeBase() : const WelcomeBase();
-            }
-          },
-        )
-      ),
+          child: FutureBuilder(
+        future: UserInfo().loadData(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Column(
+              children: [Lottie.asset('assets/anims/loading.json'), const Text('Loading')],
+            );
+          } else if (snapshot.connectionState == ConnectionState.none) {
+            return const Text('Loading Error');
+          } else {
+            return UserInfo().hasOnboard() ? const HomeBase() : const WelcomeBase();
+          }
+        },
+      )),
     );
   }
 }

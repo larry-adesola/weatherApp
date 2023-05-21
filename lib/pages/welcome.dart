@@ -7,6 +7,7 @@ import '../users.dart';
 
 class Welcome extends StatefulWidget {
   final VoidCallback nextPressed;
+
   const Welcome({Key? key, required this.nextPressed}) : super(key: key);
 
   @override
@@ -82,15 +83,13 @@ class _WelcomeState extends State<Welcome> {
                     width: size.width * 0.8,
                     height: size.height * 0.08,
                     decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black, width: 2.5),
-                        borderRadius: BorderRadius.circular(12)),
+                        border: Border.all(color: Colors.black, width: 2.5), borderRadius: BorderRadius.circular(12)),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
-                        padding: EdgeInsets.only(
-                            left: size.width * 0.01, right: size.width * 0.01),
+                        padding: EdgeInsets.only(left: size.width * 0.01, right: size.width * 0.01),
                         child: TextFormField(
-                          scrollPadding: EdgeInsets.only(bottom: size.height*0.4),
+                          scrollPadding: EdgeInsets.only(bottom: size.height * 0.4),
                           controller: _cityText,
                           cursorColor: Colors.black,
                           autocorrect: false,
@@ -115,7 +114,7 @@ class _WelcomeState extends State<Welcome> {
           GestureDetector(
             onTap: () async {
               _cityFocus.unfocus();
-              bool valid = await UserInfo().setCity(_cityText.value.text);
+              bool valid = await UserInfo().setLocation(_cityText.value.text);
               if (valid) {
                 widget.nextPressed();
               } else {
@@ -126,8 +125,7 @@ class _WelcomeState extends State<Welcome> {
               width: size.width * 0.4,
               height: size.height * 0.05,
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 2.5),
-                  borderRadius: BorderRadius.circular(12)),
+                  border: Border.all(color: Colors.black, width: 2.5), borderRadius: BorderRadius.circular(12)),
               child: const Center(
                 child: Text(
                   "Next",
@@ -137,7 +135,7 @@ class _WelcomeState extends State<Welcome> {
             ),
           ),
           SizedBox(
-            height: size.height*0.11,
+            height: size.height * 0.11,
           )
         ],
       ),

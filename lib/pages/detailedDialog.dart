@@ -50,18 +50,35 @@ class DetailedDialog {
                     style: const TextStyle(fontSize: 28),
                   ),
                   Text(
-                      '${snapshot.data!['dt']}'
+                    // this is OK because all Dart integers are 64 bit
+                      '${DateTime.fromMillisecondsSinceEpoch(snapshot.data!['dt'] * 1000)}'
                   ),
                   SizedBox(
                     height: size.height * 0.03,
                   ),
-                  Text(
-                    '${Temperature(
+                  Text( // Temperature
+                    'Temperature: ${Temperature(
                         snapshot.data!['main']['temp'], 'K')
                         .valueIn('C')
                         .round()} °C',
                     style: const TextStyle(fontSize: 28),
                   ),
+                  Text( // General description
+                    snapshot.data?['weather'][0]['description']!
+                  ),
+                  Text( // Humidity
+                    'Humidity: ${snapshot.data?['main']['humidity']}%'
+                  ),
+                  Text( // Wind
+                    'Wind: ${(snapshot.data?['wind']['speed'] * 3.6).toStringAsFixed(0)}kmh blowing at ${snapshot.data?['wind']['deg']} degrees'
+                  ),
+                  Text( // Visibility
+                    'Visibility: ${snapshot.data?['visibility'] == 10000 ? "Far" : snapshot.data?['visibility']}'
+                  ),
+                  Text( // UV
+                    'UV: ${snapshot.data?['uvi']} is this a separate API call'
+                  ),
+                  Text('Air quality: is this a separate API call'), // Air quality
                 ]
             ),
           );

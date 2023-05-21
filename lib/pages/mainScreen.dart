@@ -53,7 +53,7 @@ class _MainScreenState extends State<MainScreen> {
                 return const Text('Go To Settings and Enter City Properly');
               }
               return GestureDetector(
-                onTap: () => DetailedDialog().buildDetailedDialog(context, snapshot),
+                onTap: () => DetailedDialog().buildDetailedDialog(context, snapshot, size),
                 child: Container(
                   width: size.width * 0.9,
                   decoration: BoxDecoration(
@@ -156,7 +156,7 @@ class _MainScreenState extends State<MainScreen> {
                 String hourPlusOne = '${int.parse(time.substring(0, 2)) +
                     1}:00';
                 return GestureDetector(
-                    onTap: () => DetailedDialog().buildDetailedDialog(context, snapshot),
+                    onTap: () => DetailedDialog().buildDetailedDialog(context, snapshot, size),
                     child: Container(
                         width: size.width * 0.9,
                         decoration: BoxDecoration(

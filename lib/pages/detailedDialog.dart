@@ -11,33 +11,47 @@ class DetailedDialog {
 
   DetailedDialog._internal();
 
-  Future<void> buildDetailedDialog(BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+  Future<void> buildDetailedDialog(BuildContext context,
+      AsyncSnapshot<Map<String, dynamic>> snapshot, Size size) {
     print(snapshot);
     return showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("placeholder"),
-          content: Column(
-            children: [
-              Text(
-                '${Temperature(
-                    snapshot.data!['main']['temp'], 'K')
-                    .valueIn('C')
-                    .round()} °C',
-                style: const TextStyle(fontSize: 28),
-              ),
-            ]
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text ("placeholder"),
-              onPressed: () {
-              Navigator.of(context).pop();
-            },)
-          ]
-        );
-      }
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Container(
+                        width: size.width * 0.25,
+                        height: size.height * 0.04,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black, width: 2.5),
+                            borderRadius: BorderRadius.circular(12)),
+                        child: const Center(
+                          child: Text(
+                            "Close",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    '${Temperature(
+                        snapshot.data!['main']['temp'], 'K')
+                        .valueIn('C')
+                        .round()} °C',
+                    style: const TextStyle(fontSize: 28),
+                  ),
+                ]
+            ),
+          );
+        }
     );
   }
 }

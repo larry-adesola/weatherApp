@@ -20,7 +20,7 @@ class UserInfo {
     'Sun': ''
   };
   //can use key transformation stuff for the clothes addjusment thing
-  //also the temperature must be equal to or lower than
+  //also the temperature must be lower than
   final Map<double, String> _tempToOutfit = {
     5: 'assets/icons/jacket.png',
     10: 'assets/icons/tracksuit.png',
@@ -37,7 +37,7 @@ class UserInfo {
     String outfit = 'assets/icons/tshirt.png';
     bool stop = false;
     _tempToOutfit.forEach((key, value) {
-      if(temp<=key && !stop){
+      if(temp<key && !stop){
         print(value);
         outfit = value;
         stop = true;

@@ -285,7 +285,7 @@ class _MainScreenState extends State<MainScreen> {
                         ],
                       ),
                       SizedBox(
-                        height: size.height * 0.005,
+                        height: size.height * 0.01,
                       )
                     ]));
               }),

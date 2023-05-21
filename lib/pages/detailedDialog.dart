@@ -104,7 +104,7 @@ class DetailedDialog {
                   ),
                   Text('Air quality: 3-Low'),
                   SizedBox(
-                    height: size.height * 0.01,
+                    height: size.height * 0.02,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

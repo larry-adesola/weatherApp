@@ -136,6 +136,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     focusNode: _settingsFocus,
                     decoration: InputDecoration(
                         hintStyle: TextStyle(color: Colors.grey.shade700),
+                        hintText: 'Put the country after a comma...',
                         enabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none),
                     style: const TextStyle(color: Colors.black),

@@ -101,11 +101,10 @@ class _MainScreenState extends State<MainScreen> {
                                 height: size.height * 0.01,
                               ),
                               Text(
-                                  '${DateTime
-                                      .now()
-                                      .hour}:${_twoDigits(DateTime
-                                      .now()
-                                      .minute)}')
+                                  '${_twoDigits(DateTime.now().toUtc()
+                                      .add(Duration(seconds: snapshot.data!['timezone'])).hour)}:${
+                                      _twoDigits(DateTime.now().toUtc().
+                                      add(Duration(seconds: snapshot.data!['timezone'])).minute)}')
                             ],
                           )
                         ],

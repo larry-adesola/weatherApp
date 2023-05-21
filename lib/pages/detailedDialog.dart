@@ -27,7 +27,7 @@ class DetailedDialog {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))
             ),
-            insetPadding: EdgeInsets.only(top: size.height*0.04, bottom: size.height*0.4),
+            insetPadding: EdgeInsets.only(top: size.height*0.04, bottom: size.height*0.35),
             content: Column(
                 children: [
                   Align(
@@ -107,6 +107,7 @@ class DetailedDialog {
                     height: size.height * 0.01,
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text('Outfit'),
                       SizedBox(width: size.width * 0.08,),

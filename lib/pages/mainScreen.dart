@@ -153,8 +153,7 @@ class _MainScreenState extends State<MainScreen> {
                 }
                 String time = UserInfo().getPreferredTimes()[DateFormat('E')
                     .format(DateTime.now())]!.substring(0, 5);
-                String hourPlusOne = '${int.parse(time.substring(0, 2)) +
-                    1}:00';
+                String hourPlusOne = '${_twoDigits(int.parse(time.substring(0, 2)) + 1)}:00';
                 return GestureDetector(
                     onTap: () => DetailedDialog().buildDetailedDialog(context, snapshot, size),
                     child: Container(

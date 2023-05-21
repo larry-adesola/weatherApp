@@ -17,6 +17,8 @@ class _SettingScreenState extends State<SettingScreen> {
   final Map<String, String> _preferredTimes = UserInfo().getPreferredTimes();
   final List<DropdownMenuEntry> _timeRanges = [
     const DropdownMenuEntry(value: '', label: 'No Preferred Time'),
+    const DropdownMenuEntry(value: '04:00:00', label: '4am - 5am'),
+    const DropdownMenuEntry(value: '05:00:00', label: '5am - 6am'),
     const DropdownMenuEntry(value: '06:00:00', label: '6am - 7am'),
     const DropdownMenuEntry(value: '07:00:00', label: '7am - 8am'),
     const DropdownMenuEntry(value: '08:00:00', label: '8am - 9am'),
@@ -32,7 +34,8 @@ class _SettingScreenState extends State<SettingScreen> {
     const DropdownMenuEntry(value: '18:00:00', label: '6pm - 7pm'),
     const DropdownMenuEntry(value: '19:00:00', label: '7pm - 8pm'),
     const DropdownMenuEntry(value: '20:00:00', label: '8pm - 9pm'),
-    const DropdownMenuEntry(value: '21:00:00', label: '9pm- 10pm'),
+    const DropdownMenuEntry(value: '21:00:00', label: '9pm - 10pm'),
+    const DropdownMenuEntry(value: '22:00:00', label: '10pm - 11pm'),
   ];
 
   void _displayNotification(String title, String description) {

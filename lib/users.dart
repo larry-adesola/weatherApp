@@ -77,6 +77,7 @@ class UserInfo {
   }
 
   Future<void> setClothingScore(int clothingScore) async {
+    int diff = clothingScore - _clothingScore;
     final prefs = await SharedPreferences.getInstance();
     _clothingScore = clothingScore;
     prefs.setInt('clothing', clothingScore);
@@ -84,7 +85,7 @@ class UserInfo {
     Map<double, String> newMap = {};
 
     _tempToOutfit.forEach((key, value) {
-      double updatedKey = key + clothingScore;
+      double updatedKey = key + diff;
       newMap[updatedKey] = value;
     });
 

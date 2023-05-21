@@ -42,8 +42,11 @@ class UserInfo {
     final response = await http.get(Uri.parse(url));
     final decodedResponse = jsonDecode(response.body);
     if (decodedResponse['cod'] == 200) {
-      _cityName = cityName;
-      prefs.setString('city', cityName);
+      final nameOfCity = decodedResponse['name'];
+      final countryOfCity = decodedResponse['sys']['country'];
+      final city = "$nameOfCity, $countryOfCity";
+      _cityName = city;
+      prefs.setString('city', city);
     }
     return decodedResponse['cod'] == 200;
   }

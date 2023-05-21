@@ -134,6 +134,7 @@ class _SettingScreenState extends State<SettingScreen> {
                       left: size.width * 0.01, right: size.width * 0.01),
                   child: TextFormField(
                     scrollPadding: EdgeInsets.only(bottom: size.height * 0.4),
+                    cursorColor: Colors.black,
                     controller: _settingsCity,
                     autocorrect: false,
                     focusNode: _settingsFocus,

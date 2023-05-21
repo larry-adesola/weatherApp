@@ -18,9 +18,32 @@ class UserInfo {
     'Sat': '',
     'Sun': ''
   };
+  //can use key transformation stuff for the clothes addjusment thing
+  //also the temperature must be equal to or lower than
+  final Map<double, String> _tempToOutfit = {
+    5: 'assets/icons/jacket.png',
+    10: 'assets/icons/tracksuit.png',
+    15: 'assets/icons/hoodie.png',
+    20: 'assets/icons/jumper.png',
+  };
+
 
   factory UserInfo() {
     return _instance;
+  }
+
+  String outfitChoose(int temp){
+    String outfit = 'assets/icons/tshirt.png';
+    bool stop = false;
+    _tempToOutfit.forEach((key, value) {
+      if(temp<=key && !stop){
+        print(value);
+        outfit = value;
+        stop = true;
+      }
+    });
+    return outfit;
+
   }
 
   UserInfo._internal();

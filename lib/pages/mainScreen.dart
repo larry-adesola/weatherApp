@@ -153,6 +153,10 @@ class _MainScreenState extends State<MainScreen> {
                 String time = UserInfo().getPreferredTimes()[DateFormat('E')
                     .format(DateTime.now())]!.substring(0, 5);
                 String hourPlusOne = '${_twoDigits(int.parse(time.substring(0, 2)) + 1)}:00';
+                int temp = Temperature(
+                    snapshot.data!['main']['temp'], 'K')
+                    .valueIn('C')
+                    .round();
                 return Container(
                     width: size.width * 0.9,
                     decoration: BoxDecoration(
@@ -197,10 +201,7 @@ class _MainScreenState extends State<MainScreen> {
                                 children: [
                                   const Icon(Icons.thermostat, size: 40,),
                                   Text(
-                                    '${Temperature(
-                                        snapshot.data!['main']['temp'], 'K')
-                                        .valueIn('C')
-                                        .round()} °C',
+                                    '${temp} °C',
                                     style: const TextStyle(fontSize: 30),
                                   ),
                                 ],
@@ -274,12 +275,9 @@ class _MainScreenState extends State<MainScreen> {
                               SizedBox(height: size.height*0.03,),
                               Row(
                                 children: [
-                                  const Icon(Icons.person),
-                                  Text('Outfit'),
+                                  Text('Outfit:'),
                                   SizedBox(width: size.width * 0.08,),
-                                  Text(
-                                    '?',
-                                  ),
+                                  Image.asset(UserInfo().outfitChoose(temp))
                                 ],
                               ),
                             ],
@@ -287,11 +285,10 @@ class _MainScreenState extends State<MainScreen> {
                         ],
                       ),
                       SizedBox(
-                        height: size.height * 0.02,
+                        height: size.height * 0.005,
                       )
                     ]));
               }),
-          SizedBox(height: size.height*0.02,)
         ]),
       ),
     );

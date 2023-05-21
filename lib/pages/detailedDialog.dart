@@ -19,6 +19,10 @@ class DetailedDialog {
         context: context,
         builder: (BuildContext context) {
           final size = MediaQuery.of(context).size;
+          int temp = Temperature(
+              snapshot.data!['main']['temp'], 'K')
+              .valueIn('C')
+              .round();
           return AlertDialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))
@@ -62,10 +66,7 @@ class DetailedDialog {
                     height: size.height * 0.03,
                   ),
                   Text( // Temperature
-                    'Temperature: ${Temperature(
-                        snapshot.data!['main']['temp'], 'K')
-                        .valueIn('C')
-                        .round()} °C',
+                    'Temperature: ${temp} °C',
                     style: const TextStyle(fontSize: 25),
                   ),
                   SizedBox(
@@ -105,7 +106,13 @@ class DetailedDialog {
                   SizedBox(
                     height: size.height * 0.01,
                   ),
-                  Text('Outfit: ?'), // Air quality
+                  Row(
+                    children: [
+                      Text('Outfit'),
+                      SizedBox(width: size.width * 0.08,),
+                      Image.asset(UserInfo().outfitChoose(temp))
+                    ],
+                  ), // Air quality
                 ]
             ),
           );

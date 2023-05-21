@@ -21,7 +21,7 @@ class UserInfo {
   };
   //can use key transformation stuff for the clothes addjusment thing
   //also the temperature must be lower than
-  Map<double, String> _tempToOutfit = {
+  Map<int, String> _tempToOutfit = {
     5: 'assets/icons/jacket.png',
     10: 'assets/icons/tracksuit.png',
     15: 'assets/icons/hoodie.png',
@@ -34,10 +34,11 @@ class UserInfo {
   }
 
   String outfitChoose(int temp){
+    int newTemp = temp + _clothingScore;
     String outfit = 'assets/icons/tshirt.png';
     bool stop = false;
     _tempToOutfit.forEach((key, value) {
-      if(temp<key && !stop){
+      if(newTemp<key && !stop){
         print(value);
         outfit = value;
         stop = true;
@@ -54,16 +55,7 @@ class UserInfo {
     _onboarded = prefs.getBool('onboard') ?? false;
     _cityName = prefs.getString('city');
     _clothingScore = prefs.getInt('clothing') ?? 0;
-    if(_clothingScore != 0){//fixes that it always loads default clothes
-      Map<double, String> newMap = {};
 
-      _tempToOutfit.forEach((key, value) {
-        double updatedKey = key + _clothingScore;
-        newMap[updatedKey] = value;
-      });
-
-      _tempToOutfit = newMap;
-    }
     for (String day in _preferredTimes.keys) {
       _preferredTimes[day] = prefs.getString(day) ?? '';
     }
@@ -87,19 +79,10 @@ class UserInfo {
   }
 
   Future<void> setClothingScore(int clothingScore) async {
-    int diff = clothingScore - _clothingScore;
     final prefs = await SharedPreferences.getInstance();
     _clothingScore = clothingScore;
     prefs.setInt('clothing', clothingScore);
 
-    Map<double, String> newMap = {};
-
-    _tempToOutfit.forEach((key, value) {
-      double updatedKey = key + diff;
-      newMap[updatedKey] = value;
-    });
-
-    _tempToOutfit = newMap;
 
   }
 

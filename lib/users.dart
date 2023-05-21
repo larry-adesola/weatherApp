@@ -54,6 +54,16 @@ class UserInfo {
     _onboarded = prefs.getBool('onboard') ?? false;
     _cityName = prefs.getString('city');
     _clothingScore = prefs.getInt('clothing') ?? 0;
+    if(_clothingScore != 0){//fixes that it always loads default clothes
+      Map<double, String> newMap = {};
+
+      _tempToOutfit.forEach((key, value) {
+        double updatedKey = key + _clothingScore;
+        newMap[updatedKey] = value;
+      });
+
+      _tempToOutfit = newMap;
+    }
     for (String day in _preferredTimes.keys) {
       _preferredTimes[day] = prefs.getString(day) ?? '';
     }

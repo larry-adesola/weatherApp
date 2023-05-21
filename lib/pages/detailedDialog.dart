@@ -1,5 +1,6 @@
+import 'package:converter/converter.dart';
+
 import 'package:flutter/material.dart';
-import 'package:weather_app/weatherapi.dart';
 
 class DetailedDialog {
   static final DetailedDialog _instance = DetailedDialog._internal();
@@ -10,13 +11,24 @@ class DetailedDialog {
 
   DetailedDialog._internal();
 
-  Future<void> buildDetailedDialog(BuildContext context) {
+  Future<void> buildDetailedDialog(BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
+    print(snapshot);
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text("placeholder"),
-          content: const Text ("placeholder"),
+          content: Column(
+            children: [
+              Text(
+                '${Temperature(
+                    snapshot.data!['main']['temp'], 'K')
+                    .valueIn('C')
+                    .round()} °C',
+                style: const TextStyle(fontSize: 28),
+              ),
+            ]
+          ),
           actions: <Widget>[
             TextButton(
               child: const Text ("placeholder"),

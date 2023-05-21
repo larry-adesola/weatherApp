@@ -118,6 +118,9 @@ class _SuggScreenState extends State<SuggScreen> {
               ),
             ],
           ),
+          SizedBox(
+            height: size.height * 0.025,
+          ),
           FutureBuilder(
               future: Weather().getForecastSuggestion(_selectedDay,4,11),
               builder: (context, snapshot) {
@@ -200,6 +203,9 @@ class _SuggScreenState extends State<SuggScreen> {
                       ])
                   );
               }),
+          SizedBox(
+            height: size.height * 0.025,
+          ),
           FutureBuilder(
               future: Weather().getForecastSuggestion(_selectedDay,12,16),
               builder: (context, snapshot) {
@@ -282,6 +288,9 @@ class _SuggScreenState extends State<SuggScreen> {
                       ])
                   );
               }),
+          SizedBox(
+            height: size.height * 0.025,
+          ),
           FutureBuilder(
               future: Weather().getForecastSuggestion(_selectedDay,17,22),
               builder: (context, snapshot) {

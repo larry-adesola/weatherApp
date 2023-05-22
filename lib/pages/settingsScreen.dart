@@ -98,12 +98,10 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: size.width*0.035),
+            padding: EdgeInsets.only(left: size.width * 0.035),
             child: const Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                "I like to be..."
-              ),
+              child: Text("I like to be..."),
             ),
           ),
           Slider(
@@ -121,7 +119,7 @@ class _SettingScreenState extends State<SettingScreen> {
             },
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: size.width*0.035),
+            padding: EdgeInsets.symmetric(horizontal: size.width * 0.035),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

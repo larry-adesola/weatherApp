@@ -46,7 +46,8 @@ class _MainScreenState extends State<MainScreen> {
                 child: Container(
                   width: size.width * 0.9,
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blue[700]!, width: 2.5), borderRadius: BorderRadius.circular(30)),
+                      border: Border.all(color: Colors.blue[700]!, width: 2.5),
+                      borderRadius: BorderRadius.circular(30)),
                   child: Column(
                     children: [
                       SizedBox(
@@ -59,7 +60,7 @@ class _MainScreenState extends State<MainScreen> {
                             children: [
                               SizedBox(
                                   width: size.width * 0.4,
-                                  child: Image.asset(WeatherData().weatherIcons[data['weather'][0]['main']]!)),
+                                  child: Image.asset(WeatherData().getWeatherIcon(data['weather'][0]['main']))),
                               SizedBox(
                                 height: size.height * 0.01,
                               ),
@@ -100,7 +101,6 @@ class _MainScreenState extends State<MainScreen> {
           SizedBox(
             height: size.height * 0.03,
           ),
-
           FutureBuilder(
               future: Weather().getForecast(UserInfo().getPreferredTimes()[DateFormat('E').format(DateTime.now())]!),
               builder: (context, snapshot) {
@@ -131,10 +131,10 @@ class _MainScreenState extends State<MainScreen> {
                       const Align(
                         alignment: Alignment.center,
                         child: Text(
-                        'Your Preferred Running Time',
-                        style: TextStyle(fontSize: 25),
+                          'Your Preferred Running Time',
+                          style: TextStyle(fontSize: 25),
                           textAlign: TextAlign.center,
-                      ),
+                        ),
                       ),
                       SizedBox(
                         height: size.height * 0.025,
@@ -153,7 +153,7 @@ class _MainScreenState extends State<MainScreen> {
                             children: [
                               SizedBox(
                                   width: size.width * 0.2,
-                                  child: Image.asset(WeatherData().weatherIcons[data['weather'][0]['main']]!)),
+                                  child: Image.asset(WeatherData().getWeatherIcon(data['weather'][0]['main']))),
                               SizedBox(
                                 height: size.height * 0.005,
                               ),

@@ -1,9 +1,10 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'dart:math';
-import 'package:weather_app/users.dart';
+
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:weather_app/data.dart';
+import 'package:weather_app/users.dart';
 
 class Weather {
   static final Weather _instance = Weather._internal();
@@ -70,35 +71,29 @@ class Weather {
     final url = 'https://api.openweathermap.org/data/2.5/forecast?q=$encodedCityName&appid=$_apiKey&units=metric';
     final response = await http.get(Uri.parse(url));
     final decodedResponse = jsonDecode(response.body);
-    const int secondsInDay = 24* 60 * 60;
+    const int secondsInDay = 24 * 60 * 60;
     if (response.statusCode == 200) {
       final forecastList = decodedResponse['list'];
-      //print(forecastList);
-      int secondsSinceEpoch = DateTime
-          .now()
-          .millisecondsSinceEpoch ~/ 1000;
+      int secondsSinceEpoch = DateTime.now().millisecondsSinceEpoch ~/ 1000;
       int startOfSelectedDay;
       int endOfSelectedDay;
-      if (selectedDay == 0) {//TODO if the day selected is today, we want the suggestions to be only in the future so the code will be slightly different
+      if (selectedDay == 0) {
+        //TODO if the day selected is today, we want the suggestions to be only in the future so the code will be slightly different
         startOfSelectedDay = secondsSinceEpoch;
         endOfSelectedDay = secondsSinceEpoch - secondsSinceEpoch % secondsInDay + secondsInDay;
-        earliestHour = earliestHour ~/ 2-1;//TODO CONSIDER CHANGING TO -=4
-        latestHour = latestHour ~/ 2-1;
+        earliestHour = earliestHour ~/ 2 - 1; //TODO CONSIDER CHANGING TO -=4
+        latestHour = latestHour ~/ 2 - 1;
         if (secondsSinceEpoch + earliestHour > endOfSelectedDay) {
           throw Exception('Reached end of day');
         }
-      }else {
-        startOfSelectedDay =
-            secondsSinceEpoch - secondsSinceEpoch % secondsInDay +
-                selectedDay * secondsInDay;
+      } else {
+        startOfSelectedDay = secondsSinceEpoch - secondsSinceEpoch % secondsInDay + selectedDay * secondsInDay;
         endOfSelectedDay = (startOfSelectedDay + secondsInDay);
       }
-      //var targetDateTime = DateTime.fromMillisecondsSinceEpoch(startOfSelectedDay * 1000 + earliestHour * 3600000);
-      //var closestForecast = GetClosestForecast(forecastList, targetDateTime);
 
       var boundedForecastList = forecastList.where((f) {
-        var earliestTime = startOfSelectedDay + earliestHour *  3600;
-        var latestTime = min(endOfSelectedDay,startOfSelectedDay + latestHour *  3600);
+        var earliestTime = startOfSelectedDay + earliestHour * 3600;
+        var latestTime = min(endOfSelectedDay, startOfSelectedDay + latestHour * 3600);
         return (f['dt'] >= earliestTime && f['dt'] < latestTime);
       });
       var bestForecast = getBestForecast(boundedForecastList);
@@ -108,32 +103,26 @@ class Weather {
     }
   }
 
-  Map<String, dynamic> getBestForecast(forecastList){
-    //if (forecastList.length == 1){
-    //  return forecastList;
-    //}
-    final bestForecast =forecastList.reduce((a,b){
-      if (rankForecast(b) > rankForecast(a)){
+  Map<String, dynamic> getBestForecast(forecastList) {
+    final bestForecast = forecastList.reduce((a, b) {
+      if (rankForecast(b) > rankForecast(a)) {
         return b;
       }
       return a;
     });
-    //print(bestForecast);
     return bestForecast;
   }
 
-  double rankForecast(Map<String, dynamic> forecast){
-
+  double rankForecast(Map<String, dynamic> forecast) {
     //takes in a forecast of type dictionary and returns a rank based on the weather conditions
-    const double optimalTemp =283.153;//in kelvin
+    const double optimalTemp = 283.153; //in kelvin
     double score = 0;
-    double temp = forecast['main']['feels_like']+0.001;
-    num tempScore =- pow (temp - optimalTemp,2.0);
-    double weatherScore = WeatherData().weatherScore[forecast?['weather'][0]['main']]!;
+    double temp = forecast['main']['feels_like'] + 0.001;
+    num tempScore = -pow(temp - optimalTemp, 2.0);
+    double weatherScore = WeatherData().getWeatherScore(forecast['weather'][0]['main']);
     score += tempScore + weatherScore;
     return score;
   }
-
 
   Map<String, dynamic> getClosestForecast(forecastList, DateTime targetDateTime) {
     return forecastList.reduce((a, b) {

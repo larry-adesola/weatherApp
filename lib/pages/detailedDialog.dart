@@ -64,7 +64,7 @@ class DetailedDialog {
               SizedBox(
                 height: size.height * 0.01,
               ),
-              Text('Wind: ${(data['wind']['speed'] * 3.6).toStringAsFixed(0)}kmh'),
+              Text('Wind: ${(data['wind']['speed'] * 3.6).toStringAsFixed(0)} kmh'),
               SizedBox(
                 height: size.height * 0.01,
               ),

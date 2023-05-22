@@ -191,7 +191,7 @@ class _MainScreenState extends State<MainScreen> {
                                   SizedBox(
                                     width: size.width * 0.02,
                                   ),
-                                  Text("${snapshot.data!['wind']['speed']} Knots")
+                                  Text("${(data['wind']['speed'] * 3.6).toStringAsFixed(0)} kmh")
                                 ],
                               ),
                               SizedBox(

@@ -29,14 +29,15 @@ class _SuggScreenState extends State<SuggScreen> {
     final size = MediaQuery.of(context).size;
     final currentDayIndex = days.indexOf(currentDay);
 
-    return SingleChildScrollView(
+    return
+      SingleChildScrollView(
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
-            SizedBox(height: size.height*0.075,),
+            SizedBox(height: size.height*0.04,),
             ButtonBar(
               alignment: MainAxisAlignment.center,
               children: [
@@ -131,9 +132,7 @@ class _SuggScreenState extends State<SuggScreen> {
                     );
                   }
                   Map<String, dynamic> data = snapshot.data!;
-                  String time = DateFormat('HH:mm')
-                      .format(DateTime.fromMillisecondsSinceEpoch(data['dt'] * 1000).toLocal())
-                      .substring(0, 5);
+                  String time =  (DateTime.fromMillisecondsSinceEpoch(data['dt'] * 1000)).toString().substring(11,16);
                   String hourPlusOne = '${_twoDigits(int.parse(time.substring(0, 2)) + 1)}:00';
                   return GestureDetector(
                     onTap: () => DetailedDialog().buildDetailedDialog(context, snapshot, size),
@@ -211,9 +210,7 @@ class _SuggScreenState extends State<SuggScreen> {
                     );
                   }
                   Map<String, dynamic> data = snapshot.data!;
-                  String time = DateFormat('HH:mm')
-                      .format(DateTime.fromMillisecondsSinceEpoch(data['dt'] * 1000).toLocal())
-                      .substring(0, 5);
+                  String time =  (DateTime.fromMillisecondsSinceEpoch(data['dt'] * 1000)).toString().substring(11,16);
                   String hourPlusOne = '${_twoDigits(int.parse(time.substring(0, 2)) + 1)}:00';
                   return GestureDetector(
                     onTap: () => DetailedDialog().buildDetailedDialog(context, snapshot, size),
@@ -291,9 +288,7 @@ class _SuggScreenState extends State<SuggScreen> {
                     );
                   }
                   Map<String, dynamic> data = snapshot.data!;
-                  String time = DateFormat('HH:mm')
-                      .format(DateTime.fromMillisecondsSinceEpoch(data['dt'] * 1000).toLocal())
-                      .substring(0, 5);
+                  String time =  (DateTime.fromMillisecondsSinceEpoch(data['dt'] * 1000)).toString().substring(11,16);
                   String hourPlusOne = '${_twoDigits(int.parse(time.substring(0, 2)) + 1)}:00';
                   return GestureDetector(
                     onTap: () => DetailedDialog().buildDetailedDialog(context, snapshot, size),
@@ -354,267 +349,12 @@ class _SuggScreenState extends State<SuggScreen> {
                         ])),
                   );
                 }),
-          ],
-        ),
-              ),
-            ],
-          ),
           SizedBox(
             height: size.height * 0.025,
           ),
-          FutureBuilder(
-              future: Weather().getForecastSuggestion(_selectedDay, 4, 10),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Column(
-                    children: [
-                      Lottie.asset('assets/anims/loading.json'),
-                      const Text('Loading')
-                    ],
-                  );
-                } else if (snapshot.hasError) {
-                  return const Text(
-                    'No more suggestions available for today',
-                    style: TextStyle(fontSize: 10),
-                  );
-                }
-                String time = snapshot.data?['dt_txt'].substring(11,16);
-                String hourPlusOne =
-                    '${_twoDigits(int.parse(time.substring(0, 2)) + 1)}:00';
-
-                int temp = Temperature(snapshot.data!['main']['temp'], 'K')
-                    .valueIn('C')
-                    .round();
-                return Container(
-                    width: size.width * 0.9,
-                    decoration: BoxDecoration(
-                        border:
-                            Border.all(color: Colors.blue[700]!, width: 2.5),
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Column(children: [
-                      SizedBox(
-                        height: size.height * 0.025,
-                      ),
-                      Text(
-                        '$time - $hourPlusOne',
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.025,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            children: [
-                              SizedBox(
-                                  width: size.width * 0.2,
-                                  child: Image.asset(WeatherData().weatherIcons[
-                                      snapshot.data?['weather'][0]['main']]!)),
-                              SizedBox(
-                                height: size.height * 0.005,
-                              ),
-                              Text(snapshot.data?['weather'][0]['description']!)
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: size.height * 0.01,
-                              ),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.thermostat,
-                                    size: 40,
-                                  ),
-                                  Text(
-                                    '${temp} °C',
-                                    style: const TextStyle(fontSize: 30),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: size.height * 0.04,
-                      ),
-                    ]));
-              }),
-          SizedBox(
-            height: size.height * 0.025,
-          ),
-          FutureBuilder(
-              future: Weather().getForecastSuggestion(_selectedDay, 11, 16),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Column(
-                    children: [
-                      Lottie.asset('assets/anims/loading.json'),
-                      const Text('Loading')
-                    ],
-                  );
-                } else if (snapshot.hasError) {
-                  return const Text(
-                    'No more suggestions available for today',//TODO maybe just display nothing
-                    style: TextStyle(fontSize: 10),
-                  );
-                }
-                //print(_selectedDay);
-                //print(snapshot.data?['dt']);
-                String time = snapshot.data?['dt_txt'].substring(11,16);
-                String hourPlusOne =
-                    '${_twoDigits(int.parse(time.substring(0, 2)) + 1)}:00';
-                int temp = Temperature(snapshot.data!['main']['temp'], 'K')
-                    .valueIn('C')
-                    .round();
-                return Container(
-                    width: size.width * 0.9,
-                    decoration: BoxDecoration(
-                        border:
-                            Border.all(color: Colors.blue[700]!, width: 2.5),
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Column(children: [
-                      SizedBox(
-                        height: size.height * 0.025,
-                      ),
-                      Text(
-                        '$time - $hourPlusOne',
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.025,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            children: [
-                              SizedBox(
-                                  width: size.width * 0.2,
-                                  child: Image.asset(WeatherData().weatherIcons[
-                                      snapshot.data?['weather'][0]['main']]!)),
-                              SizedBox(
-                                height: size.height * 0.005,
-                              ),
-                              Text(snapshot.data?['weather'][0]['description']!)
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: size.height * 0.01,
-                              ),
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.thermostat,
-                                    size: 40,
-                                  ),
-                                  Text(
-                                    '${temp} °C',
-                                    style: const TextStyle(fontSize: 30),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: size.height * 0.04,
-                      ),
-                    ]));
-              }),
-          SizedBox(
-            height: size.height * 0.025,
-          ),
-          FutureBuilder(
-              future: Weather().getForecastSuggestion(_selectedDay, 17, 22),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Column(
-                    children: [
-                      Lottie.asset('assets/anims/loading.json'),
-                      const Text('Loading')
-                    ],
-                  );
-                } else if (snapshot.hasError) {
-                  return const Text(
-                    'No more suggestions available for today',
-                    style: TextStyle(fontSize: 10),
-                  );
-                }
-                String time = snapshot.data?['dt_txt'].substring(11,16);
-                String hourPlusOne =
-                    '${_twoDigits(int.parse(time.substring(0, 2)) + 1)}:00';
-                int temp = Temperature(
-                    snapshot.data!['main']['temp'], 'K')
-                    .valueIn('C')
-                    .round();
-                return Container(
-                    width: size.width * 0.9,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Colors.blue[700]!, width: 2.5),
-                        borderRadius: BorderRadius.circular(30)),
-                    child: Column(children: [
-                      SizedBox(
-                        height: size.height * 0.025,
-                      ),
-                      Text(
-                        '$time - $hourPlusOne',
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.025,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            children: [
-                              SizedBox(
-                                  width: size.width * 0.2,
-                                  child: Image.asset(
-                                      WeatherData().weatherIcons[
-                                      snapshot
-                                          .data?['weather'][0]['main']]!)),
-                              SizedBox(
-                                height: size.height * 0.005,
-                              ),
-                              Text(snapshot
-                                  .data?['weather'][0]['description']!)
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                height: size.height * 0.01,
-                              ),
-                              Row(
-                                children: [
-                                  const Icon(Icons.thermostat, size: 40,),
-                                  Text(
-                                    '${temp} °C',
-                                    style: const TextStyle(fontSize: 30),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-
-                        ],
-                      ),
-                      SizedBox(
-                        height: size.height * 0.04,
-                      ),
-                    ]));
-              }),
         ],
       ),
+    )
     );
   }
 }

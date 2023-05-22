@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
+import 'dart:math';
 import 'package:weather_app/users.dart';
 import 'package:intl/intl.dart';
-import 'package:weather_app/users.dart';
+import 'package:weather_app/data.dart';
 
 class Weather {
   static final Weather _instance = Weather._internal();
@@ -64,12 +64,6 @@ class Weather {
 
     return getClosestForecast(forecastList, targetDateTime);
   }
-  Future<Map<String, dynamic>> getForecastSuggestion(int selectedDay,int earliestHour,int latestHour) async {
-    //This method will take the selected day as an int offset from today (e.g. 1 is tomorrow) and
-    // return a forecast for a suggested time on that day
-    final apiKey = UserInfo().getAPIkey();
-    final encodedCityName = Uri.encodeComponent(UserInfo().getCity());
-    final url = 'https://api.openweathermap.org/data/2.5/forecast?q=$encodedCityName&appid=$apiKey';//TODO make it hourly for better data
 
   Future<Map<String, dynamic>> getForecastSuggestion(int selectedDay, int earliestHour, int latestHour) async {
     final encodedCityName = Uri.encodeComponent(UserInfo().getLocation());
@@ -108,7 +102,7 @@ class Weather {
         return (f['dt'] >= earliestTime && f['dt'] <= latestTime);
       });
       var bestForecast = getBestForecast(boundedForecastList);
-      print(bestForecast);
+      print(forecastList);
       return bestForecast;
     } else {
       throw Exception('Failed to fetch weather data');
@@ -150,7 +144,5 @@ class Weather {
       final bDiff = bTime.difference(targetDateTime).inSeconds.abs();
       return aDiff < bDiff ? a : b;
     });
-    //print(closestForecast);
-    return closestForecast;
   }
 }

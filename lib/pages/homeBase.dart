@@ -31,7 +31,7 @@ class _HomeBaseState extends State<HomeBase> {
         },
         children: const [
           MainScreen(),
-          SuggestionScreen(),
+          SuggScreen(),
           SettingScreen(),
         ],
       ),

@@ -4,6 +4,8 @@ import 'package:lottie/lottie.dart';
 import 'package:weather_app/data.dart';
 import 'package:weather_app/weatherapi.dart';
 
+import 'detailedDialog.dart';
+
 class SuggestionScreen extends StatefulWidget {
   const SuggestionScreen({Key? key}) : super(key: key);
 
@@ -132,61 +134,64 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
                       .format(DateTime.fromMillisecondsSinceEpoch(data['dt'] * 1000).toLocal())
                       .substring(0, 5);
                   String hourPlusOne = '${_twoDigits(int.parse(time.substring(0, 2)) + 1)}:00';
-                  return Container(
-                      width: size.width * 0.9,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.blue[700]!, width: 2.5),
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Column(children: [
-                        SizedBox(
-                          height: size.height * 0.025,
-                        ),
-                        Text(
-                          '$time - $hourPlusOne',
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: size.height * 0.025,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Column(
-                              children: [
-                                SizedBox(
-                                    width: size.width * 0.2,
-                                    child: Image.asset(WeatherData().weatherIcons[data['weather'][0]['main']]!)),
-                                SizedBox(
-                                  height: size.height * 0.005,
-                                ),
-                                Text(data['weather'][0]['description']!)
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.thermostat,
-                                      size: 40,
-                                    ),
-                                    Text(
-                                      '${data['main']['temp'].round()} °C',
-                                      style: const TextStyle(fontSize: 30),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: size.height * 0.04,
-                        ),
-                      ]));
+                  return GestureDetector(
+                    onTap: () => DetailedDialog().buildDetailedDialog(context, snapshot, size),
+                    child: Container(
+                        width: size.width * 0.9,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.blue[700]!, width: 2.5),
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Column(children: [
+                          SizedBox(
+                            height: size.height * 0.025,
+                          ),
+                          Text(
+                            '$time - $hourPlusOne',
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.025,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                children: [
+                                  SizedBox(
+                                      width: size.width * 0.2,
+                                      child: Image.asset(WeatherData().weatherIcons[data['weather'][0]['main']]!)),
+                                  SizedBox(
+                                    height: size.height * 0.005,
+                                  ),
+                                  Text(data['weather'][0]['description']!)
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  SizedBox(
+                                    height: size.height * 0.01,
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.thermostat,
+                                        size: 40,
+                                      ),
+                                      Text(
+                                        '${data['main']['temp'].round()} °C',
+                                        style: const TextStyle(fontSize: 30),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: size.height * 0.04,
+                          ),
+                        ])),
+                  );
                 }),
             SizedBox(
               height: size.height * 0.025,
@@ -209,61 +214,64 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
                       .format(DateTime.fromMillisecondsSinceEpoch(data['dt'] * 1000).toLocal())
                       .substring(0, 5);
                   String hourPlusOne = '${_twoDigits(int.parse(time.substring(0, 2)) + 1)}:00';
-                  return Container(
-                      width: size.width * 0.9,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.blue[700]!, width: 2.5),
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Column(children: [
-                        SizedBox(
-                          height: size.height * 0.025,
-                        ),
-                        Text(
-                          '$time - $hourPlusOne',
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: size.height * 0.025,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Column(
-                              children: [
-                                SizedBox(
-                                    width: size.width * 0.2,
-                                    child: Image.asset(WeatherData().weatherIcons[data['weather'][0]['main']]!)),
-                                SizedBox(
-                                  height: size.height * 0.005,
-                                ),
-                                Text(data['weather'][0]['description']!)
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.thermostat,
-                                      size: 40,
-                                    ),
-                                    Text(
-                                      '${data['main']['temp'].round()} °C',
-                                      style: const TextStyle(fontSize: 30),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: size.height * 0.04,
-                        ),
-                      ]));
+                  return GestureDetector(
+                    onTap: () => DetailedDialog().buildDetailedDialog(context, snapshot, size),
+                    child: Container(
+                        width: size.width * 0.9,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.blue[700]!, width: 2.5),
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Column(children: [
+                          SizedBox(
+                            height: size.height * 0.025,
+                          ),
+                          Text(
+                            '$time - $hourPlusOne',
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.025,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                children: [
+                                  SizedBox(
+                                      width: size.width * 0.2,
+                                      child: Image.asset(WeatherData().weatherIcons[data['weather'][0]['main']]!)),
+                                  SizedBox(
+                                    height: size.height * 0.005,
+                                  ),
+                                  Text(data['weather'][0]['description']!)
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  SizedBox(
+                                    height: size.height * 0.01,
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.thermostat,
+                                        size: 40,
+                                      ),
+                                      Text(
+                                        '${data['main']['temp'].round()} °C',
+                                        style: const TextStyle(fontSize: 30),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: size.height * 0.04,
+                          ),
+                        ])),
+                  );
                 }),
             SizedBox(
               height: size.height * 0.025,
@@ -286,61 +294,64 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
                       .format(DateTime.fromMillisecondsSinceEpoch(data['dt'] * 1000).toLocal())
                       .substring(0, 5);
                   String hourPlusOne = '${_twoDigits(int.parse(time.substring(0, 2)) + 1)}:00';
-                  return Container(
-                      width: size.width * 0.9,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.blue[700]!, width: 2.5),
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Column(children: [
-                        SizedBox(
-                          height: size.height * 0.025,
-                        ),
-                        Text(
-                          '$time - $hourPlusOne',
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: size.height * 0.025,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Column(
-                              children: [
-                                SizedBox(
-                                    width: size.width * 0.2,
-                                    child: Image.asset(WeatherData().weatherIcons[data['weather'][0]['main']]!)),
-                                SizedBox(
-                                  height: size.height * 0.005,
-                                ),
-                                Text(data['weather'][0]['description']!)
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                SizedBox(
-                                  height: size.height * 0.01,
-                                ),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.thermostat,
-                                      size: 40,
-                                    ),
-                                    Text(
-                                      '${data['main']['temp'].round()} °C',
-                                      style: const TextStyle(fontSize: 30),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: size.height * 0.04,
-                        ),
-                      ]));
+                  return GestureDetector(
+                    onTap: () => DetailedDialog().buildDetailedDialog(context, snapshot, size),
+                    child: Container(
+                        width: size.width * 0.9,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.blue[700]!, width: 2.5),
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Column(children: [
+                          SizedBox(
+                            height: size.height * 0.025,
+                          ),
+                          Text(
+                            '$time - $hourPlusOne',
+                            style: const TextStyle(fontSize: 20),
+                          ),
+                          SizedBox(
+                            height: size.height * 0.025,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                children: [
+                                  SizedBox(
+                                      width: size.width * 0.2,
+                                      child: Image.asset(WeatherData().weatherIcons[data['weather'][0]['main']]!)),
+                                  SizedBox(
+                                    height: size.height * 0.005,
+                                  ),
+                                  Text(data['weather'][0]['description']!)
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  SizedBox(
+                                    height: size.height * 0.01,
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.thermostat,
+                                        size: 40,
+                                      ),
+                                      Text(
+                                        '${data['main']['temp'].round()} °C',
+                                        style: const TextStyle(fontSize: 30),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: size.height * 0.04,
+                          ),
+                        ])),
+                  );
                 }),
           ],
         ),

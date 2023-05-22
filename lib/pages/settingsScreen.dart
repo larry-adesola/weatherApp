@@ -59,7 +59,7 @@ class _SettingScreenState extends State<SettingScreen> {
       child: Center(
         child: Column(children: [
           SizedBox(
-            height: size.height * 0.1,
+            height: size.height * 0.08,
           ),
           Padding(
             padding: EdgeInsets.only(left: size.width * 0.05),

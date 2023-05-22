@@ -37,7 +37,7 @@ class _SuggScreenState extends State<SuggScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
-            SizedBox(height: size.height*0.04,),
+            SizedBox(height: size.height*0.052,),
             ButtonBar(
               alignment: MainAxisAlignment.center,
               children: [
@@ -119,7 +119,7 @@ class _SuggScreenState extends State<SuggScreen> {
               height: size.height * 0.025,
             ),
             FutureBuilder(
-                future: Weather().getForecastSuggestion(_selectedDay, 4, 11),
+                future: Weather().getForecastSuggestion(_selectedDay, 4, 10),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Column(
@@ -127,7 +127,8 @@ class _SuggScreenState extends State<SuggScreen> {
                     );
                   } else if (snapshot.hasError) {
                     return const Text(
-                      'Error creating suggestions',
+                      //'Error creating suggestions',
+                      '',
                       style: TextStyle(fontSize: 10),
                     );
                   }
@@ -197,7 +198,7 @@ class _SuggScreenState extends State<SuggScreen> {
               height: size.height * 0.025,
             ),
             FutureBuilder(
-                future: Weather().getForecastSuggestion(_selectedDay, 12, 16),
+                future: Weather().getForecastSuggestion(_selectedDay, 11, 16),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Column(
@@ -205,7 +206,8 @@ class _SuggScreenState extends State<SuggScreen> {
                     );
                   } else if (snapshot.hasError) {
                     return const Text(
-                      'Error creating suggestions',
+                      //'Error creating suggestions',
+                      '',
                       style: TextStyle(fontSize: 10),
                     );
                   }
@@ -283,7 +285,8 @@ class _SuggScreenState extends State<SuggScreen> {
                     );
                   } else if (snapshot.hasError) {
                     return const Text(
-                      'Error creating suggestions',
+                      //'Error creating suggestions',
+                      '',
                       style: TextStyle(fontSize: 10),
                     );
                   }

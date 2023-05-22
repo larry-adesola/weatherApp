@@ -21,14 +21,14 @@ class _MainScreenState extends State<MainScreen> {
       child: Center(
         child: Column(children: [
           SizedBox(
-            height: size.height * 0.1,
+            height: size.height * 0.08,
           ),
           Text(
             UserInfo().getLocation(),
             style: const TextStyle(fontSize: 35),
           ),
           SizedBox(
-            height: size.height * 0.05,
+            height: size.height * 0.03,
           ),
           FutureBuilder(
             future: Weather().getWeather(),
@@ -46,7 +46,7 @@ class _MainScreenState extends State<MainScreen> {
                 child: Container(
                   width: size.width * 0.9,
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 2.5), borderRadius: BorderRadius.circular(30)),
+                      border: Border.all(color: Colors.blue[700]!, width: 2.5), borderRadius: BorderRadius.circular(30)),
                   child: Column(
                     children: [
                       SizedBox(
@@ -98,21 +98,9 @@ class _MainScreenState extends State<MainScreen> {
             },
           ),
           SizedBox(
-            height: size.height * 0.05,
+            height: size.height * 0.03,
           ),
-          Padding(
-            padding: EdgeInsets.only(left: size.width * 0.06),
-            child: const Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                'Your Typical Running Time',
-                style: TextStyle(fontSize: 25),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: size.height * 0.01,
-          ),
+
           FutureBuilder(
               future: Weather().getForecast(UserInfo().getPreferredTimes()[DateFormat('E').format(DateTime.now())]!),
               builder: (context, snapshot) {
@@ -137,6 +125,17 @@ class _MainScreenState extends State<MainScreen> {
                         border: Border.all(color: Colors.blue[700]!, width: 2.5),
                         borderRadius: BorderRadius.circular(30)),
                     child: Column(children: [
+                      SizedBox(
+                        height: size.height * 0.01,
+                      ),
+                      const Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                        'Your Preferred Running Time',
+                        style: TextStyle(fontSize: 25),
+                          textAlign: TextAlign.center,
+                      ),
+                      ),
                       SizedBox(
                         height: size.height * 0.025,
                       ),
@@ -180,9 +179,11 @@ class _MainScreenState extends State<MainScreen> {
                         height: size.height * 0.04,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        //mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
                                 children: [
@@ -225,7 +226,11 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                             ],
                           ),
+                          SizedBox(
+                            width: size.width * 0.06,
+                          ),
                           Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
                                 children: [
@@ -281,6 +286,9 @@ class _MainScreenState extends State<MainScreen> {
                       )
                     ]));
               }),
+          SizedBox(
+            height: size.height * 0.02,
+          )
         ]),
       ),
     );

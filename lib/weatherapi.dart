@@ -82,8 +82,8 @@ class Weather {
       if (selectedDay == 0) {//TODO if the day selected is today, we want the suggestions to be only in the future so the code will be slightly different
         startOfSelectedDay = secondsSinceEpoch;
         endOfSelectedDay = secondsSinceEpoch - secondsSinceEpoch % secondsInDay + secondsInDay;
-        earliestHour = earliestHour ~/ 2;//TODO CONSIDER CHANGING TO -=4
-        latestHour = latestHour ~/ 2;
+        earliestHour = earliestHour ~/ 2-1;//TODO CONSIDER CHANGING TO -=4
+        latestHour = latestHour ~/ 2-1;
         if (secondsSinceEpoch + earliestHour > endOfSelectedDay) {
           throw Exception('Reached end of day');
         }
@@ -99,10 +99,9 @@ class Weather {
       var boundedForecastList = forecastList.where((f) {
         var earliestTime = startOfSelectedDay + earliestHour *  3600;
         var latestTime = min(endOfSelectedDay,startOfSelectedDay + latestHour *  3600);
-        return (f['dt'] >= earliestTime && f['dt'] <= latestTime);
+        return (f['dt'] >= earliestTime && f['dt'] < latestTime);
       });
       var bestForecast = getBestForecast(boundedForecastList);
-      print(forecastList);
       return bestForecast;
     } else {
       throw Exception('Failed to fetch weather data');

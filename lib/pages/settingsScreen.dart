@@ -12,7 +12,7 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
   int _clothingScore = UserInfo().getClothingScore();
-  final TextEditingController _settingsCity = TextEditingController(text: UserInfo().getCity());
+  final TextEditingController _settingsCity = TextEditingController(text: UserInfo().getLocation());
   final FocusNode _settingsFocus = FocusNode();
   final Map<String, String> _preferredTimes = UserInfo().getPreferredTimes();
   final List<DropdownMenuEntry> _timeRanges = [
@@ -75,26 +75,35 @@ class _SettingScreenState extends State<SettingScreen> {
             height: size.height * 0.075,
           ),
           Padding(
-            padding: EdgeInsets.only(
-                left: size.width * 0.05, right: size.width * 0.05),
+            padding: EdgeInsets.only(left: size.width * 0.05, right: size.width * 0.05),
             child: Tooltip(
-              message:
-                  "Adjust the clothing adjustments by the selected temperature."
-                      "\ne.g. -3 will give recommendations as if it were 3 °C colder.",
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10), color: Colors.white),
+              message: "Adjust the clothing adjustments by the selected temperature."
+                  "\ne.g. -3 will give recommendations as if it were 3 °C colder.",
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
               textStyle: const TextStyle(fontSize: 14.0),
-              child: const Text("Clothing recommendations adjustment"),
+              child: const Text("Clothing Recommendation Slider"),
             ),
+          ),
+          SizedBox(
+            height: size.height * 0.01,
           ),
           Text(
             "$_clothingScore °C",
             style: const TextStyle(fontSize: 18.0),
           ),
           SizedBox(
-            height: size.height*0.02,
+            height: size.height * 0.02,
             child: const DecoratedBox(
               decoration: BoxDecoration(color: Colors.blue),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: size.width*0.035),
+            child: const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "I like to be..."
+              ),
             ),
           ),
           Slider(
@@ -111,7 +120,19 @@ class _SettingScreenState extends State<SettingScreen> {
               });
             },
           ),
-          SizedBox(height: size.height*0.05,),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: size.width*0.035),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('<-- Warmer'),
+                Text('Cooler -->'),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: size.height * 0.04,
+          ),
           const Text(
             "Change location",
             style: TextStyle(fontSize: 20.0),
@@ -125,15 +146,14 @@ class _SettingScreenState extends State<SettingScreen> {
               width: size.width * 0.8,
               height: size.height * 0.08,
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 2.5),
-                  borderRadius: BorderRadius.circular(12)),
+                  border: Border.all(color: Colors.black, width: 2.5), borderRadius: BorderRadius.circular(12)),
               child: Align(
                 alignment: Alignment.center,
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      left: size.width * 0.01, right: size.width * 0.01),
+                  padding: EdgeInsets.only(left: size.width * 0.01, right: size.width * 0.01),
                   child: TextFormField(
                     scrollPadding: EdgeInsets.only(bottom: size.height * 0.4),
+                    cursorColor: Colors.black,
                     controller: _settingsCity,
                     autocorrect: false,
                     focusNode: _settingsFocus,
@@ -167,13 +187,16 @@ class _SettingScreenState extends State<SettingScreen> {
           ),
           Padding(
             padding: EdgeInsets.only(left: size.width * 0.05),
-            child: Column(
-              children: [ for (String day in _preferredTimes.keys)
+            child: Column(children: [
+              for (String day in _preferredTimes.keys)
                 Row(
                   children: [
                     SizedBox(
                       width: size.width * 0.2,
-                      child: Text(day, style: const TextStyle(fontSize: 18),),
+                      child: Text(
+                        day,
+                        style: const TextStyle(fontSize: 18),
+                      ),
                     ),
                     DropdownMenu(
                       width: size.width * 0.65,
@@ -181,17 +204,14 @@ class _SettingScreenState extends State<SettingScreen> {
                       initialSelection: _preferredTimes[day],
                       onSelected: (value) {
                         _preferredTimes[day] = value;
-                        print(_preferredTimes);
-                        print(UserInfo().getPreferredTimes());
                       },
                     )
                   ],
                 ),
-                SizedBox(
-                  height: size.height * 0.01,
-                )
-              ]
-            ),
+              SizedBox(
+                height: size.height * 0.01,
+              )
+            ]),
           ),
           SizedBox(
             height: size.height * 0.04,
@@ -199,7 +219,7 @@ class _SettingScreenState extends State<SettingScreen> {
           GestureDetector(
             onTap: () async {
               _settingsFocus.unfocus();
-              bool valid = await UserInfo().setCity(_settingsCity.value.text);
+              bool valid = await UserInfo().setLocation(_settingsCity.value.text);
               if (valid) {
                 UserInfo().setClothingScore(_clothingScore);
                 for (String key in _preferredTimes.keys) {
@@ -214,8 +234,7 @@ class _SettingScreenState extends State<SettingScreen> {
               width: size.width * 0.4,
               height: size.height * 0.05,
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 2.5),
-                  borderRadius: BorderRadius.circular(12)),
+                  border: Border.all(color: Colors.black, width: 2.5), borderRadius: BorderRadius.circular(12)),
               child: const Center(
                 child: Text(
                   "SAVE",
@@ -225,7 +244,7 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
           ),
           SizedBox(
-            height: size.height*0.05,
+            height: size.height * 0.05,
           )
         ]),
       ),

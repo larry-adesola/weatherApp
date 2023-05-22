@@ -31,12 +31,15 @@ class _HomeBaseState extends State<HomeBase> {
         },
         children: const [
           MainScreen(),
-          SuggScreen(),
+          SuggestionScreen(),
           SettingScreen(),
         ],
       ),
       bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0), ),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(30.0),
+          topRight: Radius.circular(30.0),
+        ),
         child: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -57,8 +60,7 @@ class _HomeBaseState extends State<HomeBase> {
           selectedItemColor: Colors.blue,
           onTap: (index) {
             _pageController.animateToPage(index,
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.fastOutSlowIn);
+                duration: const Duration(milliseconds: 500), curve: Curves.fastOutSlowIn);
           },
         ),
       ),

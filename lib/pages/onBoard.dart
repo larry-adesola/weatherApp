@@ -3,6 +3,7 @@ import 'package:weather_app/users.dart';
 
 class Pref extends StatefulWidget {
   final VoidCallback nextPressed;
+
   const Pref({Key? key, required this.nextPressed}) : super(key: key);
 
   @override
@@ -58,23 +59,24 @@ class _PrefState extends State<Pref> {
                 height: size.height * 0.03,
               ),
               Column(
-                children: [ for (String key in _preferredTimes.keys)
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: size.width * 0.2,
-                        child: Text(key, style: const TextStyle(fontSize: 18)),
-                      ),
-                      DropdownMenu(
-                        initialSelection: '',
-                        width: size.width * 0.65,
-                        dropdownMenuEntries: _timeRanges,
-                        onSelected: (value) {
-                          _preferredTimes[key] = value;
-                        },
-                      )
-                    ],
-                  ),
+                children: [
+                  for (String key in _preferredTimes.keys)
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: size.width * 0.2,
+                          child: Text(key, style: const TextStyle(fontSize: 18)),
+                        ),
+                        DropdownMenu(
+                          initialSelection: '',
+                          width: size.width * 0.65,
+                          dropdownMenuEntries: _timeRanges,
+                          onSelected: (value) {
+                            _preferredTimes[key] = value;
+                          },
+                        )
+                      ],
+                    ),
                   SizedBox(
                     height: size.height * 0.01,
                   )
@@ -97,8 +99,7 @@ class _PrefState extends State<Pref> {
             width: size.width * 0.4,
             height: size.height * 0.05,
             decoration: BoxDecoration(
-                border: Border.all(color: Colors.black, width: 2.5),
-                borderRadius: BorderRadius.circular(12)),
+                border: Border.all(color: Colors.black, width: 2.5), borderRadius: BorderRadius.circular(12)),
             child: const Center(
               child: Text(
                 "Next",

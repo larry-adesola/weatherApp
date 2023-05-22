@@ -169,7 +169,7 @@ class _MainScreenState extends State<MainScreen> {
                               Row(
                                 children: [
                                   const Icon(Icons.thermostat, size: 40),
-                                  Text('$temp °C', style: const TextStyle(fontSize: 30)),
+                                  Text('${temp.round()} °C', style: const TextStyle(fontSize: 30)),
                                 ],
                               ),
                             ],

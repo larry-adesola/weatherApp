@@ -30,92 +30,83 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
+            SizedBox(height: size.height*0.075,),
+            ButtonBar(
+              alignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  margin: EdgeInsets.only(top: size.height * 0.05),
-                  // Move buttons down by 50 pixels
-                  child: ButtonBar(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _selectedDay = 0;
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(70, 70),
-                          backgroundColor: _selectedDay == 0 ? Colors.blue : null,
-                          shape: const CircleBorder(), // Change color when selected
-                        ),
-                        child: Text(
-                          currentDay,
-                          style: TextStyle(
-                            color: _selectedDay == 0 ? Colors.white : Colors.black,
-                          ),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _selectedDay = 1;
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(70, 70),
-                          shape: const CircleBorder(),
-                          backgroundColor: _selectedDay == 1 ? Colors.blue : null, // Change color when selected
-                        ),
-                        child: Text(
-                          days[(currentDayIndex + 1) % 7],
-                          style: TextStyle(
-                            color: _selectedDay == 1 ? Colors.white : Colors.black,
-                          ),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _selectedDay = 2;
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(70, 70),
-                          backgroundColor: _selectedDay == 2 ? Colors.blue : null,
-                          shape: const CircleBorder(), // Change color when selected
-                        ),
-                        child: Text(
-                          days[(currentDayIndex + 2) % 7],
-                          style: TextStyle(
-                            color: _selectedDay == 2 ? Colors.white : Colors.black,
-                          ),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _selectedDay = 3;
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: const Size(70, 70),
-                          backgroundColor: _selectedDay == 3 ? Colors.blue : null,
-                          shape: const CircleBorder(), // Change color when selected
-                        ),
-                        child: Text(
-                          days[(currentDayIndex + 3) % 7],
-                          style: TextStyle(
-                            color: _selectedDay == 3 ? Colors.white : Colors.black,
-                          ),
-                        ),
-                      ),
-                    ],
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _selectedDay = 0;
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(70, 70),
+                    backgroundColor: _selectedDay == 0 ? Colors.blue : null,
+                    shape: const CircleBorder(), // Change color when selected
+                  ),
+                  child: Text(
+                    currentDay,
+                    style: TextStyle(
+                      color: _selectedDay == 0 ? Colors.white : Colors.black,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _selectedDay = 1;
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(70, 70),
+                    shape: const CircleBorder(),
+                    backgroundColor: _selectedDay == 1 ? Colors.blue : null, // Change color when selected
+                  ),
+                  child: Text(
+                    days[(currentDayIndex + 1) % 7],
+                    style: TextStyle(
+                      color: _selectedDay == 1 ? Colors.white : Colors.black,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _selectedDay = 2;
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(70, 70),
+                    backgroundColor: _selectedDay == 2 ? Colors.blue : null,
+                    shape: const CircleBorder(), // Change color when selected
+                  ),
+                  child: Text(
+                    days[(currentDayIndex + 2) % 7],
+                    style: TextStyle(
+                      color: _selectedDay == 2 ? Colors.white : Colors.black,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _selectedDay = 3;
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: const Size(70, 70),
+                    backgroundColor: _selectedDay == 3 ? Colors.blue : null,
+                    shape: const CircleBorder(), // Change color when selected
+                  ),
+                  child: Text(
+                    days[(currentDayIndex + 3) % 7],
+                    style: TextStyle(
+                      color: _selectedDay == 3 ? Colors.white : Colors.black,
+                    ),
                   ),
                 ),
               ],

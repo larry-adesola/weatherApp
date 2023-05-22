@@ -18,7 +18,7 @@ class DetailedDialog {
           Map<String, dynamic> data = snapshot.data!;
           return AlertDialog(
             shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20.0))),
-            insetPadding: EdgeInsets.only(top: size.height * 0.04, bottom: size.height * 0.35),
+            insetPadding: EdgeInsets.only(top: size.height * 0.04, bottom: size.height * 0.2),
             content: Column(children: [
               Align(
                 alignment: Alignment.topRight,

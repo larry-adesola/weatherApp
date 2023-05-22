@@ -45,7 +45,7 @@ class UserInfo {
     }
   }
 
-  String outfitChoose(double temp) {
+  String outfitChoose(num temp) {
     String outfit = 'assets/icons/tshirt.png';
     for (int key in _tempToOutfit.keys) {
       if (temp + _clothingScore <= key) {

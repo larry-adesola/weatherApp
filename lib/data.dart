@@ -8,4 +8,13 @@ class WeatherData {
     'Snow' : 'assets/icons/snow.png',
     'Mist' : 'assets/icons/mist.png'
   };
+  Map<String, double> weatherScore = {
+    'Clouds': 0,
+    'Drizzle' : -4,
+    'Rain' : -12,
+    'Clear' : 10,
+    'Thunderstorm': -20,
+    'Snow' : -15,
+    'Mist' : -3
+  };
 }

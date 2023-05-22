@@ -29,7 +29,8 @@ class _SuggScreenState extends State<SuggScreen> {
     final size = MediaQuery.of(context).size;
     final currentDayIndex = days.indexOf(currentDay);
 
-    return Center(
+    return SingleChildScrollView(
+      child: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +42,7 @@ class _SuggScreenState extends State<SuggScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                margin: EdgeInsets.only(top: size.height * 0.05),
+                margin: EdgeInsets.only(top: size.height * 0.03),
                 // Move buttons down by 50 pixels
                 child: ButtonBar(
                   children: [
@@ -135,7 +136,7 @@ class _SuggScreenState extends State<SuggScreen> {
             height: size.height * 0.025,
           ),
           FutureBuilder(
-              future: Weather().getForecastSuggestion(_selectedDay, 4, 11),
+              future: Weather().getForecastSuggestion(_selectedDay, 4, 10),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Column(
@@ -146,17 +147,11 @@ class _SuggScreenState extends State<SuggScreen> {
                   );
                 } else if (snapshot.hasError) {
                   return const Text(
-                    'Error creating suggestions',
+                    'No more suggestions available for today',
                     style: TextStyle(fontSize: 10),
                   );
                 }
-                print(_selectedDay);
-                print(snapshot.data?['dt']);
-                String time = DateFormat('HH:mm')
-                    .format(DateTime.fromMillisecondsSinceEpoch(
-                            snapshot.data?['dt'] * 1000)
-                        .toLocal())
-                    .substring(0, 5);
+                String time = snapshot.data?['dt_txt'].substring(11,16);
                 String hourPlusOne =
                     '${_twoDigits(int.parse(time.substring(0, 2)) + 1)}:00';
 
@@ -225,7 +220,7 @@ class _SuggScreenState extends State<SuggScreen> {
             height: size.height * 0.025,
           ),
           FutureBuilder(
-              future: Weather().getForecastSuggestion(_selectedDay, 12, 16),
+              future: Weather().getForecastSuggestion(_selectedDay, 11, 16),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Column(
@@ -236,17 +231,13 @@ class _SuggScreenState extends State<SuggScreen> {
                   );
                 } else if (snapshot.hasError) {
                   return const Text(
-                    'Error creating suggestions',
+                    'No more suggestions available for today',//TODO maybe just display nothing
                     style: TextStyle(fontSize: 10),
                   );
                 }
-                print(_selectedDay);
-                print(snapshot.data?['dt']);
-                String time = DateFormat('HH:mm')
-                    .format(DateTime.fromMillisecondsSinceEpoch(
-                            snapshot.data?['dt'] * 1000)
-                        .toLocal())
-                    .substring(0, 5);
+                //print(_selectedDay);
+                //print(snapshot.data?['dt']);
+                String time = snapshot.data?['dt_txt'].substring(11,16);
                 String hourPlusOne =
                     '${_twoDigits(int.parse(time.substring(0, 2)) + 1)}:00';
                 int temp = Temperature(snapshot.data!['main']['temp'], 'K')
@@ -325,15 +316,11 @@ class _SuggScreenState extends State<SuggScreen> {
                   );
                 } else if (snapshot.hasError) {
                   return const Text(
-                    'Error creating suggestions',
+                    'No more suggestions available for today',
                     style: TextStyle(fontSize: 10),
                   );
                 }
-                String time = DateFormat('HH:mm')
-                    .format(DateTime.fromMillisecondsSinceEpoch(
-                            snapshot.data?['dt'] * 1000)
-                        .toLocal())
-                    .substring(0, 5);
+                String time = snapshot.data?['dt_txt'].substring(11,16);
                 String hourPlusOne =
                     '${_twoDigits(int.parse(time.substring(0, 2)) + 1)}:00';
                 int temp = Temperature(
@@ -401,6 +388,7 @@ class _SuggScreenState extends State<SuggScreen> {
               }),
         ],
       ),
+    )
     );
   }
 }

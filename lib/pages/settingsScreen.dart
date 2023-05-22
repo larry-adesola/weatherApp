@@ -81,8 +81,11 @@ class _SettingScreenState extends State<SettingScreen> {
                   "\ne.g. -3 will give recommendations as if it were 3 °C colder.",
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.white),
               textStyle: const TextStyle(fontSize: 14.0),
-              child: const Text("Clothing recommendations adjustment"),
+              child: const Text("Clothing Recommendation Slider"),
             ),
+          ),
+          SizedBox(
+            height: size.height * 0.01,
           ),
           Text(
             "$_clothingScore °C",
@@ -92,6 +95,15 @@ class _SettingScreenState extends State<SettingScreen> {
             height: size.height * 0.02,
             child: const DecoratedBox(
               decoration: BoxDecoration(color: Colors.blue),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: size.width*0.035),
+            child: const Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "I like to be..."
+              ),
             ),
           ),
           Slider(
@@ -108,8 +120,18 @@ class _SettingScreenState extends State<SettingScreen> {
               });
             },
           ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: size.width*0.035),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('<-- Warmer'),
+                Text('Cooler -->'),
+              ],
+            ),
+          ),
           SizedBox(
-            height: size.height * 0.05,
+            height: size.height * 0.04,
           ),
           const Text(
             "Change location",

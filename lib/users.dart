@@ -58,11 +58,16 @@ class UserInfo {
 
   Future<bool> setLocation(String cityName) async {
     final prefs = await SharedPreferences.getInstance();
-    Map<String, dynamic> response = await Weather().getLocation(cityName);
-    _location = '${response['name']}, ${response['sys']['country']}';
-    _timezone = response['timezone'];
-    prefs.setString('location', _location!);
-    return true;
+    try {
+      Map<String, dynamic> response = await Weather().getLocation(cityName);
+      _location = '${response['name']}, ${response['sys']['country']}';
+      _timezone = response['timezone'];
+      prefs.setString('location', _location!);
+      return true;
+    }
+    catch (e) {
+      return false;
+    }
   }
 
   Future<void> setClothingScore(int clothingScore) async {
